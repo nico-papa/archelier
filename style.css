@@ -1,0 +1,424 @@
+:root {
+    --bg-color: #FAFAFA;
+    --text-color: #2A2A2A;
+    --accent-color: #1A2B3C;
+    --font-main: 'Zen Maru Gothic', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .logo {
+    font-family: var(--font-main);
+    font-weight: 500;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 30px 0;
+    transition: all 0.4s ease;
+}
+
+.header.scrolled {
+    padding: 15px 0;
+    background: rgba(250, 250, 250, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.logo {
+    display: flex;
+    align-items: flex-start;
+    color: #fff;
+    transition: color 0.4s ease;
+    line-height: 1.2;
+}
+
+.logo-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center perfectly beneath Y.A.Design */
+}
+
+.logo-main {
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+.logo-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+    margin-top: 2px;
+}
+
+.logo-suffix {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.header.scrolled .logo,
+.header.scrolled .nav a {
+    color: var(--text-color);
+}
+
+.nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    align-items: center;
+}
+
+.nav a {
+    color: #fff;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    transition: opacity 0.3s;
+}
+
+.nav a:hover {
+    opacity: 0.6;
+}
+
+.btn-contact {
+    border: 1px solid currentColor;
+    padding: 8px 24px;
+    border-radius: 40px;
+}
+
+/* Hero */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* User's local file from artifact (Modern glass) */
+    background-image: url('file:///C:/Users/tekko/.gemini/antigravity/brain/6d01b0ba-200a-436b-9d49-85bd66ee4c51/hero_2story_urban_glass_1774253069960.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    font-weight: 300;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.scroll-indicator::after {
+    content: '';
+    width: 1px;
+    height: 60px;
+    background: #fff;
+    animation: scrollLine 2s infinite cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+@keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    50.1% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Sections */
+.section {
+    padding: 150px 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 80px;
+    letter-spacing: 0.1em;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background-color: var(--text-color);
+    margin: 20px auto 0;
+}
+
+/* Concept */
+.concept-text {
+    text-align: center;
+    font-size: 1.4rem;
+    line-height: 2.5;
+    letter-spacing: 0.1em;
+}
+
+/* Technology */
+.tech-container {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.tech-text {
+    flex: 1;
+}
+
+.tech-text .section-title {
+    text-align: left;
+}
+
+.tech-text .section-title::after {
+    margin: 20px 0 0;
+}
+
+.tech-subtitle {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+}
+
+.tech-visual {
+    flex: 1.2;
+}
+
+.comparison-mockup {
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+    position: relative;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.mockup-label {
+    font-weight: 500;
+    color: var(--accent-color);
+    letter-spacing: 0.1em;
+}
+
+/* Works */
+.works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.work-item {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.work-bg {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.work-item:hover .work-bg {
+    transform: scale(1.05);
+}
+
+.work-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    width: 100%;
+}
+
+.work-item:hover .work-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.work-info h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.work-info p {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* About */
+.about-content {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-profile {
+    flex: 1;
+}
+
+.profile-name {
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    color: var(--accent-color);
+}
+
+.profile-credentials, .profile-history {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.profile-greeting-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    margin-top: 40px;
+}
+
+.profile-text {
+    line-height: 2;
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+.company-info {
+    flex: 1;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+    border-radius: 4px;
+}
+
+.company-info dl {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    font-size: 0.95rem;
+}
+
+.company-info dt {
+    width: 30%;
+    font-weight: 500;
+    color: var(--accent-color);
+}
+
+.company-info dd {
+    width: 70%;
+    opacity: 0.8;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 60px 0;
+    border-top: 1px solid #eee;
+    font-size: 0.8rem;
+    color: #888;
+}
+.footer .footer-links {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+}
+.footer .footer-links a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer .footer-links a:hover {
+    color: #1A2B3C;
+}
+.footer .footer-links .sep {
+    color: #ccc;
+    margin: 0 0.6rem;
+}
+
+/* Reveal Utilities */
+.reveal-text {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.reveal-image {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+}
