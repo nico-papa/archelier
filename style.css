@@ -483,3 +483,55 @@ a {
     opacity: 0;
     clip-path: inset(100% 0 0 0);
 }
+
+/* ============================================================
+   Mobile responsive — comprehensive (≤768px)
+   ============================================================ */
+@media (max-width: 768px) {
+    /* Container */
+    .container { padding: 0 20px; }
+
+    /* Header */
+    .header { padding: 16px 0; }
+    .header-inner { padding: 0 16px; flex-wrap: wrap; gap: 8px; }
+    .nav ul { gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a { font-size: 0.78rem; }
+    .btn-contact { padding: 5px 14px; }
+    .logo-main { font-size: 1.0rem; }
+    .logo-sub { font-size: 0.6rem; }
+
+    /* Hero */
+    .hero { height: 90vh; }
+    .hero-title { font-size: 1.8rem; letter-spacing: 0.04em; padding: 0 16px; line-height: 1.4; }
+    .hero-subtitle { font-size: 0.9rem; letter-spacing: 0.1em; padding: 0 16px; line-height: 1.7; }
+    .scroll-indicator { bottom: 24px; font-size: 0.7rem; }
+    .scroll-indicator::after { height: 40px; }
+
+    /* Sections */
+    .section { padding: 80px 0; }
+    .section-title { font-size: 1.7rem; margin-bottom: 48px; letter-spacing: 0.06em; }
+
+    /* Concept */
+    .concept-text { font-size: 1.0rem; line-height: 2; letter-spacing: 0.04em; }
+
+    /* Technology */
+    .tech-container { flex-direction: column; gap: 40px; }
+    .tech-subtitle { font-size: 1.15rem; }
+    .comparison-mockup { height: 240px; }
+
+    /* About */
+    .about-content { flex-direction: column; gap: 32px; align-items: stretch; }
+    .about-profile, .company-info { flex: none; }
+    .company-info { padding: 24px; width: 100%; }
+    .company-info dl { font-size: 0.9rem; row-gap: 14px; }
+    .company-info dt { width: 38%; }
+    .company-info dd { width: 62%; }
+    .profile-name { font-size: 1.2rem; margin-bottom: 20px; }
+    .profile-greeting-title { font-size: 1.05rem; margin-top: 28px; }
+    .profile-text, .profile-credentials { font-size: 0.9rem; line-height: 1.9; }
+
+    /* Footer */
+    .footer { padding: 40px 0; }
+    .footer .footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer .footer-links .sep { display: none; }
+}
