@@ -26,7 +26,8 @@
                     <li><a href="#technology">Technology</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#contact" class="btn-contact">Buy</a></li>
+                    <li><a href="blog/">Blog</a></li>
+                    <li><a href="buy.html" class="btn-contact">Buy</a></li>
                 </ul>
             </nav>
         </div>
@@ -35,8 +36,8 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h1 class="hero-title reveal-text">設計の手数を、半分に。</h1>
-                <p class="hero-subtitle reveal-text">ArchiCADの定型作業を自動化する、純正アドオン</p>
+                <h1 class="hero-title reveal-text">絶妙に使いづらいBIMソフトを攻略するには？</h1>
+                <p class="hero-subtitle reveal-text">ArchiCADを自動化するアドオン Archelier - アルシェリエ を開発しました。</p>
             </div>
             <div class="scroll-indicator">Scroll</div>
         </section>
@@ -45,9 +46,9 @@
             <div class="container">
                 <h2 class="section-title reveal-text">Concept</h2>
                 <div class="concept-text">
-                    <h3 class="reveal-text" style="font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-family: var(--font-main); font-weight: 500; margin-bottom: 2rem;">繰り返す作業から、創造する時間へ。</h3>
-                    <p class="reveal-text">屋根瓦の配置、鉄骨ジョイントの作図、ガセットプレートの納まり。<br>毎日の設計現場で繰り返される定型作業を、Archelierが自動化します。</p>
-                    <p class="reveal-text">ミリ単位の精度とワンクリックの速さ。<br>設計者の創造的な時間を取り戻すための、ArchiCADネイティブツールです。</p>
+                    <h3 class="reveal-text" style="font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-family: var(--font-main); font-weight: 500; margin-bottom: 2rem;">ArchiCAD - OpenBIM だからできること！</h3>
+                    <p class="reveal-text">必要な機能がソフトに無いなら設計者の手で作ってつなげていく。<br>OpenBIM の本質はただそれだけのこと。<br>Archelier は ArchiCAD のかゆいところに手が届くようにする、その小さな一歩です。</p>
+                    <p class="reveal-text">ミリ単位の精度はそのままに、ワンクリックで配置。<br>設計者の創造的な時間を取り戻すための、ArchiCADネイティブツールです。</p>
                 </div>
             </div>
         </section>
@@ -56,7 +57,7 @@
             <div class="container tech-container">
                 <div class="tech-text">
                     <h2 class="section-title reveal-text">Technology</h2>
-                    <h3 class="tech-subtitle reveal-text">ArchiCAD SDK 直接統合の C++ アドオン</h3>
+                    <h3 class="tech-subtitle reveal-text">ArchiCAD SDK 直接統合の<br>C++・GDLで強力にサポート</h3>
                     <p class="reveal-text">Archelierは ArchiCAD SDK を活用した純正アドオンとして動作します。プラグインの様な後付けではなく、ArchiCADの内部機能と直結。<br>選択した部材から自動で寸法・角度・接合点を計算し、ミリ単位の精度で部材を配置・編集します。</p>
                 </div>
                 <div class="tech-visual reveal-image">
@@ -67,31 +68,81 @@
             </div>
         </section>
 
-        <section id="features" class="works section">
+        <section id="features" class="features-section section">
             <div class="container">
                 <h2 class="section-title reveal-text">Features</h2>
-                <div class="works-grid">
-                    <div class="work-item reveal-image">
-                        <div class="work-bg" style="background: linear-gradient(135deg, #2A2A2A, #4A4A4A);"></div>
-                        <div class="work-info">
-                            <h4>屋根瓦 自動配置</h4>
-                            <p>JTile / FlatTile / HipTile / FoldedRoof / MetalRoof</p>
+                <p class="section-lead reveal-text">オブジェクトで、小規模建築物の簡易なモデルを作成します。</p>
+                <div class="features-list">
+                    <article class="feature-card reveal-text">
+                        <div class="feature-num">01</div>
+                        <h3 class="feature-title">屋根瓦 自動配置</h3>
+                        <p class="feature-desc">ArchiCADの屋根面を選択するだけで、ディテールまで作り込まれた瓦屋根を瞬時に自動生成。日本国内で多用されるJ形瓦・F形瓦はもちろん、折板屋根や金属屋根（瓦棒／立平／縦ハゼ）まで、実務で求められる5つの屋根工法に完全対応します。特に手間のかかる寄棟屋根では、4面の瓦を配置後、ArchiCADのソリッド編集（SEO）機能と連携して隅棟部を自動でカット。隅棟・大棟瓦の隅巴瓦や端キャップ、軒先の折り曲げフランジといった細部まで再現し、立面・断面ビューでは自動 LOD で描画負荷を軽減。実施設計レベルの BIM モデル作成を強力に支援します。<br>また折板屋根（FoldedRoof）は、現場で最も多用される重ね型 88 型を標準値として実装していますが、ピッチ（山と山の間隔）・山高さ・働き幅を mm 単位で個別に変更できるため、150 型・200 型といった大型折板や特注サイズにもパラメータ調整だけで対応可能。タイトフレーム・棟包み・ケラバ・エプロン・面戸・幕板・ボルトまでが連動して再生成されるので、断面サイズの変更にも柔軟に対応いたします。<br>なお、対応する屋根形式は、切妻・寄棟・方形・片流れの4種類（入母屋は現時点では非対応）です。平面形状は矩形のみで、L型・T型といった平面形状や、マンサード・腰折れなどの屋根形式は、作図自体は可能ですがサポート対象外となります。</p>
+                        <div class="feature-image">
+                            <img src="images/feature-roof-tile.png" alt="Archelier 屋根瓦自動配置 — 寄棟屋根の隅棟処理とリアルな瓦質感">
                         </div>
-                    </div>
-                    <div class="work-item reveal-image" style="transition-delay: 0.1s">
-                        <div class="work-bg" style="background: linear-gradient(135deg, #1A2B3C, #2A4B6C);"></div>
-                        <div class="work-info">
-                            <h4>鉄骨ジョイント</h4>
-                            <p>BeamJoint / GussetPlate（勾配・転び対応）</p>
+                        <div class="feature-image">
+                            <img src="images/feature-folded-roof.png" alt="Archelier 折板屋根（FoldedRoof）— 88型重ねハゼの精緻な造形">
                         </div>
-                    </div>
-                    <div class="work-item reveal-image" style="transition-delay: 0.2s">
-                        <div class="work-bg" style="background: linear-gradient(135deg, #3A2A1A, #5A4A2A);"></div>
-                        <div class="work-info">
-                            <h4>ブレース配置</h4>
-                            <p>柱間自動計算 / オフセット カスタム編集対応</p>
+                        <ul class="feature-items">
+                            <li><strong>JTile：</strong>日本瓦（J形瓦）BRICK分割によるリアルな曲面表現、軒先90°折り曲げフランジ対応、立面・断面 LOD で作図性能向上</li>
+                            <li><strong>FlatTile：</strong>平板瓦（F形瓦）。寄棟対応、働き寸法の調整・千鳥配置・反り角度・水切り対応、立面・断面 LOD 対応</li>
+                            <li><strong>HipTile：</strong>隅棟・大棟兼用の専用瓦。のし瓦＋冠瓦の段数調整、隅巴瓦（大棟は両端／隅棟は軒端）、端キャップ自動配置に対応</li>
+                            <li><strong>MetalRoof：</strong>金属屋根：瓦棒葺き・立平葺き・縦ハゼ葺きの3工法を切替可能、唐草（直角／垂直モード）に対応</li>
+                            <li><strong>FoldedRoof：</strong>折板屋根（標準は重ね型 88 型・ピッチ／山高さ／働き幅の調整で大型折板にも対応）。タイトフレームから棟包み・ケラバ・エプロン・面戸・幕板まで一括生成、ボルト表示の切替も可能</li>
+                            <li><strong>共通仕様：</strong>マテリアルは「金属-亜鉛」で5屋根を統一、CineRender対応</li>
+                        </ul>
+                    </article>
+
+                    <article class="feature-card reveal-text">
+                        <div class="feature-num">02</div>
+                        <h3 class="feature-title">鉄骨ジョイント</h3>
+                        <p class="feature-desc">鉄骨造のモデリングで最も時間を要する梁継手やガセットプレートの作図を、インテリジェントに自動化。部材を選択するだけで、勾配梁の cos補正、ガセットの勾配＋梁の転び、ボルトの向きを自動計算し、最適なジョイントを生成します。H形鋼のサイズ 成（せい）（H≧350mmなど）に応じてフランジボルトの向きを自動制御、外周大梁を自動検出して外側方向から内側方向にボルトを貫通する機能なども搭載。その他、六角ボルトとトルシアボルトの切り替え、梁の納め方向などにも対応し、構造モデルの精度と作図効率を飛躍的に向上させます。さらに ArchiCAD 純正の梁セグメント機能（クリアランスは材質の上書きを「空気」に設定）を併用すれば、梁の接合部に 5〜10mm 程度のクリアランスを設けて継手部分を切り離すことができ、より一層リアルな接合部表現が実現可能です。実施設計レベルの納まり検討にも耐える、構造ディテール一体型の BIM モデルを構築できます。</p>
+                        <div class="feature-image">
+                            <img src="images/feature-steel-joint.png" alt="Archelier 鉄骨ジョイント — 梁継手とガセットプレートの自動生成">
                         </div>
-                    </div>
+                        <ul class="feature-items">
+                            <li><strong>BeamJoint：</strong>梁継手。勾配梁の水平シフト（cos補正）、H≧350mm 自動フランジボルト方向制御、外側大梁の自動判定によるウェブボルト反転、千鳥 g1（中央通過部）／千鳥 g2（任意オフセット）の調整に対応</li>
+                            <li><strong>GussetPlate：</strong>ガセットプレート。片面／両面（小梁挟み込み）、テーパー／ストレート形状を切替可能。4方向（上／下／左／右）配置、勾配＋転びを考慮したボルト位置自動計算、リブプレート一体描画、柱1本＋梁N本の柱基準モードに対応</li>
+                            <li><strong>ボルトアセンブリ：</strong>六角ボルト／高力トルシアボルトを切替可能。ナット・ワッシャーまで含めたフルコンポーネントで描画</li>
+                            <li><strong>配置モード：</strong>梁を選択するだけの「自動」モードと、クリックで位置を指定する「手動」モードの 2種類。配置端も両端／始端／終端から選択可能</li>
+                        </ul>
+                    </article>
+
+                    <article class="feature-card reveal-text">
+                        <div class="feature-num">03</div>
+                        <h3 class="feature-title">ブレース配置</h3>
+                        <p class="feature-desc">柱と梁を選択するだけで、複雑なブレース配置が完了。柱のフェイス（内側面）を基準に、梁下端への取付き位置を自動で割り出します。丸鋼はもちろん、山形鋼（ダブル背合せ対応）や H形鋼など、多彩な断面形状と配置パターン（片／X／V／逆V／K／逆K の 6種）を選択可能。ガセットプレート、ターンバックル、エンドプレート、ボルトまでワンセットで自動生成。柱2＋中間梁を含む選択で二段梁モードが自動有効化、4本以上の梁を範囲選択すれば平面ブレースの一括作図など自動展開も行えます。複数スパン連続配置や勾配方向の自動補正にも対応。設定パラメータを試行錯誤しても各ダイアログの「デフォルト」ボタンでワンクリック復元できるので、安心して値を試せます。</p>
+                        <div class="feature-image">
+                            <img src="images/feature-brace-elevation.png" alt="Archelier 立面ブレース — X字ブレース＋ターンバックル一体描画">
+                        </div>
+                        <div class="feature-image">
+                            <img src="images/feature-brace-frame.png" alt="Archelier ブレース配置 — N×M ベイ自動展開で複数スパン一括処理">
+                        </div>
+                        <ul class="feature-items">
+                            <li><strong>ブレース部材（v1）：</strong>丸鋼、山形鋼（等辺／不等辺／ダブル背合せ・断面回転4方向）。ターンバックル一体描画、中央ガセット対応</li>
+                            <li><strong>ブレース部材（v2）：</strong>H形鋼（断面回転4方向）、角形鋼管、丸形鋼管。十字ガセット、エンドプレート対応</li>
+                            <li><strong>配置パターン：</strong>片ブレース、X字（交差ブレース）、V字、逆V字、K字、逆K字 の 6種類。V／K字は交点間隔を mm単位で調整可能</li>
+                            <li><strong>二段梁モード：</strong>柱 2＋梁 2 選択で上下 2 本ブレースを一発配置（下段：柱底〜中間梁下端／上段：中間梁上端〜上梁上端）</li>
+                            <li><strong>平面ブレース：</strong>梁の範囲選択で N×M ベイの平面ブレースを自動展開。勾配梁にも自動対応（勾配方向の自動補正付き）。複数スパン連続配置にも対応</li>
+                            <li><strong>2D 平面表示：</strong>一点鎖線（JW互換）。両端は梁交点まで伸ばさず内側80%長で描画し、張り伏せ図の視認性を向上</li>
+                            <li><strong>配置オプション：</strong>立面／平面の切替、下端／上端／上段下端／上段上端／水平／梁天端下がりの各 mm単位オフセット、ガセット先端形状（勾配／直角）の切替</li>
+                        </ul>
+                    </article>
+
+                    <article class="feature-card reveal-text">
+                        <div class="feature-num">04</div>
+                        <h3 class="feature-title">積算（数量集計）</h3>
+                        <p class="feature-desc">配置したオブジェクトから、数量をワンクリックで集計。国土交通省『公共建築数量積算基準』に準拠した設計数量／所要数量の2列出力で、見積根拠が明確な集計表を生成します。ArchiCAD上で対象を選択し『Estimate』を実行するだけで、対象数・面積・瓦枚数・大棟／隅棟／ケラバ長さ・プレート重量・ボルト本数（サイズ×長さ別）などがダイアログに即時表示されます。集計結果は UTF-8 BOM 付き CSV としてダウンロードフォルダに自動保存されるため、見積書や工程表へそのまま転記可能。図面の変更があっても、再選択＆再実行で最新の数量に更新できます。設計と数量算出の分断を解消し、見積作業を大幅に効率化します。</p>
+                        <ul class="feature-items">
+                            <li><strong>積算基準：</strong>国土交通省『公共建築数量積算基準』に準拠。設計数量（実寸）と所要数量（鋼材+5%・ボルト等±0%）を CSV に 2 列で出力し、ロス率規定に従って明確に区別します</li>
+                            <li><strong>鉄骨重量：</strong>JIS規格表ベースのカタログ重量で算出。H形鋼 88 件・角形鋼管 66 件・円形鋼管 58 件・山形鋼 50 件・溝形鋼 16 件のJIS全規格を内蔵し、規格外でも近似マッチで重量を取得</li>
+                            <li><strong>対応部材：</strong>Archelier が配置した屋根系（FlatTile／JTile／HipTile／MetalRoof／FoldedRoof）と構造系（BeamJoint／GussetPlate／Brace）が集計対象。<br>参考として、ArchiCAD ネイティブの柱・梁（H形鋼／角形鋼管／丸形鋼管）も自動集計します。</li>
+                            <li><strong>集計項目：</strong>対象数・面積（m²）・瓦枚数・大棟長／隅棟長／ケラバ長<br>プレート重量（kg）、ボルト本数をサイズ×長さ別（例：M20-65 x32本）まで自動算出</li>
+                            <li><strong>CSV出力：</strong>UTF-8 BOM付き（Excel直接読込み対応）<br>ファイル名はタイムスタンプ付きで履歴管理が容易</li>
+                            <li><strong>ダイアログ構成：</strong>仕上／躯体／設備の3カテゴリ構造。配置オブジェクトに応じて列幅・高さが動的調整され、空のカテゴリは非表示。最大30行まで対応</li>
+                            <li><strong>拡張ロードマップ：</strong>屋根・鉄骨に続き、Phase 1＝RC（コンクリート／鉄筋／型枠）、Phase 2＝木造（製材／集成材／構造金物）、Phase 3＝仕上（壁／床／天井／建具／窓）、Phase 4＝設備の順で段階対応予定。集計ダイアログはタブ切替方式に進化させ、複合構造でも一画面で全カテゴリの数量を確認できる構成を目指します</li>
+                        </ul>
+                    </article>
                 </div>
             </div>
         </section>
@@ -101,7 +152,7 @@
                 <h2 class="section-title reveal-text">About</h2>
                 <div class="about-content reveal-text">
                     <div class="about-profile">
-                        <h3 class="profile-name">Archelier</h3>
+                        <h3 class="profile-name">Archelier - アルシェリエ</h3>
                         <div class="profile-credentials">
                             <p>ArchiCAD 29 対応</p>
                             <p>Windows 11</p>
@@ -110,12 +161,17 @@
                         </div>
 
                         <h4 class="profile-greeting-title">開発の背景</h4>
-                        <p class="profile-text">日本の建築実務における ArchiCAD 活用シーンで、繰り返し発生する定型作業を観察し続けてきました。<br>屋根瓦の納まり、鉄骨ジョイントの位置決め、ガセットプレートの転び。<br>これらは設計者の判断ではなく、計算とルールで決まる作業です。<br>Archelier は、その計算とルールを ArchiCAD に直接埋め込むことで、設計者の手を「創造する作業」だけに残します。</p>
+                        <p class="profile-text">近年のAIの進化によって、私たち建築士がプログラム開発に携われる時代がやってきました。</p>
+                        <p class="profile-text">これまでの「PC → ArchiCAD → User」という流れにAIが加わり、「PC → AI → ArchiCAD → User」という新しいワークフローが生まれています。</p>
+                        <p class="profile-text">これにより、高性能なモデリングソフトであるArchiCADのポテンシャルを、これまで以上に引き出せるようになったのです。</p>
+                        <p class="profile-text">これからもAIという心強いパートナーと共に、皆さんの設計業務をより良くするためのカスタマイズを続けていきます。</p>
                     </div>
                     <div class="company-info">
                         <dl>
                             <dt>製品名</dt>
                             <dd>Archelier</dd>
+                            <dt>バージョン</dt>
+                            <dd>v1.0.0</dd>
                             <dt>販売者</dt>
                             <dd>nico-mart</dd>
                             <dt>対応CAD</dt>
@@ -123,7 +179,7 @@
                             <dt>配布形式</dt>
                             <dd>APX / GSM ライセンス制</dd>
                             <dt>お問い合わせ</dt>
-                            <dd><a href="contact.html">Contactフォームよりご連絡ください</a></dd>
+                            <dd><a href="contact.html">お問い合わせページよりご連絡ください</a></dd>
                         </dl>
                     </div>
                 </div>

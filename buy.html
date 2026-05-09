@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購入手順ガイド | Archelier</title>
+    <meta name="description" content="ArchiCAD向けアドオン Archelier の購入・ダウンロード手順、よくあるご質問。Gumroad（決済代行）を利用した購入フローを日本語でご案内します。">
+    <link rel="canonical" href="https://archelier.jp/buy.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Buy Page 専用スタイル ── */
+        .buy-page { padding: 140px 24px 60px; max-width: 860px; margin: 0 auto; line-height: 1.9; color: #2A2A2A; }
+        .buy-page .page-head { text-align: center; margin-bottom: 4rem; }
+        .buy-page h1 { font-size: clamp(1.9rem, 3vw, 2.4rem); margin-bottom: 1rem; font-weight: 500; letter-spacing: 0.02em; }
+        .buy-page h1 .accent { color: #1A2B3C; }
+        .buy-page .lead { font-size: 1rem; color: #555; }
+        .buy-page .label { display: inline-block; font-size: 0.8rem; letter-spacing: 0.18em; color: #888; font-weight: 500; margin-bottom: 0.8rem; }
+
+        /* CTA */
+        .buy-cta { text-align: center; margin: 2.5rem 0 4rem; }
+        .btn-buy { display: inline-block; padding: 18px 44px; background: linear-gradient(135deg, #4a6585 0%, #6b88ad 100%); color: #fff; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; border-radius: 6px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 8px 22px rgba(74,101,133,0.28); border: 1px solid rgba(255,255,255,0.15); }
+        .btn-buy:hover { background: linear-gradient(135deg, #5b7798 0%, #7c9bc1 100%); transform: translateY(-2px); box-shadow: 0 14px 32px rgba(74,101,133,0.4); }
+        .btn-buy small { display: block; font-size: 0.7rem; font-weight: 400; letter-spacing: 0.05em; color: rgba(255,255,255,0.85); margin-top: 4px; }
+        .pre-release-note { display: inline-block; margin: 2rem auto 0; padding: 14px 22px; max-width: 600px; background: rgba(26,43,60,0.05); border-left: 3px solid #1A2B3C; border-radius: 4px; color: #1A2B3C; font-weight: 500; font-size: 0.95rem; }
+
+        /* Pricing Block */
+        .pricing-block { margin: 3rem auto 0; max-width: 600px; padding: 32px 36px; background: #fff; border-radius: 6px; border-top: 4px solid #1A2B3C; box-shadow: 0 6px 24px rgba(0,0,0,0.04); text-align: center; }
+        .pricing-block .pricing-label { display: inline-block; font-size: 0.8rem; letter-spacing: 0.18em; color: #888; font-weight: 500; }
+        .pricing-block .pricing-amount { font-size: 2.2rem; font-weight: 700; color: #1A2B3C; margin: 0.5rem 0 0.2rem; letter-spacing: 0.02em; line-height: 1.2; }
+        .pricing-block .pricing-amount .yen { font-size: 1.4rem; font-weight: 500; margin-right: 4px; }
+        .pricing-block .pricing-amount .unit { font-size: 0.95rem; font-weight: 400; color: #555; letter-spacing: 0; margin-left: 6px; }
+        .pricing-block .pricing-sub { font-size: 0.85rem; color: #888; margin: 0 0 1.6rem; }
+        .pricing-block .pricing-features { list-style: none; padding: 0; margin: 0 auto; text-align: left; max-width: 440px; }
+        .pricing-block .pricing-features li { position: relative; padding-left: 22px; margin-bottom: 10px; color: #444; font-size: 0.95rem; line-height: 1.6; }
+        .pricing-block .pricing-features li::before { content: "◆"; position: absolute; left: 0; top: 0; color: #1A2B3C; font-size: 0.8em; }
+        .pricing-block .pricing-features li:last-child { margin-bottom: 0; }
+        .pricing-block .pricing-features li strong { color: #1A2B3C; font-weight: 700; }
+
+        /* Step Cards */
+        .steps { margin: 0 auto; }
+        .step-card { margin-bottom: 28px; padding: 32px 36px; background: #fff; border-radius: 6px; border-left: 4px solid #1A2B3C; box-shadow: 0 6px 24px rgba(0,0,0,0.04); }
+        .step-card h3 { color: #1A2B3C; margin: 0 0 14px; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.02em; }
+        .step-card h3 .step-num { display: inline-block; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.15em; color: #888; margin-right: 10px; }
+        .step-card p { margin: 0 0 0.6rem; color: #444; }
+        .step-card p:last-child { margin-bottom: 0; }
+        .step-card ul { margin: 12px 0 4px; padding-left: 0; list-style: none; }
+        .step-card ul li { position: relative; padding-left: 22px; margin-bottom: 8px; color: #444; }
+        .step-card ul li::before { content: "◆"; position: absolute; left: 0; top: 0; color: #1A2B3C; font-size: 0.8em; }
+        .step-card strong { color: #1A2B3C; font-weight: 700; }
+        .step-card .hint { background: #FAFAFA; padding: 12px 16px; border-radius: 4px; font-size: 0.9rem; color: #666; margin-top: 14px; }
+
+        /* FAQ */
+        .faq-section { margin: 6rem auto 0; max-width: 860px; }
+        .faq-section .page-head { margin-bottom: 2.5rem; }
+        .faq-list { border-top: 1px solid #eee; }
+        .faq-item { border-bottom: 1px solid #eee; }
+        .faq-question { width: 100%; padding: 22px 0; background: none; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-main); font-size: 1rem; font-weight: 500; color: #1A2B3C; text-align: left; line-height: 1.5; }
+        .faq-question:hover { color: #2c4360; }
+        .faq-toggle { font-size: 1.4rem; font-weight: 300; color: #1A2B3C; transition: transform 0.3s ease; flex-shrink: 0; margin-left: 1rem; }
+        .faq-question[aria-expanded="true"] .faq-toggle { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; }
+        .faq-answer-inner { padding: 0 0 24px; color: #555; font-size: 0.95rem; line-height: 1.9; }
+        .faq-answer-inner p { margin: 0 0 0.8rem; }
+        .faq-answer-inner p:last-child { margin-bottom: 0; }
+        .faq-answer-inner strong { color: #1A2B3C; font-weight: 700; }
+        .faq-answer-inner ul { margin: 0.6rem 0 0.6rem 1.2rem; padding: 0; }
+        .faq-answer-inner li { margin-bottom: 0.4rem; }
+        .faq-answer-inner table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+        .faq-answer-inner th, .faq-answer-inner td { padding: 8px 10px; border-bottom: 1px solid #eee; text-align: left; }
+        .faq-answer-inner th { background: #FAFAFA; color: #1A2B3C; font-weight: 700; }
+        .faq-answer-inner a { color: #1A2B3C; border-bottom: 1px solid #1A2B3C; padding-bottom: 1px; }
+        .faq-answer-inner a:hover { opacity: 0.7; }
+
+        @media (max-width: 768px) {
+            .buy-page { padding: 110px 20px 40px; }
+            .step-card { padding: 26px 22px; }
+            .step-card h3 { font-size: 1.05rem; }
+            .btn-buy { padding: 16px 32px; font-size: 0.95rem; }
+            .faq-question { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html#concept">Concept</a></li>
+                    <li><a href="index.html#technology">Technology</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="blog/">Blog</a></li>
+                    <li><a href="buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- ═══ How to Buy ═══ -->
+        <section class="buy-page">
+            <div class="page-head">
+                <span class="label">HOW TO BUY</span>
+                <h1>購入・ダウンロード<br><span class="accent">手順ガイド</span></h1>
+                <p class="lead"><strong>Gumroad（海外の決済サービス）</strong>を利用しています。<br>ページは英語ですが、操作は簡単です。下記の通り日本語でご案内します。</p>
+                <div class="pre-release-note">
+                    🔧 現在 Archelier はリリース準備中です。販売開始までお待ちください。
+                </div>
+            </div>
+
+            <div class="pricing-block">
+                <span class="pricing-label">PRICE</span>
+                <p class="pricing-amount"><span class="yen">¥</span>33,000<span class="unit">／ 1ライセンス</span></p>
+                <p class="pricing-sub">税込（本体価格 30,000円＋消費税 3,000円）</p>
+                <ul class="pricing-features">
+                    <li><strong>買い切り</strong>・年額費用なし</li>
+                    <li>1ライセンスにつき<strong>最大 2台まで</strong>認証可能（メインPC＋予備）</li>
+                    <li>パッチ・リビジョンアップデートは<strong>無料</strong>（バグ修正・機能改善）</li>
+                    <li>ArchiCAD メジャーアップ（30 以降）対応版は<strong>新規購入</strong></li>
+                    <li>動作環境：<strong>ArchiCAD 29 / Windows 11</strong>（Mac非対応）</li>
+                </ul>
+            </div>
+
+            <div class="buy-cta">
+                <!-- TODO: Gumroad URL が確定したら href を書き換える -->
+                <a href="#" class="btn-buy" target="_blank" rel="noopener">
+                    Archelier を購入する
+                    <small>Gumroad で開きます</small>
+                </a>
+            </div>
+
+            <div class="steps">
+
+                <div class="step-card">
+                    <h3><span class="step-num">STEP 1</span>購入ページを開く</h3>
+                    <p>上の「<strong>Archelier を購入する</strong>」ボタンをクリックすると、Gumroadの購入ページが開きます。ページは英語ですが、操作は簡単です。</p>
+                    <div class="hint">💡 Gumroad は世界中のクリエイターが利用しているデジタル販売プラットフォームです。クレジットカードの取り扱いも安全に管理されています。</div>
+                </div>
+
+                <div class="step-card">
+                    <h3><span class="step-num">STEP 2</span>お支払い</h3>
+                    <p>「<strong>I want this!</strong>」または「<strong>Add to cart</strong>」ボタンをクリックするとCheckout画面に進みます。以下の点にご注意ください。</p>
+                    <ul>
+                        <li><strong>Full name</strong>：日本語（漢字）で入力してOKです</li>
+                        <li><strong>Email</strong>：購入確認メール・ライセンスキーが届く重要なアドレスです。確実に受信できるアドレスをご入力ください</li>
+                        <li><strong>Add a tip?</strong>：チップ機能です。<strong>「No Tip」のまま触らないでください</strong>（チップはAchelier代金とは別に開発者へ送る寄付金です）</li>
+                    </ul>
+                    <p style="margin-top:14px">クレジットカードまたはPayPalでお支払いいただけます。入力が完了したら「<strong>Pay</strong>」ボタンを押してください。</p>
+                </div>
+
+                <div class="step-card">
+                    <h3><span class="step-num">STEP 3</span>ダウンロード</h3>
+                    <p>購入完了後、ダウンロードページが表示されます。Archelier のインストーラー（.zip）をダウンロードしてください。</p>
+                    <ul>
+                        <li>同時に、ご登録のメールアドレスへ <strong>購入確認メール</strong>が届きます</li>
+                        <li>メールには <strong>ライセンスキー</strong>（後ほど認証で使用）と <strong>ダウンロードリンク</strong>が記載されています</li>
+                        <li>ライセンスキーは大切に保管してください（再ダウンロード時に必要になる場合があります）</li>
+                    </ul>
+                </div>
+
+                <div class="step-card">
+                    <h3><span class="step-num">STEP 4</span>インストール & ライセンス認証</h3>
+                    <p>ダウンロードした .zip ファイルを解凍し、付属の手順書に沿ってインストールしてください。</p>
+                    <ul>
+                        <li><strong>APX ファイル</strong>を ArchiCAD の Add-Ons フォルダに配置</li>
+                        <li><strong>GSM ファイル</strong>を ArchiCAD ライブラリに配置（または専用ライブラリとして読込）</li>
+                        <li>ArchiCAD を再起動 → メニューに「Archelier」が表示されたら準備完了</li>
+                        <li>初回起動時に <strong>ライセンスキー</strong>を入力して認証してください</li>
+                    </ul>
+                    <div class="hint">📘 詳しい手順は付属の「セットアップ手順書（PDF）」をご覧ください。インストール中にご不明点があれば、<a href="contact.html" style="color:#1A2B3C;border-bottom:1px solid #1A2B3C;">お問い合わせ</a>よりご連絡ください。</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ═══ FAQ ═══ -->
+        <section class="faq-section buy-page">
+            <div class="page-head">
+                <span class="label">FAQ</span>
+                <h1>よくあるご<span class="accent">質問</span></h1>
+            </div>
+
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>対応している ArchiCAD のバージョン・OS は？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>現在 <strong>ArchiCAD 29 / Windows 11</strong> に対応しています。</p>
+                            <p>Archelier は ArchiCAD SDK を直接使った <strong>純正C++アドオン</strong>として動作します。SDK のバージョンに依存するため、現時点では <strong>ArchiCAD 29 のみ</strong>のサポートです。古いバージョン（27/28等）への対応予定はございません。</p>
+                            <p><strong>※ Mac版は提供しておりません。</strong>ArchiCAD 本体は Mac 対応ですが、Archelier は Windows 専用です（開発者の検証環境が Windows のみのため）。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>体験版はありますか？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>現在、体験版の提供は行っておりません。</p>
+                            <p>導入のご検討にあたっては、本ページの機能詳細や <a href="blog/">Archelier 公式ブログ</a> をご参考ください。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>ライセンスは何台のPCで利用できますか？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p><strong>1ライセンスにつき2回までライセンス認証可能</strong>です（PCの買い替え・再インストール時の予備を含みます）。</p>
+                            <p>事務所で複数のスタッフが利用される場合は、人数分のライセンスをご購入ください。</p>
+                            <p>万が一、認証回数を超えた場合は、再度ご購入をお願いいたします。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>業務（商用）で利用できますか？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>はい。Archelier は<strong>業務（商用）利用を前提</strong>としたアドオンです。設計事務所・建設会社・個人建築士の方々の実務でご利用いただけます。</p>
+                            <p>Archelier で配置した部材を含む BIM モデル、図面、プレゼン資料、見積書などを成果物として納品・販売することに制限はございません。</p>
+                            <p>ただし、<strong>Archelier 本体（APX / GSM ファイル）の再配布・転売・複製・改変は禁止</strong>です。詳しくは<a href="terms.html">利用規約</a>をご確認ください。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>アップデートは無料ですか？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Archelier のアップデートは <strong>3段階</strong>に分かれており、それぞれ扱いが異なります。</p>
+                            <table>
+                                <tr><th>種類</th><th>例</th><th>費用</th></tr>
+                                <tr><td>パッチ</td><td>1.0.0 → 1.0.1（バグ修正）</td><td>無料</td></tr>
+                                <tr><td>リビジョン</td><td>1.0.x → 1.1.0（機能改善）</td><td>無料</td></tr>
+                                <tr><td>バージョン</td><td>1.x → 2.0（大型機能追加）</td><td>新規購入</td></tr>
+                            </table>
+                            <p>パッチ・リビジョンは購入済みのお客様には無償でご提供いたします。バージョンアップ時は、別途バージョンアップ料金が発生いたします。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>新しい ArchiCAD（30以降）に対応しますか？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>GRAPHISOFT社から新バージョンの SDK が公開され次第、対応版の開発に着手いたします。</p>
+                            <p>ArchiCAD のメジャーバージョンアップ（29 → 30 など）に対応する場合は、Archelier 側も「バージョンアップ」扱いとなり、有償アップデートとなる予定です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>返品・キャンセルはできますか？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>デジタルコンテンツの性質上、<strong>購入確定後の返品・返金・キャンセルには応じられません</strong>。</p>
+                            <p>動作環境（ArchiCAD のバージョン違い・OS違い）の不一致による返金もお受けできません。<strong>ご購入前に必ず動作環境（ArchiCAD 29 / Windows 11）をご確認ください</strong>。</p>
+                            <p>不具合・動作不良の場合は、<a href="contact.html">お問い合わせ</a>よりご連絡ください。再現確認のうえ、修正パッチで対応いたします。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>サポート・問い合わせ窓口は？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>製品に関するご質問・ご要望・サポートのご依頼は、<a href="contact.html">お問い合わせページ</a>よりメールにてご連絡ください。</p>
+                            <ul>
+                                <li>通常 <strong>2〜3営業日</strong>以内にご返信いたします</li>
+                                <li>土日祝日・休業日のお問い合わせには翌営業日以降の対応となります</li>
+                                <li>不具合のご報告時は、ArchiCAD バージョン・OS・操作手順を併せてお知らせいただけるとスムーズです</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>領収書・請求書は発行できますか？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Gumroad の購入完了画面・購入確認メールが <strong>領収書</strong>としてご利用いただけます。宛名・但し書きの変更が必要な場合は、<a href="contact.html">お問い合わせ</a>より別途ご相談ください。</p>
+                            <p style="margin-top:14px"><strong>※ 適格請求書（インボイス）の発行について</strong><br>
+                            販売者である nico-mart は <strong>適格請求書発行事業者ではない</strong>ため、適格請求書（インボイス）の発行はいたしかねます。インボイス制度における仕入税額控除をご希望の法人様は、ご購入前にご検討くださいますようお願いいたします。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>なぜ Gumroad での販売なのですか？</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>個人開発の小規模ソフトウェアでは、独自の決済システムを安全に運用することが難しいため、世界中で利用されている <strong>Gumroad</strong> を採用しています。</p>
+                            <ul>
+                                <li>クレジットカード情報は Gumroad のサーバーで安全に管理され、当方には一切渡りません</li>
+                                <li>PayPal にも対応しています</li>
+                                <li>購入後のライセンスキー発行・ダウンロード管理がすべて自動化されているため、即時お渡しが可能です</li>
+                            </ul>
+                            <p>画面が英語で操作にご不安がある場合は、上記の <strong>STEP 1〜4</strong> の通り進めていただければ問題なくご購入いただけます。</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ アコーディオン
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                const answer = btn.nextElementSibling;
+                btn.setAttribute('aria-expanded', !expanded);
+                if (expanded) {
+                    answer.style.maxHeight = '0';
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

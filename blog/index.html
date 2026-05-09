@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Archelier - ArchiCAD向け 鉄骨・屋根 自動配置アドオン</title>
+    <meta name="description" content="Archelier 公式ブログ。ArchiCAD・建築設計の自動化、アドオン開発、BIM活用に関する情報を発信します。">
+    <link rel="canonical" href="https://archelier.jp/blog/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- 構造化データ: Blog -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Archelier ブログ",
+      "description": "ArchiCAD・建築設計の自動化、アドオン開発、BIM活用に関する公式ブログ。",
+      "url": "https://archelier.jp/blog/",
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      }
+    }
+    </script>
+
+    <style>
+        .blog-hero {
+            padding: 140px 24px 60px;
+            text-align: center;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .blog-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        .blog-hero p {
+            font-size: 1rem;
+            color: #2A2A2A;
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.9;
+        }
+        .blog-list {
+            padding: 80px 24px 120px;
+            background: #fff;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .blog-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: #fff;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+        }
+        .blog-card-thumb {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #6B7E96 0%, #95A8BC 100%);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: center;
+            padding: 1rem;
+            letter-spacing: 0.05em;
+        }
+        .blog-card-body {
+            padding: 24px;
+        }
+        .blog-card-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 12px;
+        }
+        .blog-card-tag {
+            background: #FAFAFA;
+            border: 1px solid #ECECEC;
+            padding: 2px 10px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .blog-card h2 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+        .blog-card p {
+            font-size: 0.85rem;
+            color: #2A2A2A;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .blog-card-read {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+        .blog-empty {
+            text-align: center;
+            padding: 80px 24px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .blog-empty h2 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        .blog-empty p {
+            font-size: 1rem;
+            color: #2A2A2A;
+            line-height: 1.9;
+        }
+    </style>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="blog-hero">
+            <h1>Archelier <span style="color: var(--accent-color);">Blog</span></h1>
+            <p>ArchiCAD・建築設計の自動化、アドオン開発の現場、BIM活用のリアルな知見を発信していきます。</p>
+        </section>
+
+        <section class="blog-list">
+            <div class="container">
+                <!-- ▼ 記事を追加する時は、このコメントの下に <a class="blog-card"> を追加します ▼ -->
+                <!-- POSTS:START -->
+                <div class="blog-grid">
+                    <a class="blog-card" href="why-archelier.html">
+                        <div class="blog-card-thumb">ArchiCAD は本当に便利か？</div>
+                        <div class="blog-card-body">
+                            <div class="blog-card-meta">
+                                <time datetime="2026-05-05">2026.05.05</time>
+                                <span class="blog-card-tag">Concept</span>
+                            </div>
+                            <h2>ArchiCAD は本当に便利か？ — 自動化アドオン Archelier を開発した理由</h2>
+                            <p>BIM の理想と現場のズレ、OpenBIM の本質、そして「設計者自身による拡張」という思想について、開発者が語る第1弾コンセプト記事。</p>
+                            <span class="blog-card-read">Read more →</span>
+                        </div>
+                    </a>
+                </div>
+                <!-- POSTS:END -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
