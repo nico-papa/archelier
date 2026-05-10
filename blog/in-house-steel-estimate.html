@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鉄骨工事は時間との戦い — Archelier で社内先行積算という選択肢 | Archelier Blog</title>
+    <meta name="description" content="鉄骨工事は企画から施工までの期間が短い。鉄骨加工会社への施工図・積算依頼の回答を待つ間、設計者は概算トン数すら答えられない。Archelier は外注前に設計者自身が「当たりをつける」ための積算機能を提供します。">
+    <link rel="canonical" href="https://archelier.jp/blog/in-house-steel-estimate.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="鉄骨工事は時間との戦い — Archelier で社内先行積算という選択肢">
+    <meta property="og:description" content="鉄骨工事は企画から施工までの期間が短い。外注前に設計者自身が「当たりをつける」ための積算という選択肢について。">
+    <meta property="og:url" content="https://archelier.jp/blog/in-house-steel-estimate.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "鉄骨工事は時間との戦い — Archelier で社内先行積算という選択肢",
+      "description": "鉄骨工事は企画から施工までの期間が短い。鉄骨加工会社への施工図・積算依頼の回答を待つ間、設計者は概算トン数すら答えられない。Archelier は外注前に設計者自身が「当たりをつける」ための積算機能を提供します。",
+      "datePublished": "2026-05-10",
+      "dateModified": "2026-05-10",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/in-house-steel-estimate.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-05-10">2026.05.10</time>
+                        <span class="article-tag">Estimate</span>
+                    </div>
+                    <h1>鉄骨工事は時間との戦い — Archelier で社内先行積算という選択肢</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">「この鉄骨、だいたい何トンくらいになりそうですか？」「概算でいいので、金額感を教えてください」。設計の初期段階で、施主や元請からこう問われ、言葉に詰まった経験はないでしょうか。構造事務所に検討を依頼し、鉄骨加工会社（ファブ）からの回答を待つ数日間。プロジェクトの根幹に関わる数字を、何ひとつ答えられないまま過ごすことになります。鉄骨工事は時間との戦いです。そのなかで設計者自身が「当たりをつける」という選択肢について、お話ししたいと思います。</p>
+
+                    <h2>「回答待ち」がもどかしい鉄骨工事の現実</h2>
+                    <p>鉄骨造のプロジェクトは、企画が立ち上がってから施工までの期間が非常に短い傾向にあります。特に、工場や倉庫、店舗といった用途の建物ではそのスピード感が顕著です。基本設計と実施設計が同時進行するような状況も珍しくなく、私たち設計者は常に時間的なプレッシャーの中で判断を迫られます。</p>
+                    <p>そんな中、プロジェクトのコストと規模感を大きく左右するのが鉄骨の重量、いわゆる「トン数」です。しかし、この数字を設計者が自らの手で把握するのは容易ではありません。</p>
+                    <p>一般的なフローを思い出してみましょう。まず、私たち設計者が作成した意匠図をもとに、構造事務所が構造計算を行い、構造図を描きます。その構造図がなければ、鉄骨の正確な数量はわかりません。そして、構造図ができたところで、今度は鉄骨加工会社に見積もりを依頼します。彼らは構造図を読み解き、施工図レベルの検討を行いながら、部材の拾い出しと積算を行います。</p>
+                    <p>この回答が返ってくるまで、短くても数日、規模が大きければ一週間以上かかることもあります。この「待ち時間」こそが、鉄骨工事における大きなボトルネックの一つです。</p>
+                    <p>その間、施主や関係各所からの問い合わせは止まりません。「柱のスパンを少し広げたら、コストはどう変わりますか？」「大梁のサイズをワンランク上げると、トン数はどれくらい増えますか？」こうした問いに対して、私たちは「ファブからの回答待ちです」としか答えようがないのです。概算のトン数すら即答できない状況は、設計者として非常にもどかしく、プロジェクトの進行を停滞させる原因にもなります。</p>
+
+                    <h2>Archelier が目指すのは「精緻な積算」ではない</h2>
+                    <p>ここで、私が開発している ArchiCAD アドオン「Archelier」の話をさせてください。Archelier には、ArchiCAD のモデルから鉄骨の数量を算出する機能が搭載されています。JIS 規格表のカタログ重量に基づいて積み上げるため、設計検討に使う数値としては相応の精度を持っています。ただし、ここで明確にしておきたい線引きがあります。</p>
+                    <blockquote>
+                        <p>Archelier がやろうとしているのは、鉄骨加工会社が行うような、ボルト一本、プレート一枚までを完璧に拾い上げる「精緻な施工積算」ではありません。Archelier の目的は、設計者が設計の初期段階で「社内先行積算」を行い、プロジェクトの規模感を自ら把握するための手助けをすることです。</p>
+                    </blockquote>
+                    <p>これは、鉄骨加工会社の積算業務を否定したり、不要だと言ったりするものでは決してありません。むしろ逆です。最終的な施工とコストの責任を負う加工会社の積算は、プロジェクトに不可欠な専門業務です。その精度と専門性があってこそ、鉄骨工事の現場が組み上がります。</p>
+                    <p>Archelier が担うのは、その前段階。ファブに正式な見積もりを依頼する前の、社内検討のフェーズです。いわば、外注前の「判断材料」を自社内で作るための道具。構造事務所から正式な構造図が届いた段階で、設計者自身の手で Archelier を使い BIM に落とし込み、概算のトン数と金額感を掴む。それによって、その後の意思決定の初動を早めることができると考えています。</p>
+                    <p>もう一つ大切なのは、この「社内先行積算」が普段使い慣れた ArchiCAD の中で完結することです。鉄骨専用の 3D CAD は、ファブが施工図を作り上げるための非常に強力な道具ですが、設計事務所が概算を社内で握るためだけに導入するには、価格も学習コストも見合いません。意匠設計で日々触っている ArchiCAD に、アドオンとして積算機能が乗る。それだけで、トン数や本数の当たりが手元に来る。専用ソフトを増やさず、普段のワークフローの延長線上で判断材料が揃うことは、設計事務所にとって実務的に大きな意味があります。</p>
+                    <p>ファブからの回答をただ待つ時間を、より建設的な検討の時間に変える。それが、Archelier の積算機能が持つ意義です。</p>
+
+                    <h2>ArchiCAD モデルから「見える化」できること</h2>
+                    <p>では、Archelier を使うと具体的にどのような情報が「見える化」できるのでしょうか。ArchiCAD で作成した鉄骨モデルから、主に以下の数値をリアルタイムに近い感覚で拾い出すことができます。</p>
+
+                    <h3>鉄骨の重量（トン数）</h3>
+                    <p>プロジェクト全体の鉄骨重量はもちろん、部材の種類ごとに集計することが可能です。対象となるのは、JIS 規格に準拠した一般的な形鋼です。</p>
+                    <ul>
+                        <li>H形鋼（広幅・中幅・細幅）</li>
+                        <li>角形鋼管（BCR/BCP）</li>
+                        <li>円形鋼管（STK/STKN）</li>
+                        <li>山形鋼（アングル）</li>
+                        <li>溝形鋼（チャンネル）</li>
+                    </ul>
+                    <p>これらの部材の単位重量は、Archelier 内部に持っている JIS 規格表ベースのカタログ重量テーブル（フィレット部を含む）に基づいて自動計算されます。手計算で B×H×t で出すような近似値ではなく、規格書に載っている確かな数値がそのまま積み上がる仕組みです。「ファブから返ってくる施工積算ほど詳細ではないが、設計検討に使う数値としては手計算とは比較にならない確度」という位置づけだと考えてください。</p>
+
+                    <h3>部材ごとの本数と長さ</h3>
+                    <p>各部材が何本使われているか、その総延長はどれくらいか、といった情報も一覧で確認できます。これにより、たとえば「C-1」という柱が何本あるか、といった具体的な数量を把握できます。</p>
+
+                    <h3>プレート類とボルトの数量</h3>
+                    <p>ガセットプレートやベースプレートといった板物の枚数と重量、そして高力ボルトの数量も算出します。仕口の詳細な形状が決まる前の概算値ではありますが、「プレートだけで何トンくらいになるのか」「ボルトはおおよそ何セット必要か」といった規模感を掴む上で重要な情報です。</p>
+
+                    <h3>概算金額の当たりをつける</h3>
+                    <p>算出した鉄骨重量やボルト数量に、あらかじめ設定しておいた単価を掛け合わせることで、概算の鉄骨工事費をシミュレーションすることも可能です。鉄骨の単価は市況によって変動しますが、社内で「最近の案件ではトンあたり何円くらい」という基準を持っておけば、確度の高い概算金額を導き出せます。</p>
+                    <p>これらの情報が、ArchiCAD の BIM モデルから直接、数クリックで引き出せる。モデルに変更を加えれば、積算結果も即座に更新される。このスピード感こそが、時間との戦いにおいて大きな武器になります。</p>
+
+                    <h2>「即答できる設計者」という価値</h2>
+                    <p>設計の初期段階で、自らの手で鉄骨の規模感を把握できること。それは、設計者にどのようなメリットをもたらすでしょうか。</p>
+                    <p>最大の価値は、やはり「即答できる」ことです。施主からの「だいたい何トン？」という問いに、もう「確認します」と持ち帰る必要はありません。「現時点のプランですと、およそ XX トンくらいですね。金額にすると YY 円程度が目安になります」と、その場で根拠のある数字を示すことができます。この応答の速さは、施主や元請からの信頼に直結します。</p>
+                    <p>また、設計検討のプロセスそのものを変える力も持っています。たとえば、A 案（柱スパン 8m）と B 案（柱スパン 10m）で迷っているとしましょう。従来であれば、両方の案で構造検討と見積もりを依頼する必要があり、比較するだけでも大変な時間と手間がかかりました。しかし、手元で先行積算ができれば、「B 案にするとトン数が約 15% 増え、コストもこれくらい上がりますね。費用対効果を考えると A 案が有利かもしれません」といった、より具体的でスピーディな検討が可能になります。</p>
+                    <p>ファブへの見積もり依頼も、より的確になります。事前に規模感を把握しているため、無理なコスト交渉を仕掛けることもなく、現実的な予算ラインを伝えられます。これは、結果としてファブとの良好な関係構築にも繋がるはずです。</p>
+                    <p>鉄骨工事の時間との戦いにおいて、設計者が情報戦で優位に立つ。Archelier の鉄骨機能と積算機能が、その判断材料を作る道具になればと思って開発しました。ファブからの回答を待つだけではなく、設計者が自ら動いてプロジェクトを前に進める。そういう設計のあり方を、私は応援したいと考えています。</p>
+
+                    <p>Archelier の鉄骨・積算機能の詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
