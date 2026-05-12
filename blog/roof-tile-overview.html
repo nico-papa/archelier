@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>屋根瓦の自動配置 — Archelier 屋根機能の使い方 概要編 | Archelier Blog</title>
+    <meta name="description" content="ArchiCAD の屋根スラブから瓦・棟・ケラバ・水切りまでを自動配置する Archelier の屋根機能。対応する屋根タイプ4種・瓦タイプ5種・基本操作フロー・ダイアログ各項目の意味・配置後のパラメータ再調整を、使い方ガイドとして解説します。">
+    <link rel="canonical" href="https://archelier.jp/blog/roof-tile-overview.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="屋根瓦の自動配置 — Archelier 屋根機能の使い方 概要編">
+    <meta property="og:description" content="ArchiCAD の屋根スラブから瓦・棟・ケラバ・水切りまでを自動配置する Archelier 屋根機能の使い方ガイド 概要編。">
+    <meta property="og:url" content="https://archelier.jp/blog/roof-tile-overview.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "屋根瓦の自動配置 — Archelier 屋根機能の使い方 概要編",
+      "description": "ArchiCAD の屋根スラブから瓦・棟・ケラバ・水切りまでを自動配置する Archelier の屋根機能。対応する屋根タイプ4種・瓦タイプ5種・基本操作フロー・ダイアログ各項目の意味・配置後のパラメータ再調整を、使い方ガイドとして解説します。",
+      "datePublished": "2026-05-12",
+      "dateModified": "2026-05-12",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/roof-tile-overview.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-body-inner figure {
+            margin: 32px 0;
+        }
+        .article-body-inner figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+        }
+        .article-body-inner figcaption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-05-12">2026.05.12</time>
+                        <span class="article-tag">How to use</span>
+                    </div>
+                    <h1>屋根瓦の自動配置 — Archelier 屋根機能の使い方 概要編</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">Archelier 使い方ガイドシリーズ、第1弾へようこそ。このシリーズでは、私が開発している ArchiCAD 向けアドオン「Archelier」の具体的な使い方を、機能ごとに詳しく解説していきます。初回となる今回は、設計実務において多くの時間を費やされがちな「屋根の自動配置機能」の概要についてお話しします。基本的な操作フローから、設定ダイアログの各項目が持つ意味まで、この機能の全体像を掴んでいただくことを目的としています。</p>
+
+                    <h2>はじめに — ArchiCAD で屋根瓦をどう作っているか</h2>
+                    <p>ArchiCADで建築モデルを作成する中で、屋根の表現、特に瓦屋根のモデリングに頭を悩ませた経験はないでしょうか。私たち設計者は、意匠の検討に集中したいのに、ツールの制約によって単純な作業に時間を奪われることが少なくありません。</p>
+                    <p>例えば、ArchiCADの標準機能で瓦屋根を作ろうとすると、いくつかの方法が考えられます。カーテンウォールを傾けて瓦に見立てる、シェルやモルフで一枚一枚、あるいは面として折板のような形状を作る、といったワークアラウンドです。しかし、どの方法も一長一短があります。カーテンウォールは設定が煩雑で、瓦特有の柔らかな重なりやディテールを表現するには限界があります。シェルやモルフで自作する方法は、単純な折板ならまだしも、日本瓦のような複雑な形状をリアルに作ろうとすれば、膨大な手間と時間が必要です。</p>
+                    <p>結局、多くの場合はモルフを駆使して手作業で作り込むことになるのではないでしょうか。寄棟や切妻といったごく基本的な屋根形状でさえ、平瓦だけでなく、隅棟、大棟、ケラバ、袖瓦、軒先の水切りといった役物まで含めて正確に配置するのは、非常に骨の折れる作業です。</p>
+                    <blockquote>
+                        <p>そして、最も設計者の意欲を削ぐのが「設計変更」です。施主の一言で屋根材の種類を変えることになっただけで、それまで積み上げてきたモデリング作業がほぼ無に帰し、また一からやり直しになる。この繰り返しに、私も幾度となく悔しい思いをしてきました。</p>
+                    </blockquote>
+                    <p>設計の初期段階、あるいは中期段階において、屋根のディテール作成にこれほど多くの時間を費やすのは、本質的ではありません。この、いわば「創造性のない作業」から設計者を解放したい。それが、私が Archelier の屋根自動配置機能を開発した出発点です。Archelier は、ArchiCAD の屋根スラブ情報をもとに、瓦や役物を高速に自動配置することで、設計検討のサイクルを加速させることを目指しています。</p>
+
+                    <h2>対応する屋根タイプ4種 と 自動判定</h2>
+                    <p>Archelier の大きな特徴の一つは、ArchiCAD で作成した「屋根スラブ」の形状を解析し、それがどのような屋根タイプであるかを自動で判定する機能です。これにより、設計者がわざわざ「これは寄棟です」「これは切妻です」と指定する必要がありません。現在、以下の4種類の基本的な屋根形状に対応しています。</p>
+
+                    <h3>寄棟（Hip）</h3>
+                    <p>四方向に勾配を持つ、最も一般的な屋根形式の一つです。Archelier は4つの屋根面（プレーン）から構成される屋根スラブを「寄棟」と判定し、大棟と4本の隅棟を自動で生成します。</p>
+
+                    <h3>切妻（Gable）</h3>
+                    <p>二方向に勾配を持つ、シンプルな屋根形式です。2つの屋根面から構成される屋根スラブを「切妻」と判定し、大棟と両端のケラバを適切に処理します。</p>
+
+                    <h3>T字（T-shape）</h3>
+                    <p>二つの棟がT字型に交差する屋根形式です。Archelier は屋根面の構成と接続関係から「T字」と判定し、棟の取り合いや谷部分の処理を自動で行います。</p>
+
+                    <h3>L字（L-shape）</h3>
+                    <p>建物がL字型の場合に用いられる屋根形式です。T字とは面の接続関係が異なります。Archelier はこれも自動で判別し、入隅部分の複雑な瓦の取り合いを処理します。</p>
+
+                    <p>この自動判定は、屋根スラブを構成するポリゴンの数や接続関係、すなわち「プレーン」の情報を解析することで実現しています。このため、設計者は ArchiCAD の標準ツールで屋根スラブを作成するだけで、あとは Archelier に任せることができます。各屋根タイプにおける詳細な処理（隅棟の納まりや谷の処理など）については、非常に技術的な内容を含むため、次回の「タイプ別詳細編」で詳しく解説する予定です。</p>
+
+                    <h2>対応する瓦タイプ5種</h2>
+                    <p>Archelier では、設計の要求に応じて使い分けられるよう、5種類の屋根材タイプを用意しています。これらは単なるテクスチャではなく、すべて3D オブジェクトとして生成されるため、リアルな陰影やディテールを表現できます。</p>
+
+                    <h3>JTile（日本瓦・和瓦）</h3>
+                    <p>伝統的な和風建築で用いられる、優美な曲線を持つ瓦です。棟部分には「のし瓦」や「冠瓦」も表現でき、本格的な和風建築のモデリングに適しています。</p>
+
+                    <h3>FlatTile（平板瓦）</h3>
+                    <p>シンプルでモダンな印象を与える、平らな形状の瓦です。現代的な住宅デザインで広く採用されており、すっきりとした屋根面を表現したい場合に選択します。</p>
+
+                    <h3>HipTile（隅棟瓦・棟役物）</h3>
+                    <p>寄棟・切妻・T字・L字といった屋根タイプを判定したときに、Archelier が自動的に大棟・隅棟へ配置する棟役物のオブジェクトです。JTile / FlatTile / MetalRoof のいずれを選んだ場合でも、必要に応じて HipTile が一緒に生成され、屋根タイプごとに適切な軒先延長・大棟延長の値が自動で割り当てられます。</p>
+
+                    <h3>MetalRoof（金属屋根・ガルバリウム鋼板の縦葺き等）</h3>
+                    <p>ガルバリウム鋼板などの金属板を使った縦葺き屋根を表現します。シャープで工業的なデザインや、ミニマルな建築表現と相性が良いです。</p>
+
+                    <h3>FoldedRoof（折板屋根）</h3>
+                    <p>工場や倉庫、カーポートなどで一般的に見られる、山形に折り曲げられた金属屋根です。断面形状の高さや幅もパラメータで調整可能です。</p>
+
+                    <h2>基本操作フロー</h2>
+                    <p>Archelier の屋根配置機能の操作は、非常にシンプルです。ここでは、基本的な操作の流れをご紹介します。</p>
+
+                    <h3>1. ArchiCAD で屋根スラブを準備する</h3>
+                    <p>まず、ArchiCAD の標準ツールである「屋根ツール」を使い、配置したい屋根の形状を作成します。この時点では、まだ単なるスラブ（板）で構いません。勾配や軒の出など、基本的な形状をここで決定します。</p>
+
+                    <figure>
+                        <img src="images/roof-overview/02-1-roof-slab-before.png" alt="ArchiCAD 純正の屋根ツールで作成した寄棟スラブの 3D ビュー（Archelier で瓦を配置する前の状態）">
+                        <figcaption>図1: Archelier で瓦を配置する前。ArchiCAD の屋根ツールで作成した寄棟スラブだけの状態。</figcaption>
+                    </figure>
+
+                    <h3>2. Archelier の屋根配置メニューを起動する</h3>
+                    <p>作成した屋根スラブを 3D ビューまたは平面図ビューで選択した状態で、上部メニューから Archelier の屋根配置機能を起動します。</p>
+
+                    <h3>3. 瓦タイプを選び、パラメータを確認して実行</h3>
+                    <p>設定ダイアログが開きます。ここで、先ほど紹介した瓦タイプから目的のものを選びます。各パラメータには一般的な初期値が設定されているため、まずは何も変更せずに「OK」ボタンを押してみてください。</p>
+
+                    <figure>
+                        <img src="images/roof-overview/01-dialog-tile-select.png" alt="Archelier 平板瓦設定ダイアログ。屋根タイプの選択、瓦寸法、瓦形状、棟瓦、ケラバ、水切り、配列の各パラメータが1画面で操作できる">
+                        <figcaption>図2: Archelier の屋根配置ダイアログ（JTile を選択した状態）。<br>屋根タイプ・瓦寸法・巴瓦・ケラバなど、必要なパラメータがこの1画面に集約されている。</figcaption>
+                    </figure>
+
+                    <h3>4. 配置完了</h3>
+                    <p>実行は一瞬です。単なる板だった屋根スラブの上に、ディテール豊かな瓦屋根が 3D オブジェクトとして生成されているのが確認できるはずです。</p>
+
+                    <figure>
+                        <img src="images/roof-overview/03-hip-jtile-after.png" alt="寄棟屋根に JTile（日本瓦）を自動配置した 3D ビュー。大棟・隅棟・平瓦が一括で生成されている">
+                        <figcaption>図3: 寄棟屋根 + JTile（和瓦）の配置結果。大棟・隅棟・平瓦が一度に生成される。</figcaption>
+                    </figure>
+
+                    <p>このフローの最大の利点は、設計検討のスピードが格段に向上することです。例えば、同じ一つの屋根スラブに対して、瓦タイプを「JTile」にして実行すれば和瓦案が、「FlatTile」にすれば平板瓦案が、「MetalRoof」にすれば金属屋根案が、それぞれ即座に完成します。これにより、施主へのプレゼンテーションや所内でのデザインレビューにおいて、具体的なビジュアルを伴った複数の選択肢を迅速に比較検討することが可能になります。</p>
+
+                    <figure>
+                        <img src="images/roof-overview/04-hip-flattile-after.png" alt="同じ寄棟屋根スラブに FlatTile（平板瓦）を配置した 3D ビュー">
+                        <figcaption>図4: 同じ屋根スラブに FlatTile（平板瓦）を配置した結果。</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="images/roof-overview/05-hip-metalroof-after.png" alt="同じ寄棟屋根スラブに MetalRoof（金属屋根・縦葺き）を配置した 3D ビュー">
+                        <figcaption>図5: 同じ屋根スラブを MetalRoof（金属屋根）で葺いた結果。瓦タイプを変えるだけで、検討案を即座に切り替えられる。</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="images/roof-overview/05-1-hip-metalroof-after.png" alt="切妻屋根に FoldedRoof（折板屋根・山形パネル）を配置した 3D ビュー">
+                        <figcaption>図6: 切妻屋根に FoldedRoof（折板屋根）を配置した例。<br>瓦タイプを切り替えるだけで、住宅瓦から工業用の折板まで同じフローで配置できる。</figcaption>
+                    </figure>
+
+                    <h2>屋根スラブの輪郭でカットする — SEO カッターの仕組み</h2>
+                    <p>Archelier で屋根瓦を配置すると、寄棟や L 字型といった複雑な屋根形状でも、輪郭に沿ってきれいに瓦がカットされることにお気づきかと思います。ここでは、その内部的な仕組みについて、少しだけ種明かしをさせてください。</p>
+                    <p>実は、Archelier は最初から瓦を一枚ずつ屋根形状に合わせて生成しているわけではありません。内部では、ArchiCAD の基本機能である <strong>SEO（Solid Element Operations）</strong> を応用しています。具体的には、以下のステップで処理を行っています。</p>
+                    <ul>
+                        <li><strong>1. 瓦の仮配置:</strong> まず、屋根スラブ全体を覆うように、瓦を単純な矩形パターンで敷き詰めます。この時点では、瓦は屋根スラブの輪郭からはみ出した状態です。</li>
+                        <li><strong>2. カッターの自動生成:</strong> 次に、屋根スラブの輪郭情報をもとに、はみ出した瓦を切り取るための「見えない箱（ソリッド）」を自動で生成します。これを私は「SEO カッター」と呼んでいます。</li>
+                        <li><strong>3. 自動トリミング:</strong> 最後に、この SEO カッターを「オペレータ」、瓦群を「ターゲット」としてソリッド編集の「減算」を実行し、屋根の輪郭からはみ出した部分を正確にカットします。</li>
+                    </ul>
+                    <p>下の図は、その処理の様子を可視化したものです。</p>
+
+                    <figure>
+                        <img src="images/roof-overview/02-roof-slab-before.png" alt="透明な屋根スラブの裏側に、瓦をカットするための見えない箱（SEO カッター）が多数透けて見えている 3D ビュー">
+                        <figcaption>図7: 透明な屋根スラブの裏側に透けて見える多数の箱が、瓦を正確にカットするために自動生成された SEO カッター。</figcaption>
+                    </figure>
+
+                    <blockquote>
+                        <p>通常、これらのカッターは専用の非表示レイヤーに配置されるため、設計者の目に触れることはありません。</p>
+                    </blockquote>
+
+                    <p>この「一旦大きく配置して、後から輪郭でカットする」という仕組みは、私たち設計者にとって大きなメリットをもたらします。一つは、寄棟・切妻・T字・L字といった屋根形状を問わず、一貫した方法で正確に瓦を配置できることです。</p>
+                    <p>そしてもう一つの重要な点は、<strong>設計変更への追従性</strong>です。屋根スラブの形状や勾配を後から変更しても、ソリッド編集の関連付けは維持されます。そのため、瓦は新しい屋根形状に自動で追従し、面倒な再配置作業は一切不要になります。</p>
+
+                    <h2>ダイアログ各項目の意味</h2>
+                    <p>Archelier の真価は、詳細なパラメータ設定によるカスタマイズ性の高さにあります。この基本操作を崩さず変更ができることに重きを置き設計しました。ここでは、設定ダイアログの主要な項目がそれぞれ何を意味し、どのようにモデルに影響するのかを解説します。初期値のままでも十分に機能しますが、より意図した表現に近づけるために、これらのパラメータを理解しておくことをお勧めします。</p>
+
+                    <h3>基本寸法（桁行幅・流れ距離・勾配）</h3>
+                    <p>これらの値は、選択した ArchiCAD の屋根スラブから自動で取得される、屋根の基本的な寸法情報です。桁行幅は棟に平行な方向の長さ、流れ距離は軒先から棟までの長さ、勾配は屋根の傾きを指します。基本的にユーザーが手動で編集する必要はなく、C++ で自動取得します。</p>
+
+                    <h3>瓦寸法（瓦幅・瓦長・瓦厚・働き幅・働き長）</h3>
+                    <p>瓦一枚あたりの寸法を定義する項目です。</p>
+                    <ul>
+                        <li><strong>瓦幅・瓦長・瓦厚:</strong> 瓦全体の物理的なサイズです。</li>
+                        <li><strong>働き幅・働き長:</strong> 瓦を葺いた際に、隣接する瓦との重なり部分を除いた、実際に表面に見える部分の寸法です。屋根全体の瓦の割り付けは、この「働き寸法」を基準に行われます。使用する瓦メーカーの製品カタログなどに記載されている値を入力することで、より現実に近いモデリングが可能になります。</li>
+                    </ul>
+
+                    <h3>瓦形状（曲面の凹み量・反り角度・リブ高さ・リブ幅）</h3>
+                    <p>瓦の断面形状や細部のディテールを調整するパラメータです。</p>
+                    <ul>
+                        <li><strong>曲面の凹み量:</strong> JTile（日本瓦）の表面に見られる波形の深さを調整します。値を大きくすると、瓦一枚あたりのカーブが強調され、より重厚な和瓦の表情になります。</li>
+                        <li><strong>反り角度:</strong> JTile（日本瓦）などで、瓦の軒先側の反りを表現します。角度を大きくすると、より優美な曲線を描きます。</li>
+                        <li><strong>リブ高さ・リブ幅:</strong> FlatTile（平板瓦）の表面に立ち上がる縦リブの寸法を定義します。瓦の意匠性を左右する細部で、メーカーや製品ごとに異なる平板瓦の表情を再現できます。</li>
+                    </ul>
+
+                    <h3>棟瓦（表示有無・かぶり長・棟瓦厚）</h3>
+                    <p>屋根の頂部である大棟や隅棟に関する設定です。</p>
+                    <ul>
+                        <li><strong>表示有無:</strong> 棟瓦を生成するかどうかを切り替えます。</li>
+                        <li><strong>かぶり長:</strong> 棟瓦が平瓦にどれだけ被さるかの長さを調整します。</li>
+                        <li><strong>棟瓦厚:</strong> 棟瓦自体の厚みを設定します。</li>
+                    </ul>
+
+                    <h3>ケラバ（表示有無・垂れ高さ）</h3>
+                    <p>切妻屋根の端部（妻側）の処理を定義します。</p>
+                    <ul>
+                        <li><strong>表示有無:</strong> ケラバ役物（袖瓦など）を生成するかどうかを切り替えます。</li>
+                        <li><strong>垂れ高さ:</strong> ケラバ役物が屋根面からどれだけ垂れ下がるかを設定します。</li>
+                    </ul>
+
+                    <h3>唐草（表示有無・立上げ高・かぶり長）</h3>
+                    <p>軒先やケラバの端部に設置される板金部材（唐草）の表現をコントロールします。</p>
+                    <ul>
+                        <li><strong>表示有無:</strong> 唐草を生成するかどうかを切り替えます。</li>
+                        <li><strong>立上げ高・かぶり長:</strong> 唐草の断面形状に関する寸法です。</li>
+                    </ul>
+
+                    <h3>配列（自動瓦割り・千鳥配置・軒先延長）</h3>
+                    <p>瓦全体の並べ方を制御する重要な項目です。</p>
+                    <ul>
+                        <li><strong>自動瓦割り:</strong> このチェックを入れると、屋根の寸法に合わせて働き幅を自動で微調整し、半端な瓦が出ないようにきれいに割り付けてくれます。</li>
+                        <li><strong>千鳥配置:</strong> FlatTile（平板瓦）などで、上下の列の瓦を半分ずつずらして配置する「千鳥葺き」を再現します。</li>
+                        <li><strong>軒先延長:</strong> 軒先部分の出寸法を調整します。MetalRoof（金属屋根）と FoldedRoof（折板屋根）でのみ有効なパラメータです。</li>
+                    </ul>
+                    <p>これらのパラメータを組み合わせることで、一般的な住宅の屋根から特殊な納まりまで、幅広い表現に対応することができます。</p>
+
+                    <h2>配置後のパラメータ再調整</h2>
+                    <p>Archelier の便利な点は、一度屋根を配置した後でも、パラメータを後から再調整できることです。</p>
+                    <p>配置後に生成された瓦屋根オブジェクトを選択し、ArchiCAD 標準の「選択したオブジェクトの設定」パネルを開いてみてください。すると、Archelier の専用パラメータが「カスタム設定」として表示され、後から値を変更することができます。</p>
+
+                    <figure>
+                        <img src="images/roof-overview/06-param-dialog.png" alt="ArchiCAD 標準の「選択したオブジェクトの設定」パネル。HipTile（隅棟瓦）の瓦寸法・棟瓦形状・のし瓦・巴瓦などのパラメータがカスタム設定として表示されている">
+                        <figcaption>図8: 配置後の HipTile を選択して開いた「選択したオブジェクトの設定」パネル。瓦寸法・棟瓦形状・のし瓦・巴瓦の各パラメータを後から編集できる。</figcaption>
+                    </figure>
+
+                    <p>ここで調整できるのは、たとえば次のような項目です。</p>
+                    <ul>
+                        <li><strong>軒端（水下）延長 / 棟端（水上）延長:</strong> 棟瓦の葺き始めと葺き終わりの位置を微調整します。</li>
+                        <li><strong>のし段数:</strong> 棟に積み上げる「のし瓦」の段数を変更できます。段数を増やすことで、より重厚な印象の棟を表現できます。</li>
+                        <li><strong>冠瓦表示:</strong> 棟の最上部に載せる「冠瓦」の表示/非表示を切り替えます。</li>
+                        <li><strong>巴瓦表示:</strong> 隅棟や大棟の端部に取り付ける「巴瓦」の表示/非表示を切り替えます。</li>
+                    </ul>
+
+                    <figure>
+                        <img src="images/roof-overview/07-custom-settings.png" alt="平面図ビューで配置済みの瓦屋根オブジェクトを選択し、カスタム設定パネルを操作している様子">
+                        <figcaption>図9: 配置済みの瓦オブジェクトを選択してカスタム設定を開いた状態。値を変更すると、3D ビューに即座に反映される。</figcaption>
+                    </figure>
+
+                    <p>これらの変更は、ダイアログの値を変えると即座に 3D ビューに反映されます。屋根全体を再生成する必要はありません。「のし瓦は3段にしてみようか」「やはり5段の方が風格が出るか」といった細部のデザイン検討を、ストレスなくインタラクティブに行うことができます。</p>
+
+                    <blockquote>
+                        <p>一度配置したら終わり、ではなく、配置後も継続的にモデルを修正できる柔軟性。これも、私が設計ツールに求める重要な要素であり、Archelier に実装したかった機能の一つです。</p>
+                    </blockquote>
+
+                    <h2>次回予告 — タイプ別詳細編</h2>
+                    <p>今回は、Archelier の屋根自動配置機能の概要として、基本的な考え方、対応タイプ、そして操作フローについて解説しました。この記事を通して、この機能がどのような思想で開発され、設計者のどのような課題を解決しようとしているのか、その一端を感じていただけたなら幸いです。</p>
+                    <p>しかし、Archelier の屋根機能の真価は、寄棟やT字、L字といった複雑な形状に対して、どのように賢く瓦を配置し、部材の取り合いを処理するか、という部分にあります。次回「使い方ガイドシリーズ第2弾：屋根配置 タイプ別詳細編」では、今回触れられなかった、より技術的で実践的な内容に踏み込んでいきます。</p>
+                    <ul>
+                        <li>寄棟の隅棟はどのように自動配置されるのか — HipTile の分岐処理</li>
+                        <li>切妻屋根における大棟表示制御の挙動</li>
+                        <li>T字屋根の谷部分・突き出し部の自動処理</li>
+                        <li>L字屋根の入隅で発生するスライバー形状の自動除去と、大棟の延長処理</li>
+                    </ul>
+                    <p>これら、各屋根タイプに特化した処理について、詳しく解説していく予定です。</p>
+                    <p>Archelier の屋根機能の詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
