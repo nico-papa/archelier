@@ -67,8 +67,15 @@ gsap.utils.toArray('.reveal-image').forEach(elem => {
         document.body.style.overflow = 'hidden';
         if (video) {
             try { video.currentTime = 0; } catch (_) {}
+            video.muted = false;
             const p = video.play();
-            if (p && typeof p.catch === 'function') p.catch(() => {});
+            if (p && typeof p.catch === 'function') {
+                // 音ありで autoplay 失敗したらミュートで再生 → ユーザーが手動で音量調整
+                p.catch(() => {
+                    video.muted = true;
+                    video.play().catch(() => {});
+                });
+            }
         }
     }
 
