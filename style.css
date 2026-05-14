@@ -267,12 +267,100 @@ a {
     justify-content: center;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.comparison-mockup:hover,
+.comparison-mockup:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 56px rgba(0,0,0,0.14);
+    outline: none;
 }
 
 .mockup-label {
     font-weight: 500;
     color: var(--accent-color);
     letter-spacing: 0.1em;
+}
+
+.mockup-play-icon {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.72);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    padding-left: 6px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.comparison-mockup:hover .mockup-play-icon,
+.comparison-mockup:focus-visible .mockup-play-icon {
+    background: rgba(0,0,0,0.92);
+    transform: scale(1.08);
+}
+
+/* Video Modal */
+.video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh 4vw;
+}
+
+.video-modal.active {
+    display: flex;
+}
+
+.video-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.86);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    cursor: pointer;
+}
+
+.video-modal-content {
+    position: relative;
+    max-width: min(92vw, 1280px);
+    width: 100%;
+}
+
+.video-modal-content video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+}
+
+.video-modal-close {
+    position: absolute;
+    top: -44px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2.2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 12px;
+    font-family: inherit;
+}
+
+.video-modal-close:hover {
+    opacity: 0.7;
 }
 
 /* Features (取扱説明書レベルの詳細カード) */
@@ -518,6 +606,8 @@ a {
     .tech-container { flex-direction: column; gap: 40px; }
     .tech-subtitle { font-size: 1.15rem; }
     .comparison-mockup { height: 240px; }
+    .mockup-play-icon { width: 48px; height: 48px; font-size: 1.1rem; bottom: 18px; right: 18px; }
+    .video-modal-close { top: -36px; font-size: 1.8rem; }
 
     /* About */
     .about-content { flex-direction: column; gap: 32px; align-items: stretch; }
