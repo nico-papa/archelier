@@ -61,8 +61,9 @@
                     <p class="reveal-text">Archelierは ArchiCAD SDK を活用した純正アドオンとして動作します。プラグインの様な後付けではなく、ArchiCADの内部機能と直結。<br>選択した部材から自動で寸法・角度・接合点を計算し、ミリ単位の精度で部材を配置・編集します。</p>
                 </div>
                 <div class="tech-visual reveal-image">
-                    <div class="comparison-mockup">
+                    <div class="comparison-mockup" id="demoTrigger" role="button" tabindex="0" aria-label="デモ動画を再生">
                         <div class="mockup-label">ArchiCAD × Archelier</div>
+                        <div class="mockup-play-icon" aria-hidden="true">▶</div>
                     </div>
                 </div>
             </div>
@@ -201,6 +202,19 @@
             </p>
         </div>
     </footer>
+
+    <!-- Demo Video Modal -->
+    <div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Archelier デモ動画">
+        <div class="video-modal-backdrop"></div>
+        <div class="video-modal-content">
+            <button class="video-modal-close" aria-label="閉じる">×</button>
+            <video id="demoVideo" loop muted playsinline preload="metadata"
+                   poster="videos/archelier-demo-poster.jpg">
+                <source src="videos/archelier-demo.mp4" type="video/mp4">
+                お使いのブラウザは動画再生に対応していません。
+            </video>
+        </div>
+    </div>
 
     <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
