@@ -51,91 +51,180 @@
             padding: 80px 24px 120px;
             background: #fff;
         }
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 32px;
+
+        /* ── 特別カード（Why Archelier） ── */
+        .blog-featured {
             max-width: 1100px;
-            margin: 0 auto;
+            margin: 0 auto 96px;
         }
-        .blog-card {
-            display: block;
+        .blog-featured-label {
+            text-align: center;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: #8B5E3C;
+            margin-bottom: 20px;
+        }
+        .blog-featured-card {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
             text-decoration: none;
             color: inherit;
             background: #fff;
-            border: 1px solid #ECECEC;
+            border: 1px solid #C8956A;
             border-radius: 4px;
             overflow: hidden;
+            box-shadow: 0 4px 16px rgba(139,94,60,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .blog-card:hover {
+        .blog-featured-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            box-shadow: 0 16px 40px rgba(139,94,60,0.18);
         }
-        .blog-card-thumb {
-            aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #6B7E96 0%, #95A8BC 100%);
+        .blog-featured-thumb {
+            aspect-ratio: auto;
+            background: linear-gradient(135deg, #8B5E3C 0%, #C8956A 100%);
             color: #fff;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            font-weight: 500;
             text-align: center;
-            padding: 1rem;
-            letter-spacing: 0.05em;
+            padding: 3rem 2rem;
         }
-        .blog-card-body {
-            padding: 24px;
+        .blog-featured-thumb-sub {
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            opacity: 0.85;
+            margin-bottom: 18px;
         }
-        .blog-card-meta {
+        .blog-featured-thumb-main {
+            font-size: 1.35rem;
+            font-weight: 500;
+            line-height: 1.65;
+            letter-spacing: 0.04em;
+        }
+        .blog-featured-body {
+            padding: 40px 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .blog-featured-meta {
             display: flex;
             gap: 12px;
             font-size: 0.8rem;
             color: #666;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
-        .blog-card-tag {
-            background: #FAFAFA;
-            border: 1px solid #ECECEC;
+        .blog-featured-tag {
+            background: #FAF5EE;
+            border: 1px solid #C8956A;
             padding: 2px 10px;
             border-radius: 999px;
-            color: #2A2A2A;
+            color: #8B5E3C;
         }
-        .blog-card h2 {
-            font-size: 1.05rem;
+        .blog-featured-body h2 {
+            font-size: 1.25rem;
             font-weight: 500;
-            line-height: 1.6;
-            margin-bottom: 12px;
+            line-height: 1.7;
+            margin-bottom: 16px;
             color: var(--text-color);
         }
-        .blog-card p {
-            font-size: 0.85rem;
+        .blog-featured-body p {
+            font-size: 0.92rem;
             color: #2A2A2A;
-            line-height: 1.7;
-            margin-bottom: 12px;
+            line-height: 1.95;
+            margin-bottom: 20px;
         }
-        .blog-card-read {
-            font-size: 0.85rem;
-            color: var(--accent-color);
+        .blog-featured-read {
+            font-size: 0.9rem;
+            color: #8B5E3C;
             font-weight: 500;
         }
-        .blog-empty {
-            text-align: center;
-            padding: 80px 24px;
-            max-width: 600px;
+
+        /* ── カテゴリ別 説明記事リスト ── */
+        .blog-categories-wrap {
+            max-width: 1100px;
             margin: 0 auto;
         }
-        .blog-empty h2 {
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-            color: var(--text-color);
+        .blog-categories-title {
+            text-align: center;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--accent-color);
+            margin-bottom: 48px;
         }
-        .blog-empty p {
-            font-size: 1rem;
-            color: #2A2A2A;
-            line-height: 1.9;
+        .blog-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 56px;
+        }
+        .blog-category h3 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-color);
+            padding-bottom: 14px;
+            margin-bottom: 8px;
+            border-bottom: 2px solid var(--accent-color);
+            letter-spacing: 0.02em;
+        }
+        .blog-category h3 .blog-category-sub {
+            display: block;
+            font-size: 0.7rem;
+            color: #888;
+            letter-spacing: 0.15em;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+        .blog-category ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .blog-category li {
+            border-bottom: 1px solid #F0F0F0;
+        }
+        .blog-category li:last-child {
+            border-bottom: none;
+        }
+        .blog-category a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            padding: 18px 4px;
+            transition: padding 0.2s ease, color 0.2s ease;
+        }
+        .blog-category a:hover {
+            padding-left: 12px;
+            color: var(--accent-color);
+        }
+        .blog-category-date {
+            font-size: 0.72rem;
+            color: #888;
+            margin-bottom: 6px;
+            display: block;
+            letter-spacing: 0.05em;
+        }
+        .blog-category-title {
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+        .blog-category-arrow {
+            color: var(--accent-color);
+            margin-left: 6px;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .blog-featured-card {
+                grid-template-columns: 1fr;
+            }
+            .blog-featured-body {
+                padding: 28px 24px;
+            }
+            .blog-categories {
+                gap: 40px;
+            }
         }
     </style>
 </head>
@@ -173,68 +262,81 @@
             <div class="container">
                 <!-- ▼ 記事を追加する時は、このコメントの下に <a class="blog-card"> を追加します ▼ -->
                 <!-- POSTS:START -->
-                <div class="blog-grid">
-                    <a class="blog-card" href="jtile-guide.html">
-                        <div class="blog-card-thumb">日本瓦 JTile<br>主要パラメータ解説</div>
-                        <div class="blog-card-body">
-                            <div class="blog-card-meta">
-                                <time datetime="2026-05-18">2026.05.18</time>
-                                <span class="blog-card-tag">How to use</span>
-                            </div>
-                            <h2>日本瓦の自動配置 — JTile で押さえる主要パラメータ</h2>
-                            <p>瓦タイプ別 使い方ガイド第3弾。和瓦（JTile）の曲面の凹み量・瓦角度・リブ・巴瓦・軒先折り曲げ・隅巴といった主要パラメータと、棟役物 HipTile との役割分担を、設計実務目線で解説します。</p>
-                            <span class="blog-card-read">Read more →</span>
+
+                <!-- ▼ 特別カード：開発理由（Why Archelier） ▼ -->
+                <div class="blog-featured">
+                    <div class="blog-featured-label">― WHY ARCHELIER ―</div>
+                    <a class="blog-featured-card" href="why-archelier.html">
+                        <div class="blog-featured-thumb">
+                            <div class="blog-featured-thumb-sub">開発者から</div>
+                            <div class="blog-featured-thumb-main">ArchiCAD は<br>本当に便利か？</div>
                         </div>
-                    </a>
-                    <a class="blog-card" href="flattile-guide.html">
-                        <div class="blog-card-thumb">平板瓦 FlatTile<br>5つのパラメータ</div>
-                        <div class="blog-card-body">
-                            <div class="blog-card-meta">
-                                <time datetime="2026-05-14">2026.05.14</time>
-                                <span class="blog-card-tag">How to use</span>
-                            </div>
-                            <h2>平板瓦の自動配置 — FlatTile で押さえる5つのパラメータ</h2>
-                            <p>瓦タイプ別 使い方ガイド第2弾。現代住宅で最も普及している平板瓦（FlatTile）を、瓦 全幅／瓦 全長、働き幅／働き長さ、自動瓦割り、千鳥配置、棟の幅という 5 つの基本パラメータを軸に、設計実務目線で解説します。</p>
-                            <span class="blog-card-read">Read more →</span>
-                        </div>
-                    </a>
-                    <a class="blog-card" href="roof-tile-overview.html">
-                        <div class="blog-card-thumb">屋根瓦の自動配置<br>使い方ガイド 概要編</div>
-                        <div class="blog-card-body">
-                            <div class="blog-card-meta">
-                                <time datetime="2026-05-12">2026.05.12</time>
-                                <span class="blog-card-tag">How to use</span>
-                            </div>
-                            <h2>屋根瓦の自動配置 — Archelier 屋根機能の使い方 概要編</h2>
-                            <p>ArchiCAD の屋根スラブから瓦・棟・ケラバ・水切りまでを自動配置する Archelier 屋根機能。対応する屋根タイプ4種・瓦タイプ5種・基本操作フロー・ダイアログ各項目の意味・配置後のパラメータ再調整まで、使い方ガイドの第1弾としてお届けします。</p>
-                            <span class="blog-card-read">Read more →</span>
-                        </div>
-                    </a>
-                    <a class="blog-card" href="in-house-steel-estimate.html">
-                        <div class="blog-card-thumb">鉄骨工事は時間との戦い<br>社内先行積算という選択肢</div>
-                        <div class="blog-card-body">
-                            <div class="blog-card-meta">
-                                <time datetime="2026-05-10">2026.05.10</time>
-                                <span class="blog-card-tag">Estimate</span>
-                            </div>
-                            <h2>鉄骨工事は時間との戦い — Archelier で社内先行積算という選択肢</h2>
-                            <p>企画から施工までが短い鉄骨工事。鉄骨加工会社への回答を待つ間も、設計者が「概算トン数すら答えられない」状況をどう変えるか。JIS規格表ベースで、ファブに出す前に社内で積算を先回りするという発想について。</p>
-                            <span class="blog-card-read">Read more →</span>
-                        </div>
-                    </a>
-                    <a class="blog-card" href="why-archelier.html">
-                        <div class="blog-card-thumb">ArchiCAD は本当に便利か？</div>
-                        <div class="blog-card-body">
-                            <div class="blog-card-meta">
+                        <div class="blog-featured-body">
+                            <div class="blog-featured-meta">
                                 <time datetime="2026-05-05">2026.05.05</time>
-                                <span class="blog-card-tag">Concept</span>
+                                <span class="blog-featured-tag">Concept</span>
                             </div>
                             <h2>ArchiCAD は本当に便利か？ — 自動化アドオン Archelier を開発した理由</h2>
                             <p>BIM の理想と現場のズレ、OpenBIM の本質、そして「設計者自身による拡張」という思想について、開発者が語る第1弾コンセプト記事。</p>
-                            <span class="blog-card-read">Read more →</span>
+                            <span class="blog-featured-read">続きを読む →</span>
                         </div>
                     </a>
                 </div>
+
+                <!-- ▼ カテゴリ別 説明記事 ▼ -->
+                <div class="blog-categories-wrap">
+                    <div class="blog-categories-title">― GUIDES &amp; ARTICLES ―</div>
+                    <div class="blog-categories">
+
+                        <div class="blog-category">
+                            <h3>屋根瓦の自動配置
+                                <span class="blog-category-sub">How to use</span>
+                            </h3>
+                            <ul>
+                                <li>
+                                    <a href="roof-tile-overview.html">
+                                        <span class="blog-category-date">2026.05.12</span>
+                                        <span class="blog-category-title">屋根瓦の自動配置 — Archelier 屋根機能の使い方 概要編<span class="blog-category-arrow">→</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="flattile-guide.html">
+                                        <span class="blog-category-date">2026.05.14</span>
+                                        <span class="blog-category-title">平板瓦の自動配置 — FlatTile で押さえる5つのパラメータ<span class="blog-category-arrow">→</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="jtile-guide.html">
+                                        <span class="blog-category-date">2026.05.18</span>
+                                        <span class="blog-category-title">日本瓦の自動配置 — JTile で押さえる主要パラメータ<span class="blog-category-arrow">→</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="hiptile-guide.html">
+                                        <span class="blog-category-date">2026.05.19</span>
+                                        <span class="blog-category-title">棟役物の自動配置 — HipTile で押さえる屋根タイプ別の挙動と主要パラメータ<span class="blog-category-arrow">→</span></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="blog-category">
+                            <h3>鉄骨設計の効率化
+                                <span class="blog-category-sub">Estimate</span>
+                            </h3>
+                            <ul>
+                                <li>
+                                    <a href="in-house-steel-estimate.html">
+                                        <span class="blog-category-date">2026.05.10</span>
+                                        <span class="blog-category-title">鉄骨工事は時間との戦い — Archelier で社内先行積算という選択肢<span class="blog-category-arrow">→</span></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
                 <!-- POSTS:END -->
             </div>
         </section>
