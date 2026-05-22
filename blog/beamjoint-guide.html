@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>梁継手の自動配置 — BeamJoint で押さえる5つのパラメータ | Archelier Blog</title>
+    <meta name="description" content="ArchiCAD 向けアドオン Archelier の鉄骨機能、使い方ガイド第1弾は梁継手 BeamJoint。Auto/Manual モード・H形鋼サイズ・ボルトサイズと種別・フランジ/ウェブのボルト配列・千鳥配置と片側添え板という5つの基本パラメータを軸に、H形鋼の梁継手を BIM 上で自動配置する方法を、設計実務目線で解説します。">
+    <link rel="canonical" href="https://archelier.jp/blog/beamjoint-guide.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="梁継手の自動配置 — BeamJoint で押さえる5つのパラメータ">
+    <meta property="og:description" content="Archelier 鉄骨機能 使い方ガイド 第1弾。H形鋼の梁継手（添え板＋高力ボルト接合）を、5つの基本パラメータから設計実務目線で解説します。">
+    <meta property="og:url" content="https://archelier.jp/blog/beamjoint-guide.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "梁継手の自動配置 — BeamJoint で押さえる5つのパラメータ",
+      "description": "Archelier 鉄骨機能 使い方ガイド 第1弾。H形鋼の梁継手（添え板＋高力ボルト接合）を、5つの基本パラメータから設計実務目線で解説します。",
+      "datePublished": "2026-05-22",
+      "dateModified": "2026-05-22",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/beamjoint-guide.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner code {
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.92em;
+            background: #F4F4F4;
+            color: #1A2B3C;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-body-inner figure {
+            margin: 32px 0;
+        }
+        .article-body-inner figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+        }
+        .article-body-inner figcaption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-05-22">2026.05.22</time>
+                        <span class="article-tag">How to use</span>
+                    </div>
+                    <h1>梁継手の自動配置 — BeamJoint で押さえる5つのパラメータ</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">Archelier 使い方ガイド、鉄骨設計の効率化「How to use 編」へようこそ。前回は「鉄骨工事は時間との戦い」と題し、設計の早い段階で鉄骨数量を把握するための "社内先行積算" という考え方と、Archelier がそれをどう支援するのか、という "なぜ" の部分をお話ししました。今回からは、いよいよ具体的な使い方、"How to use" に踏み込んでいきます。シリーズ第1弾は「BeamJoint（梁継手）」H形鋼の梁継手は、鉄骨造の建物で最も登場頻度の高い接合部と言っても過言ではありません。だからこそ、Archelier の鉄骨機能メニューでも一番最初に位置しています。ここをマスターすることが、鉄骨モデリング効率化の第一歩です。</p>
+
+                    <h2>BeamJoint とは — H形鋼の梁継手を3Dで表現する</h2>
+                    <p>ご存知の通り、鉄工所から現場へ搬入される鉄骨梁は、輸送可能な長さ（通常10m前後）で分割されています。現場でこれらを一本の長い梁としてつなぎ合わせるのが「梁継手」の役割です。一般的には、部材同士を突き合わせ、添え板（スプライスプレート）を当てがい、高力ボルトで締め付けて接合します。</p>
+                    <p>Archelier の BeamJoint は、この梁継手を構成する部品群を3Dオブジェクトとして生成する機能です。具体的には、以下の部品を一括で表現します。</p>
+                    <ul>
+                        <li>フランジ外側添え板（上下各1枚）</li>
+                        <li>フランジ内側添え板（上下各1枚・オプション）</li>
+                        <li>ウェブ添え板（両面各1枚）</li>
+                        <li>高力ボルト（ナット・ワッシャー・軸・頭を含む）</li>
+                    </ul>
+                    <p>これらの部品は、施工図レベルの詳細度を持っています。BeamJoint の目的は、こうした詳細な表現を、普段私たちが使っている意匠BIM（ArchiCAD）のモデルの中で、手軽に扱えるレベルまで持ち込むことにあります。正確な形状を3Dで表現することで、干渉チェックの精度が上がり、そして後段の積算にも繋がっていきます。</p>
+
+                    <h2>配置の基本フロー</h2>
+                    <p>BeamJoint の配置は非常に直感的です。基本的な流れは以下の通りです。</p>
+                    <ol>
+                        <li>ArchiCAD 標準の「梁ツール」で、断面形状がH形鋼の梁を配置します。</li>
+                        <li>Archelier パレットから「梁継手配置」メニューを起動します。</li>
+                        <li>配置したい ArchiCAD の梁を選択した状態でメニューを起動すると、BeamJoint はその梁からH形鋼のサイズ（せい、幅、各部厚み）と配置位置、角度を自動で取得します。</li>
+                    </ol>
+                    <p>配置の基準点は、継手の中心（突き合わせ面）になります。梁の端部に配置したい場合は、梁の端点にスナップさせれば問題ありません。この操作感に慣れると、驚くほどスピーディに継手を配置できるようになるはずです。</p>
+                    <p>また、BeamJoint には梁の情報を自動で取得する「Auto モード」と、すべての値を手入力する「Manual モード」があります。この切り替えも非常に簡単で、詳細は次のパラメータ解説で触れていきます。</p>
+
+                    <h2>BeamJoint で押さえる5つのパラメータ</h2>
+                    <p>BeamJoint は多くのパラメータを持っていますが、実務で主に使用するのはごく一部です。ここでは、基本となる5つのパラメータグループに絞って解説します。これさえ押さえれば、ほとんどの梁継手は表現できるはずです。</p>
+
+                    <h3>1. 配置モード（Auto / Manual）</h3>
+                    <p>BeamJoint の最も特徴的な機能が、この配置モードの自動切り替えです。</p>
+                    <p>Auto モードは、ArchiCAD の梁を選択した状態で BeamJoint を起動した際のモードです。選択された梁の断面形状から、せい・フランジ幅・フランジ厚・ウェブ厚の数値を自動で読み取ります。さらに、配置位置や梁の回転角度も追従するため、設計者はH形鋼のサイズをいちいちダイアログに入力する必要がありません。これが Archelier 独自の操作系であり、設計者の手間を最小限に抑えるための最大の工夫です。</p>
+                    <p>一方、Manual モードは、何も選択していない状態（いわば空中で）BeamJoint を起動した際のモードです。この場合、ダイアログに表示される数値はすべてデフォルト値となり、設計者が手動でH形鋼のサイズや配置座標、角度を入力して配置します。このモードは、まだ ArchiCAD で梁を描く前の検討段階で継手単体の形状を確認したり、標準ディテール集のようなものを作成したりする際に役立ちます。</p>
+                    <p>このように、「梁を選択しているか、していないか」だけでモードが自然に切り替わるため、設計者はモードの存在を意識することなく、状況に応じて最適な方法で継手を配置できます。</p>
+
+                    <h3>2. H形鋼サイズ — せい・幅・フランジ厚・ウェブ厚</h3>
+                    <p>継手がどのサイズのH形鋼に取り付くかを定義する、最も基本的なパラメータ群です。せい（梁の高さ）、幅（フランジ幅）、フランジ厚、ウェブ厚 の4つを mm 単位で指定します。</p>
+                    <p>デフォルトでは、中小規模の鉄骨造で最も標準的な大梁サイズの一つである「H-400×200×8×13」が設定されています。Auto モードではここの数値が ArchiCAD の梁から自動入力されますが、Manual モードでは自由に変更可能です。例えば、より大きなスパンを飛ばす大梁であれば「H-500×200×10×16」に、あるいは小梁であれば「H-300×150×6.5×9」といった具合に、設計に合わせて値を設定します。</p>
+                    <p>ここで重要なのは、H形鋼のサイズを変更すると、それに合わせてボルトの端あき寸法やピッチが標準的な納まりに基づいて自動的に再計算され、添え板のサイズも追従して変化する点です。設計者はH形鋼のサイズを指定するだけで、整合性のとれた継手形状が即座に得られます。</p>
+
+                    <h3>3. ボルトサイズと種別</h3>
+                    <p>継手の性能を決定づける高力ボルトの仕様を設定します。ボルトサイズは呼び径 M16 / M20 / M22 の3種類から選択（デフォルトは M20）。ボルト種別は、一般的な六角高力ボルトか、トルシア形高力ボルトかを切り替えます。</p>
+                    <p>ボルトサイズを変更すると、それに応じてナットやワッシャーのサイズ、そしてボルト配置に必要となる「標準の端あき寸法」が自動で切り替わります。これにより、設計者はボルト径を変えるだけで、規格に合った正確なディテールを維持できます。</p>
+                    <p>実務上の目安としては、一般的な大梁には M20、小梁には M16、特に大きな荷重がかかる箇所や重量鉄骨では M22 が使われることが多いでしょう。構造設計図書の特記仕様書を確認し、適切なサイズを選択してください。</p>
+
+                    <h3>4. フランジ／ウェブのボルト配列</h3>
+                    <p>ボルトをどのように配置するかを決定するパラメータ群です。フランジ側とウェブ側で、それぞれ独立して以下の4つの値を指定します。</p>
+                    <ul>
+                        <li>列数：フランジ側は梁の長さ方向、ウェブ側は梁せい方向に並ぶボルトの数。</li>
+                        <li>行数：フランジ側は梁幅方向、ウェブ側は梁の長さ方向に並ぶボルトの数。</li>
+                        <li>ピッチ：列方向のボルト間隔（mm）。</li>
+                        <li>ゲージ：行方向のボルト間隔（mm）。</li>
+                    </ul>
+                    <p>デフォルトでは、フランジが4列×2行・ピッチ60mm・ゲージ80mm という、これも中規模建物の標準的な構成になっています。各社で決まっている寸法があれば、変更して入力してください。構造設計者から「フランジボルトは6本×2列、ウェブは4本×2列で」といった指示があった場合、設計者は列数・行数の数値を変えるだけで、意図した通りのボルト配列を即座にモデル化できます。</p>
+                    <p>そして、ここでも重要なのが、ボルトの配列（列数・行数・ピッチ・ゲージ）を変更すると、すべてのボルトを適切に収めるために添え板の寸法が自動で拡大・縮小される点です。設計者が添え板のサイズを別途計算・入力する必要は一切ありません。</p>
+
+                    <h3>5. 千鳥配置と片側添え板</h3>
+                    <p>最後に、少し特殊な納まりに対応するためのオプションパラメータです。</p>
+                    <p>千鳥配置を有効にすると、通常のグリッド配置から、ボルトを千鳥に並べる配置へと切り替わります。ボルト孔による断面欠損を考慮し、応力伝達を有利にするために採用されることがあります。千鳥配置を選択すると、添え板の寸法も自動的に拡大して調整されます。</p>
+                    <p>添え板の配置面は、デフォルトではフランジの外側と内側の両面に添え板を配置する「両面挟み」が選ばれますが、外側のみに配置する「片側添え板」にも切り替えられます。他の部材との取り合いなど、現場の納まりに応じて、施工性を重視して片側挟みを選択するケースで利用します。</p>
+                    <p>これらのパラメータを組み合わせることで、基本的な梁継手から少し特殊なディテールまで、幅広く対応することが可能です。</p>
+
+                    <h2>勾配梁にも対応</h2>
+                    <p>BeamJoint は、水平な梁だけでなく、屋根などを支える勾配梁にも対応しています。</p>
+                    <p>Auto モードでは、前のセクションでも触れた通り、選択した ArchiCAD の梁から H形鋼のサイズだけでなく梁の傾きも自動で読み取ります。継手を構成するすべての部品が一体となって、梁の勾配に追従して回転するため、設計者が勾配角度を別途入力する必要はありません。Manual モードで継手単体を扱う場合のみ、勾配角度のパラメータに梁の勾配（単位：度）を入力すれば同じ姿勢で配置できます。</p>
+                    <p>これにより、複雑な形状になりがちな勾配屋根のフレームや、トラス構造の継手部分なども、標準の BeamJoint オブジェクトを使って正確にモデリングすることが可能です。</p>
+                    <p>なお、梁の長手方向の軸まわりに回転する「転び」には対応していません。実務上、大梁が転んだ姿勢で配置されることはほとんどないため、現バージョンでは想定外としています。</p>
+
+                    <h2>GussetPlate・Brace との連携</h2>
+                    <p>Archelier の鉄骨機能は、メニューの並び順にも意図があります。BeamJoint の次には GussetPlate（ガセットプレート）、そして Brace（ブレース）と続きます。これは、「梁継手 → 柱梁接合 → ブレース」という、鉄骨ラーメン構造およびブレース構造を構成する主要な接合部を、順番にモデリングしていけるように設計されているからです。</p>
+                    <p>今回ご紹介した BeamJoint のパラメータ設計思想（例えば、母材のサイズを入力すると関連部品が自動調整される、といった考え方）は、後続の GussetPlate や Brace にも共通して採用されています。つまり、一度 BeamJoint の使い方に慣れてしまえば、他の鉄骨オブジェクトも非常にスムーズに使いこなせるようになります。</p>
+
+                    <h2>設計変更への追従性</h2>
+                    <p>建築設計に設計変更はつきものです。特に構造設計者からの「やっぱりここの梁は H-400 ではなく H-450 にサイズアップしてほしい」あるいは「ボルトを M20 から M22 に変更したい」といった指示は、実務では日常茶飯事です。従来の2D CADでの作業であれば、こうした変更のたびに添え板のサイズを計算し直し、ボルト位置をすべて描き直すという、地道で時間のかかる作業が発生していました。</p>
+                    <p>Archelier の BeamJoint なら、変更への追従はスムーズです。ただし、変更の種類によって手順が少しだけ変わります。</p>
+                    <p>ボルトの本数やサイズ、添え板の構成といった継手内部の変更であれば、配置済みの BeamJoint オブジェクトを選択し、設定ダイアログから該当のパラメータを変えるだけで対応できます。添え板やボルトの形状はその場で再計算され、モデルに反映されます。</p>
+                    <p>一方、母材の H形鋼サイズそのものを変更する場合（H-400 から H-450 へのサイズアップなど）は、配置済みの BeamJoint をいったん削除してから ArchiCAD の梁を新しいサイズに置き換え、その梁を選択して BeamJoint を配置し直すのが確実です。Auto モードで Archelier 本体が新しい梁の断面情報を一から拾い直すため、母材と継手の整合性が確実に取れます。配置自体は梁を選択して継手位置をクリックするだけなので、入れ直しの手間そのものは数秒で完了します。</p>
+                    <p>いずれの方法でも、手描き図面や2D CADでのコピペ修正と比べれば、作業時間は大きく圧縮されます。</p>
+
+                    <h2>集計機能との連動</h2>
+                    <p>そして最後に、前回お話しした「社内先行積算」との繋がりです。Archelier の積算機能は、この BeamJoint によって配置された部品をすべて集計の対象とします。</p>
+                    <p>つまり、皆さんが BIM モデル上に BeamJoint を配置するだけで、その継手を構成する添え板の枚数・寸法・重量、そして高力ボルトのサイズごとの本数が、裏側で自動的にリストアップされていきます。設計を進めながら、鉄骨のファブリケーターに見積もりを依頼するよりも早い段階で、非常に精度の高い鉄骨数量を社内で把握することが可能になるのです。「描いたものが、そのまま数えられる」という BIM 本来の価値が、ここで実現します。</p>
+
+                    <h2>次回予告 — GussetPlate（ガセットプレート）編</h2>
+                    <p>今回は、鉄骨機能の入り口である BeamJoint をご紹介しました。まずはこのオブジェクトに慣れ親しんでみてください。</p>
+                    <p>次回は、シリーズ第2弾として、柱と梁が交差する「柱梁接合部」を表現する GussetPlate（ガセットプレート）の使い方を解説します。Y字形や十字形の仕口、両面挟み込みといった、BeamJoint よりもさらに一歩踏み込んだ詳細表現の世界にご案内する予定です。どうぞご期待ください。</p>
+                    <p>Archelier の鉄骨機能の詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
