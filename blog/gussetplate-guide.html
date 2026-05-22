@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ガセットプレートの自動配置 — GussetPlate で押さえる5つのパラメータ | Archelier Blog</title>
+    <meta name="description" content="ArchiCAD 向けアドオン Archelier の鉄骨機能、使い方ガイド第2弾はガセットプレート GussetPlate。片面 / 両面挟み込みの接合形式、プレート形状、ボルト配列、勾配対応、L形（スチフナー付き）という5つの基本パラメータを軸に、大梁と小梁の柱梁接合部を BIM 上で自動配置する方法を、設計実務目線で解説します。">
+    <link rel="canonical" href="https://archelier.jp/blog/gussetplate-guide.html">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../images/icon-512.png">
+    <meta name="theme-color" content="#5A6F85">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ガセットプレートの自動配置 — GussetPlate で押さえる5つのパラメータ">
+    <meta property="og:description" content="Archelier 鉄骨機能 使い方ガイド 第2弾。大梁と小梁の柱梁接合部（ガセットプレート＋高力ボルト）を、5つの基本パラメータから設計実務目線で解説します。">
+    <meta property="og:url" content="https://archelier.jp/blog/gussetplate-guide.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "ガセットプレートの自動配置 — GussetPlate で押さえる5つのパラメータ",
+      "description": "Archelier 鉄骨機能 使い方ガイド 第2弾。大梁と小梁の柱梁接合部（ガセットプレート＋高力ボルト）を、5つの基本パラメータから設計実務目線で解説します。",
+      "datePublished": "2026-05-23",
+      "dateModified": "2026-05-23",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/gussetplate-guide.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner code {
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.92em;
+            background: #F4F4F4;
+            color: #1A2B3C;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-body-inner figure {
+            margin: 32px 0;
+        }
+        .article-body-inner figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+        }
+        .article-body-inner figcaption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-05-23">2026.05.23</time>
+                        <span class="article-tag">How to use</span>
+                    </div>
+                    <h1>ガセットプレートの自動配置 — GussetPlate で押さえる5つのパラメータ</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">Archelier 鉄骨機能の使い方ガイド、How to use 編の第2弾です。前回解説した BeamJoint（梁継手）に続き、今回は柱と梁が交差する「柱梁接合部」を表現する GussetPlate の使い方を解説します。Y字形や十字形の仕口、両面挟み込みといった、より複雑なディテール表現の世界へご案内します。一見すると複雑に見えるガセットプレート周りのモデリングも、GussetPlate が備える5つの主要なパラメータを理解すれば、驚くほど直感的に、そして正確に作成できます。</p>
+
+                    <h2>GussetPlate とは — 大梁と小梁の接合部を3Dで表現する</h2>
+                    <p>GussetPlate は、鉄骨構造における大梁と小梁の接合部（仕口）に配置されるガセットプレートと高力ボルトを、パラメトリックに自動生成するアドオンです。前回の BeamJoint が梁同士を直線的に繋ぐ「継手」を対象としていたのに対し、GussetPlate は部材が交差する、より複雑な「仕口」のディテール表現を得意とします。</p>
+                    <p>このツールを使えば、プレート本体はもちろん、高力ボルト一式（ナット、ワッシャー含む）、そして必要に応じて補強用のスチフナーまで、関連する全部材をワンセットで3Dモデル化できます。手作業では手間のかかる詳細なディテールも、GussetPlate を使えば数クリックで完了します。</p>
+
+                    <h2>配置の基本フロー</h2>
+                    <p>GussetPlate の操作は、Archelier シリーズの思想を受け継ぎ、非常にシンプルです。基本的な配置フローは、わずか3ステップで完了します。</p>
+                    <ol>
+                        <li>親となる部材（大梁）と、取り付く子部材（小梁）を ArchiCAD 上で選択します。</li>
+                        <li>メニューから GussetPlate を起動し、設定ダイアログを開きます。</li>
+                        <li>必要なパラメータを入力し「OK」をクリックすると、選択した部材間にガセットプレートが自動で配置されます。</li>
+                    </ol>
+                    <p>部材の断面情報や角度は自動で取得されるため、ユーザーは接合部の仕様を決めることに集中できます。</p>
+
+                    <h2>GussetPlate で押さえる5つのパラメータ</h2>
+                    <p>GussetPlate の設定ダイアログは、数多くの項目を備えていますが、基本となるのは以下の5つのパラメータです。これらを理解することで、ほとんどの接合部ディテールに対応できます。</p>
+
+                    <h3>1. 接合形式 — 片面 / 両面挟み込み</h3>
+                    <p>まず、接合の形式を決定します。GussetPlate では、代表的な2つの形式から選択できます。</p>
+                    <ul>
+                        <li>片面接合：大梁のウェブにガセットプレートを直接溶接し、そのプレートに小梁のウェブをボルトで接合する形式です。最も一般的な仕口で、多くの場面で利用されます。</li>
+                        <li>両面挟み込み：2枚のガセットプレートで小梁のウェブを両側から挟み込み、ボルトを貫通させて固定する形式です。より高い剛性が求められる十字形の仕口などで採用されます。</li>
+                    </ul>
+                    <p>どちらの形式を選択するかによって、後述するボルトの配置基準なども自動で最適化されます。</p>
+
+                    <h3>2. プレート形状 — 幅・高さ・板厚・原点位置</h3>
+                    <p>次に、ガセットプレートそのものの形状を定義します。プレートの幅、高さ、板厚といった基本的な寸法を指定します。</p>
+                    <p>ここで重要なのが「原点位置」の考え方です。プレートをどの点を基準に配置するかを、幅方向（大梁側 / 中央 / 反大梁側）と高さ方向（上端 / 中央 / 下端）の組み合わせ、全9パターンから選択できます。これにより、例えば「プレートの上端を梁の天端に合わせる」「プレートの端部を大梁のフランジ面に合わせる」といった、設計意図に応じた精密な位置決めが可能です。角部にR（丸み）を付ける設定も用意されています。</p>
+
+                    <h3>3. ボルトサイズと配列</h3>
+                    <p>接合の要となる高力ボルトの仕様を設定します。まず、ボルト径を M16、M20、M22 の中から選択します。</p>
+                    <p>続いて、ボルトの配列を「行数」と「列数」で指定します。さらに、ボルト間の距離を定義するピッチ（鉛直方向の間隔）とゲージ（水平方向の間隔）、そしてプレートの縁からボルト中心までの距離である端あき寸法を入力します。これらのパラメータにより、構造計算に基づいた正確なボルト配置を実現します。</p>
+                    <p>片面接合の場合は大梁側の端を基準に、両面挟み込みの場合はプレート幅の中央を基準にボルトが自動配置されるなど、接合形式に応じたインテリジェントな挙動も特徴です。</p>
+
+                    <h3>4. 勾配への対応</h3>
+                    <p>GussetPlate が特に威力を発揮するのが、勾配のついた部材が絡む接合部です。小梁や大梁に勾配がある場合でも、プレートの形状や姿勢を柔軟に制御できます。</p>
+                    <ul>
+                        <li>小梁に勾配がある場合：プレートの上端が、小梁の勾配に合わせて自動的に斜めにカットされます。</li>
+                        <li>大梁に勾配がある場合：プレート全体の姿勢を「常に垂直を保つ」か「大梁のウェブ面に対して直角にする」かを選択できます。</li>
+                    </ul>
+                    <p>これらの機能を組み合わせることで、切妻屋根の登り梁や母屋、勾配屋根とパラペットが取り付く部分、あるいは複雑なトラスフレームの節点など、これまで3Dモデリングが困難だった箇所も、正確かつスピーディに表現できます。</p>
+
+                    <h3>5. L形（スチフナー付き）形状</h3>
+                    <p>GussetPlate は、標準的な矩形のプレートだけでなく、補強リブ（スチフナー）を持つL形のプレートも作成できます。</p>
+                    <p>スチフナーの幅をプレート幅よりも小さな値で指定するだけで、プレートの形状が自動的にL形に変化します。これは、ボルトが配置されるエリアと、下方へ伸びる縦リブで構成され、ハンチのように応力が集中する箇所の補強ディテールとして有効です。矩形かL形かを、パラメータ一つで瞬時に切り替えられる柔軟性を備えています。</p>
+
+                    <h2>BeamJoint との連携・統一された設計思想</h2>
+                    <p>GussetPlate は、前回ご紹介した BeamJoint と共通の設計思想で作られています。部材を選択してからツールを起動すれば、部材情報を自動で読み取る「Auto モード」になる点や、何も選択せずに起動すると標準ディテールを作成できる「Manual モード」に切り替わる点も同じです。</p>
+                    <p>また、パラメータ同士が常に関連し合って再計算される点も共通しています。例えば、ボルトの列数を増やせばプレートの幅が自動で拡大し、板厚を変更すればプレートの重量が再計算されます。設計者は細かな整合性を気にすることなく、本来の設計業務に没頭できます。</p>
+
+                    <h2>集計機能との連動</h2>
+                    <p>Archelier で作成されたオブジェクトは、単なる3Dの塊ではありません。そのすべてが、BIMモデルとして必要な情報を持っています。</p>
+                    <p>GussetPlate で配置したプレートやボルトも例外ではなく、ArchiCAD の一覧表機能と完全に連動します。配置済みのモデルから、プレートの枚数、寸法、鋼材重量、そして高力ボルトの径ごとの本数を瞬時に集計できます。設計変更でプレートのサイズやボルトの本数を変更すれば、その内容はリアルタイムで集計表に反映されます。「描いたものが、そのまま数えられる」という BIM 本来の価値が、ここでも実現します。</p>
+
+                    <h2>次回予告 — Brace（ブレース）編</h2>
+                    <p>今回は、柱梁接合部を表現する GussetPlate の使い方を解説しました。シリーズ第3弾では、耐震要素として重要な「ブレース」のモデリングに焦点を当てます。ターンバックル付きの丸鋼ブレースや山形鋼ブレース、そしてそれらが取り付くガセットプレートまで、さらに詳細な鉄骨ディテールの世界をご案内する予定です。ご期待ください。</p>
+                    <p>Archelier の鉄骨機能の詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
