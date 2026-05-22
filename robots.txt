@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# 除外: ドラフト
+Disallow: /blog/_drafts/
+
+Sitemap: https://archelier.jp/sitemap.xml
