@@ -162,6 +162,14 @@ a {
     text-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
+.hero-tagline {
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    font-weight: 400;
+    margin: 0 0 16px;
+    opacity: 0.92;
+}
+
 .hero-subtitle {
     font-size: 1.2rem;
     letter-spacing: 0.2em;
@@ -607,6 +615,7 @@ a {
     /* Hero */
     .hero { height: 90vh; }
     .hero-title { font-size: 1.8rem; letter-spacing: 0.04em; padding: 0 16px; line-height: 1.4; }
+    .hero-tagline { font-size: 1rem; letter-spacing: 0.06em; padding: 0 16px; line-height: 1.6; margin: 0 0 12px; }
     .hero-subtitle { font-size: 0.9rem; letter-spacing: 0.1em; padding: 0 16px; line-height: 1.7; }
     .scroll-indicator { bottom: 24px; font-size: 0.7rem; }
     .scroll-indicator::after { height: 40px; }
