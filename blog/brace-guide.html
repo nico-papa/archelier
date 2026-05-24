@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブレースの自動配置 — Brace で押さえる5つのパラメータ | Archelier Blog</title>
+    <meta name="description" content="ArchiCAD 向けアドオン Archelier の鉄骨機能、使い方ガイド第3弾はブレース（筋交い）の Brace。Brace v1（丸鋼・山形鋼）と v2（H形鋼・角形鋼管・丸形鋼管）の使い分け、6種類の配置パターン、部材寸法、ガセットプレート、ボルトと付属品という5つの基本パラメータを軸に、立面・平面・二段梁の自動配置まで設計実務目線で解説します。">
+    <link rel="canonical" href="https://archelier.jp/blog/brace-guide.html">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/favicon-144.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon-512.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="theme-color" content="#5A6F85">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ブレースの自動配置 — Brace で押さえる5つのパラメータ">
+    <meta property="og:description" content="Archelier 鉄骨機能 使い方ガイド 第3弾。ブレース架構を接合部ディテール込みで一発配置する Brace を、5つの基本パラメータから設計実務目線で解説します。">
+    <meta property="og:url" content="https://archelier.jp/blog/brace-guide.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "ブレースの自動配置 — Brace で押さえる5つのパラメータ",
+      "description": "Archelier 鉄骨機能 使い方ガイド 第3弾。ブレース架構を接合部ディテール込みで一発配置する Brace を、5つの基本パラメータから設計実務目線で解説します。",
+      "datePublished": "2026-05-24",
+      "dateModified": "2026-05-24",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/brace-guide.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner ol {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner code {
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.92em;
+            background: #F4F4F4;
+            color: #1A2B3C;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-body-inner figure {
+            margin: 32px 0;
+        }
+        .article-body-inner figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+        }
+        .article-body-inner figcaption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZK2KQBCSLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZK2KQBCSLE');
+    </script>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-05-24">2026.05.24</time>
+                        <span class="article-tag">How to use</span>
+                    </div>
+                    <h1>ブレースの自動配置 — Brace で押さえる5つのパラメータ</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">Archelier の鉄骨機能を紹介する使い方ガイド、How to use 編の第3弾です。前回の「BeamJoint」（梁継手）、「GussetPlate」（柱梁接合部）に続き、今回は耐震要素の要である「ブレース（筋交い）」の配置機能「Brace」を解説します。Brace は単に斜め材を配置するだけでなく、両端のガセットプレート、高力ボルト、ターンバックル、エンドプレートまで含めた接合部一式を一度の操作でモデル化します。この記事で紹介する5つの主要パラメータを押さえれば、丸鋼の Xブレースから H形鋼の K字ブレースまで、様々なブレース架構を BIM 上で正確かつ効率的に表現できるようになります。</p>
+
+                    <h2>Brace とは — 接合部まで含めたブレース架構を一発でモデル化</h2>
+                    <p>Brace は、柱と梁で囲まれた架構面に、ブレース部材とそれを取り付けるための関連部材をまとめて配置する機能です。単に斜め材のオブジェクトを引くツールとは異なり、両端の接合部ディテールまで含めてワンセットで生成される点が最大の特徴です。具体的には、ブレース本体に加えてガセットプレート、高力ボルト、そして必要に応じて溶接ビードまでが自動でモデル化されます。</p>
+                    <p>これまでの BeamJoint や GussetPlate が部材同士の「継手」や「仕口」といった部分的な接合部を扱うのに対し、Brace は架構面全体を一つの単位としてモデル化します。これにより、設計の検討段階でスパンや階高が変更された場合でも、ブレースの角度や長さはもちろん、ガセットプレートやボルトの位置までが自動で再計算され、モデル全体が整合性を保ち続けます。</p>
+
+                    <h2>配置の基本フロー</h2>
+                    <p>Brace の操作は非常に直感的です。基本的な配置フローは以下の3ステップで完了します。</p>
+                    <ol>
+                        <li>ArchiCAD のモデル上で、ブレースを架け渡したい構面を構成する柱2本と梁を選択します。</li>
+                        <li>メニューから Brace を起動すると、設定ダイアログが表示されます。</li>
+                        <li>後述するパラメータを設定し「OK」をクリックすると、選択した架構面にブレース一式が自動で配置されます。</li>
+                    </ol>
+                    <p>柱芯間の距離や梁せいの情報は選択した部材から自動で取得されるため、ユーザーはブレース自体の仕様設定に集中できます。手作業で斜材の角度や長さを計算し、ガセットやボルトを一つずつ配置していく手間から解放され、設計本来の業務に時間を割くことができます。</p>
+
+                    <h2>Brace で押さえる5つのパラメータ</h2>
+                    <p>Brace の設定ダイアログには多くの項目が用意されていますが、基本となるのはこれから紹介する5つのパラメータです。これらを理解すれば、丸鋼にターンバックルを取り付けた繊細な Xブレースから、H形鋼を使った剛健な K字ブレースまで、鉄骨造で用いられるほぼ全ての構成に柔軟に対応できます。</p>
+
+                    <h3>1. シリーズの使い分け — Brace v1 と v2</h3>
+                    <p>Archelier のブレース機能は、使用する部材種別に応じて Brace v1 と Brace v2 の2つの系統に分かれています。それぞれ得意とする部材や納まりが異なり、設計者は作りたいブレースに応じて適切なシリーズを選択します。</p>
+                    <ul>
+                        <li>Brace v1：主に丸鋼や山形鋼といった細径・軽量形鋼を対象とします。張力を調整する「ターンバックル」の表現や、山形鋼を2本背中合わせに配置する「ダブルアングル」に対応しているのが特徴です。</li>
+                        <li>Brace v2：H形鋼、角形鋼管、丸形鋼管といった、より剛性の高い部材を扱います。ブレース端部にプレートを取り付けて接合する「エンドプレート（カットT接合）」や、プレートを十字に組む「十字ガセット」、ピンテール付きの「トルシアボルト」の表現が可能です。</li>
+                    </ul>
+                    <p>どちらを選ぶかは「どの部材を使うか」で決まります。例えば、在来の鉄骨造で主架構を組むなら v2 を、既存建物の耐震補強や軽量鉄骨の小屋組などでは v1 を、といった使い分けが考えられます。このシンプルな切り替えだけで、後続のパラメータが最適なものに絞り込まれるため、初心者でも迷うことなく設定を進められます。</p>
+
+                    <h3>2. 配置パターン — 6種類の架構形式</h3>
+                    <p>ブレースの架構形式は、構造計画の基本です。Brace では、実務で頻繁に用いられる以下の6パターンをリストから選ぶだけで簡単に切り替えられます。</p>
+                    <ul>
+                        <li>1：片ブレース</li>
+                        <li>2：Xブレース（交差ブレース）</li>
+                        <li>3：V字ブレース（山形ブレース）</li>
+                        <li>4：逆V字ブレース（逆山形ブレース）</li>
+                        <li>5：K字ブレース</li>
+                        <li>6：逆K字ブレース</li>
+                    </ul>
+                    <p>パターン番号を選択すると、ガセットプレートの配置位置、ブレース部材の角度、必要本数のすべてが連動して瞬時に再計算されます。これにより、構造的な比較検討や意匠的な見え方の確認を、モデル上で素早く試行錯誤できます。</p>
+                    <p>また、V字や K字系のパターンのように、ブレースの端部が梁の中間など一点に集約される場合、ガセットプレート同士が物理的に干渉してしまうことがあります。このような納まりの問題に対応するため「交点間隔」というパラメータも用意されています。ここに数値を入力すると、交点のガセット同士を mm 単位で離して配置し、リアルな施工状態をモデルに反映させることができます。</p>
+
+                    <h3>3. 部材寸法と断面の向き</h3>
+                    <p>配置パターンを決めたら、次はブレース本体の仕様を定義します。部材タイプを選択すると、その断面形状に応じた寸法入力欄が動的に表示されます。</p>
+                    <ul>
+                        <li>v1 丸鋼：直径</li>
+                        <li>v1 山形鋼：辺の長さ、肉厚、もう一方の辺の長さ（0を入力すると等辺山形鋼）、断面の向き（4方向）、ダブルアングル（背合わせ）の有無</li>
+                        <li>v2 H形鋼：成、フランジ幅、フランジ厚、ウェブ厚、断面の回転（4方向）</li>
+                        <li>v2 角形鋼管：外寸、肉厚（中空断面として表現）</li>
+                        <li>v2 丸形鋼管：外径（両端には半球状のキャップが自動生成）</li>
+                    </ul>
+                    <p>特に山形鋼や H形鋼では「断面の向き」を細かく制御できる点が実務的です。例えば、山形鋼の脚の向きを建物の内側・外側で統一したり、H形鋼のフランジ面を架構の面内・面外どちらに向けるか、といったディテールを正確にモデル化できます。</p>
+
+                    <h3>4. ガセットプレートと交点処理</h3>
+                    <p>ブレースと主体構造（柱・梁）をつなぐガセットプレートも、Brace の中で一体的に生成されます。板厚はもちろん、柱・梁からの張出し長さ、プレートの底辺幅、先端幅などを指定できます。底辺幅と先端幅に 0 を入力すると、柱・梁のサイズから最適な三角形ガセットが自動計算されるため、細かく数値を入力する必要はありません。</p>
+                    <p>ガセット先端の形状は、ブレースの角度に応じて斜めにカットする「勾配」と、ブレースの軸方向に対して常に垂直になる「直角」の2種類から選択可能です。</p>
+                    <p>さらに v2 シリーズでは、プレートを90度回転コピーして十字型に組む「十字ガセット」も用意されています。H形鋼や角形鋼管といった断面を、ガセットプレートで両側から挟み込むような納まりを表現する際に有効です。</p>
+                    <p>また、ガセットプレートの取り付け位置を微調整したい場合「梁上端からの離れ」や「柱面からの離れ」といったパラメータで mm 単位のオフセットが可能です。これにより、仕上げ材との取り合いや、意匠的な見え方を考慮した調整が簡単に行えます。</p>
+
+                    <h3>5. ボルトと付属品</h3>
+                    <p>接合部の要である高力ボルトも、詳細な設定が可能です。ボルト径は M16、M20、M22 から選択し、列数、行数、ピッチ、ゲージを指定して配列を決めます。</p>
+                    <p>v2 シリーズでは、一般的な六角ボルトに加え、施工後のピンテールが破断した状態まで再現された「トルシアボルト」も選択できます。意匠的にボルトが見えてくる箇所でも、リアルなディテールを表現できます。</p>
+                    <p>シリーズごとに特有の付属品も用意されています。</p>
+                    <ul>
+                        <li>v1 専用：ターンバックル。胴の長さや直径、ブレース材のどの位置に配置するか（0〜100%）を指定できます。胴長を 0 にすれば非表示となり、ターンバックルなしの納まりにも対応します。</li>
+                        <li>v2 専用：エンドプレート（カットT接合）。ブレース端部に溶接されたプレートを、ボルト4本で梁のウェブなどに直接取り付ける納まりを再現します。</li>
+                    </ul>
+                    <p>これらの部材に加え、ガセットプレートとブレース本体の接合部には「溶接ビード」も表現できます。表示・非表示の切り替えや、脚長の指定も可能で、確認申請レベルの図面作成にも耐えうる詳細度でモデルを構築できます。</p>
+
+                    <h2>自動配置モードの威力 — 範囲選択で架構全体に展開</h2>
+                    <p>Brace の真価は、単一架構への配置だけでなく、範囲選択による自動展開機能でさらに発揮されます。</p>
+                    <ul>
+                        <li>立面ブレース：柱2本と、必要に応じて上下の梁を選択するのが最も基本的な使い方です。</li>
+                        <li>二段梁モード：柱2本と、下梁・中間梁・上梁の3本の梁を選択すると、上下2段のブレース（下段は柱脚〜中間梁、上段は中間梁〜上梁）を一度に配置できます。</li>
+                        <li>平面ブレース：屋根面や床面など、水平構面にブレースを配置する場合、柱4本以上とそれらを囲む梁を選択すると、N×M のグリッド状の架構全体にブレースを一括で展開できます。</li>
+                    </ul>
+                    <p>特に平面ブレースでは、屋根勾配などで梁に傾きがある場合、その勾配を自動で認識し、ブレース面も追従して傾きます。また「梁天端下がり」を入力すれば、梁の上端からどれだけ下がった位置にブレースを取り付けるかを指定でき、デッキプレートとの取り合いなどを考慮したモデリングが可能です。</p>
+                    <p>配置後も「下端オフセット」「上端オフセット」で端部の位置を mm 単位で微調整できるため、ガセットプレートの取り付き高さをフロア全体で揃えたい、といった意匠的な要求にも柔軟に応えます。</p>
+
+                    <h2>集計機能との連動</h2>
+                    <p>Brace を使って配置したブレース、ガセットプレート、ボルトといった部材は、すべて ArchiCAD の集計機能と完全に連動しています。</p>
+                    <p>部材種別ごとの本数や総延長はもちろん、JIS 規格のライブラリに基づいた鋼材重量（kg）、さらにはボルトの径ごとの本数まで、一覧表としてリアルタイムに出力されます。設計変更でブレースの部材サイズやパターンを変更すれば、その内容は即座に集計表に反映されるため、常に最新の数量を把握できます。</p>
+                    <p>この集計表は、鉄骨数量の正確な根拠資料として、施工会社との打ち合わせや見積依頼の際にそのまま活用できる、強力な武器となります。</p>
+
+                    <h2>次回予告 — BIM 活用 Tips 初回</h2>
+                    <p>鉄骨機能の使い方ガイドは、BeamJoint、GussetPlate、そして今回の Brace で3本完走となります。次回からはブログ内に設けた「BIM 活用 Tips」カテゴリで、使い方ガイドだけでは取り上げきれない便利機能の小ネタを深掘りしていきます。初回はガセットプレートのダイアログに用意された2つの便利ボタン「小梁の上面を大梁に整合」と「デフォルト」を取り上げる予定です。前者は、寄棟の隅木のように勾配のついた大梁に対して斜めに取り付く小梁の上面位置を、隅木勾配の幾何学を内部で解いて自動整合してくれる、設計実務で地味に効くボタンです。一見シンプルなダイアログの中に隠れた、知っていると差が出る機能をご紹介していきますので、ご期待ください。</p>
+                    <p>Archelier の機能詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
