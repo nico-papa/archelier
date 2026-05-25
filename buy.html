@@ -404,6 +404,20 @@
                 }
             });
         });
+
+        // Gumroad ボタン クリック計測（GA4 キーイベント）
+        document.querySelectorAll('a[href*="archelier.gumroad.com"]').forEach(link => {
+            link.addEventListener('click', () => {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'gumroad_click', {
+                        event_category: 'engagement',
+                        event_label: 'archelier-v1',
+                        link_url: link.href,
+                        transport_type: 'beacon'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
