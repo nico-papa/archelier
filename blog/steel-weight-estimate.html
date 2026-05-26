@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鉄骨のトン数を即答する — Archelier で形鋼の重量を拾う | Archelier Blog</title>
+    <meta name="description" content="ArchiCAD 向けアドオン Archelier の積算機能、社内先行積算シリーズ その1。H形鋼・角形鋼管・円形鋼管・山形鋼・溝形鋼の5種類の形鋼について、JIS 規格表ベースの単位重量テーブルから本数・総延長・総重量を集計する方法を解説します。積算メニュー一つで、設計初期にトン数を即答できる社内先行積算ワークフローを設計実務目線で紹介。">
+    <link rel="canonical" href="https://archelier.jp/blog/steel-weight-estimate.html">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/favicon-144.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon-512.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="theme-color" content="#5A6F85">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="鉄骨のトン数を即答する — Archelier で形鋼の重量を拾う">
+    <meta property="og:description" content="社内先行積算シリーズ その1。Archelier の積算機能で形鋼の本数・総延長・総重量を拾い、設計初期にトン数を即答するワークフローを解説します。">
+    <meta property="og:url" content="https://archelier.jp/blog/steel-weight-estimate.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "鉄骨のトン数を即答する — Archelier で形鋼の重量を拾う",
+      "description": "社内先行積算シリーズ その1。Archelier の積算機能で形鋼の本数・総延長・総重量を拾い、設計初期にトン数を即答するワークフローを解説します。",
+      "datePublished": "2026-05-26",
+      "dateModified": "2026-05-26",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/steel-weight-estimate.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner ol {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner code {
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.92em;
+            background: #F4F4F4;
+            color: #1A2B3C;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-body-inner figure {
+            margin: 32px 0;
+        }
+        .article-body-inner figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+        }
+        .article-body-inner figcaption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .article-body-inner table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0 1.8em;
+            font-size: 0.95rem;
+        }
+        .article-body-inner thead th {
+            background: #FAFAFA;
+            font-weight: 500;
+            color: #1A2B3C;
+            border: 1px solid #ECECEC;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .article-body-inner tbody td {
+            border: 1px solid #ECECEC;
+            padding: 10px 14px;
+        }
+        .article-body-inner tbody tr:last-child td {
+            background: #FAFAFA;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZK2KQBCSLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZK2KQBCSLE');
+    </script>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-05-26">2026.05.26</time>
+                        <span class="article-tag">Estimate</span>
+                    </div>
+                    <h1>鉄骨のトン数を即答する — Archelier で形鋼の重量を拾う</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">「この鉄骨、だいたい何トンですか？」施主や元請けとの打ち合わせで、ふと投げかけられるこの質問。意匠設計者として、あるいは BIM 担当者として、その場で即座に、そして根拠のある数値を答えられたら、どれほどプロジェクトが円滑に進むでしょうか。</p>
+
+                    <p>前回公開したコンセプト編「<a href="in-house-steel-estimate.html">鉄骨工事は時間との戦い — Archelier で社内先行積算という選択肢</a>」では、設計の初期段階で鉄骨数量を把握することの重要性をお伝えしました。今回はその実践編として、シリーズ「社内先行積算」の第一弾です。</p>
+
+                    <p>テーマは、鉄骨工事のコストに最も大きな影響を与える「形鋼の重量集計」です。ArchiCAD 上の BIM モデルから、梁や柱などの主要な構造部材が合計で何トンになるのかを、瞬時に集計する方法を解説します。</p>
+
+                    <h2>何が拾えるか — 5 種類の形鋼に対応</h2>
+                    <p>Archelier の積算機能がまず対応するのは、鉄骨造で最も使用頻度の高い以下の 5 種類の形鋼です。</p>
+                    <ul>
+                        <li>H形鋼</li>
+                        <li>角形鋼管</li>
+                        <li>円形鋼管</li>
+                        <li>山形鋼</li>
+                        <li>溝形鋼</li>
+                    </ul>
+                    <p>これらの重量は、JIS 規格の鋼材重量表に記載されている単位重量をベースに計算されます。Archelier はこの単位重量テーブルを内部に保持しているため、手計算でありがちな「フランジとウェブの断面積を概算で計算する」といった近似計算とは一線を画します。</p>
+                    <p>例えば H形鋼であれば、ウェブとフランジが接合する部分の丸み（フィレット）を含んだ、規格書通りの正確な単位重量（kg/m）に部材の長さを掛け合わせ、その数値をひたすら積み上げていきます。</p>
+                    <p>もちろん、これは工場での加工や現場での溶接、孔明けによる重量変化を考慮したものではありません。しかし、設計の初期段階でコストのあたりを付ける、あるいは複数の設計案を比較検討するための数値としては、手計算とは比較にならない確度を持っていると言えるでしょう。</p>
+
+                    <h2>操作はメニュー一つ — 積算メニューを呼ぶ</h2>
+                    <p>操作は驚くほどシンプルです。ArchiCAD の 3D ウィンドウや平面図ビューで、重量を集計したい鉄骨部材（柱・梁ツールなどで作成したもの）を選択します。</p>
+                    <p>次に、上部メニューから Archelier の積算メニューを実行してください。</p>
+                    <p>これだけで、選択された部材の情報を集計するダイアログが瞬時に立ち上がります。ダイアログには、選択された部材が鋼材種別・セクションサイズごとに整理され、それぞれの本数、総延長、そして総重量がリアルタイムで表示されます。</p>
+                    <p>この集計は、モデルの変更に即座に追従します。例えば、ダイアログを開いたまま ArchiCAD 上で梁の長さを変更したり、柱のセクションサイズを書き換えたりしてみてください。変更が確定した瞬間に、ダイアログ上の数値も自動で更新されます。モデルと集計結果が常に同期しているため、試行錯誤のプロセスで何度も計算をやり直す手間は一切ありません。</p>
+
+                    <h2>セクション種別ごとに本数・延長・重量が並ぶ</h2>
+                    <p>表示されるダイアログは、設計者が知りたい情報を直感的に把握できるようデザインされています。例えば、以下のように部材種別ごとの集計結果が一覧で表示されます。</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>部材種別</th>
+                                <th>本数</th>
+                                <th>総延長 (m)</th>
+                                <th>総重量 (kg)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>H-400x200x8x13</td><td>48</td><td>384.00</td><td>25,228.80</td></tr>
+                            <tr><td>H-500x200x10x16</td><td>24</td><td>240.00</td><td>21,720.00</td></tr>
+                            <tr><td>□-250x250x9</td><td>16</td><td>64.00</td><td>4,454.40</td></tr>
+                            <tr><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+                            <tr><td>合計</td><td>...</td><td>...</td><td>...</td></tr>
+                        </tbody>
+                    </table>
+                    <p>この一覧を見れば、「どのサイズの H形鋼が何本使われていて、総延長が何メートルで、合計で何トンになるのか」が一目瞭然です。さらに、リストの末尾には全部材を合算した総重量も表示されるため、プロジェクト全体の鉄骨ボリュームを瞬時に把握できます。</p>
+                    <p>この機能は、単に全体のトン数を把握するだけに留まりません。例えば、「特定のサイズの梁だけで全体の重量のかなりの部分を占めている」といった、コストの偏りを視覚的に発見する手がかりにもなります。設計の初期段階でこうした重量バランスを意識できれば、より経済合理性の高い構造計画へとつなげていくことが可能です。</p>
+
+                    <h2>CSV 出力でそのまま社内検討資料に</h2>
+                    <p>ダイアログに表示された集計結果は、そのまま社内検討用の資料として活用できます。</p>
+                    <p>ダイアログ下部にある「Export CSV」ボタンをクリックすると、表示されている集計表が CSV ファイルとして出力されます。ファイルは PC の「Downloads」フォルダに自動で保存されるため、保存場所を探す手間もありません。</p>
+                    <p>出力される CSV ファイルの形式は、国土交通省の「公共建築数量積算基準」に準拠したフォーマットを採用しています。</p>
+                    <p>この際、鋼材の項目については、切断・加工時に発生するロスを考慮し、自動的に 5% のロス率が加算された「所要数量」として出力されます。これにより、より実態に近い数量を算出できます（ボルト類など、ロス率の概念が適用されない部品には加算されません）。</p>
+                    <p>出力された CSV ファイルは、Microsoft Excel や Google スプレッドシートなどの表計算ソフトで開くことができます。そのままプリントアウトして打ち合わせ資料にしたり、別の積算シートにデータをコピー＆ペーストして見積依頼の元データとして活用したりと、幅広い用途に展開できます。</p>
+
+                    <h2>A 案・B 案の比較がその場でできる</h2>
+                    <p>Archelier のリアルタイム集計機能が最も真価を発揮するのは、設計案の比較検討を行う場面です。</p>
+                    <p>例えば、柱スパンを 8m にするか 10m にするかで迷っているとします。従来であれば、両方の案について構造事務所に検討を依頼し、数日後に返ってきた結果を見て、ようやくコスト比較ができる、という流れが一般的でした。</p>
+                    <p>しかし Archelier があれば、その場で比較が完了します。まず、ArchiCAD 上で柱スパン 8m のモデルを作成し、鉄骨重量を記録しておきます。次に、そのモデルをコピーし、柱スパンを 10m に変更します。当然、スパンが広がれば大梁のサイズも大きくする必要があるでしょう。梁を選択し、セクションサイズをワンランク、あるいはツーランク上のものに変更します。</p>
+                    <p>変更した部材を選択して再度積算メニューを実行すれば、変更後の鉄骨トン数が即座に表示されます。</p>
+                    <blockquote>
+                        <p>「スパンを 2m 広げ、大梁を H-500 から H-600 に変更すると、鉄骨重量が全体で 3.5 トン増加する」</p>
+                    </blockquote>
+                    <p>このような具体的な数値を、設計者自身がその場で算出できるのです。これにより、構造事務所に正式な検討を依頼する前に、意匠設計の段階で複数の選択肢の優劣を定量的に判断できます。設計の初動が圧倒的に早くなり、手戻りのリスクも大幅に削減できるでしょう。</p>
+
+                    <h2>まとめ — 即答できる設計者の道具</h2>
+                    <p>「この鉄骨、だいたい何トンですか？」この問いに、もううろたえる必要はありません。Archelier があれば、BIM モデルから直接、根拠のある数値をその場で提示できます。それは、設計者としての信頼性を高め、プロジェクトの関係者全員との円滑なコミュニケーションを可能にする強力な武器となります。</p>
+                    <p>もちろん、ここで算出される数値は、あくまで JIS のカタログ重量をベースにした概算値です。ファブリケーターが行うような、仕口や接合部、溶接ビードの重量までを考慮した精緻な施工積算とは異なります。これは、設計の初期段階における「意思決定のための概算」とご理解ください。</p>
+                    <p>まずは、あなたの手元にある ArchiCAD モデルで、主要な柱と梁を選択して試してみてください。これまで見えなかった「重さ」という指標が加わることで、設計検討の解像度が一段と上がるのを実感できるはずです。</p>
+
+                    <h3>次回予告 — 社内先行積算 その2: 接合部の数量を拾う</h3>
+                    <p>次回はガセットプレートや高力ボルト、添え板といった接合部品の数量集計をテーマにします。「プレートだけで何枚」「ボルトはサイズ別に何本」といった、概算金額に直結する数字の拾い方を解説します。</p>
+                    <p>Archelier の機能詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
