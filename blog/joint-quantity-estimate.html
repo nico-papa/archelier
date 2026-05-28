@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>接合部の数量を拾う — Archelier で添え板・ボルト・ガセットを集計する | Archelier Blog</title>
+    <meta name="description" content="ArchiCAD 向けアドオン Archelier の積算機能、社内先行積算シリーズ その2。梁継手の添え板・仕口ガセットプレート・ブレース端部ガセット・高力ボルトの数量と重量を、配置済みの接合部オブジェクトから自動集計する方法を解説します。鋼板はロス +5% / ボルトはロス 0% で公共建築数量積算基準に準拠した CSV 出力まで紹介。">
+    <link rel="canonical" href="https://archelier.jp/blog/joint-quantity-estimate.html">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/favicon-144.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon-512.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="theme-color" content="#5A6F85">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="接合部の数量を拾う — Archelier で添え板・ボルト・ガセットを集計する">
+    <meta property="og:description" content="社内先行積算シリーズ その2。Archelier の積算機能で梁継手の添え板・仕口ガセット・ブレース端部ガセット・高力ボルトを自動集計するワークフローを解説します。">
+    <meta property="og:url" content="https://archelier.jp/blog/joint-quantity-estimate.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "接合部の数量を拾う — Archelier で添え板・ボルト・ガセットを集計する",
+      "description": "社内先行積算シリーズ その2。Archelier の積算機能で梁継手の添え板・仕口ガセット・ブレース端部ガセット・高力ボルトを自動集計するワークフローを解説します。",
+      "datePublished": "2026-05-28",
+      "dateModified": "2026-05-28",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/joint-quantity-estimate.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner ol {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner code {
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.92em;
+            background: #F4F4F4;
+            color: #1A2B3C;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-body-inner figure {
+            margin: 32px 0;
+        }
+        .article-body-inner figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+        }
+        .article-body-inner figcaption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .article-body-inner table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0 1.8em;
+            font-size: 0.95rem;
+        }
+        .article-body-inner thead th {
+            background: #FAFAFA;
+            font-weight: 500;
+            color: #1A2B3C;
+            border: 1px solid #ECECEC;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .article-body-inner tbody td {
+            border: 1px solid #ECECEC;
+            padding: 10px 14px;
+        }
+        .article-body-inner tbody tr:last-child td {
+            background: #FAFAFA;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZK2KQBCSLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZK2KQBCSLE');
+    </script>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-05-28">2026.05.28</time>
+                        <span class="article-tag">Estimate</span>
+                    </div>
+                    <h1>接合部の数量を拾う — Archelier で添え板・ボルト・ガセットを集計する</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">「この鉄骨のボルト、何本ですか？」あるいは「ガセットプレートの数量と重量、概算で出せますか？」鉄骨造のプロジェクトで施主や元請けから投げられる、もう一段踏み込んだ質問。鉄骨が何トンになるかに答える方法は前回のシリーズ第 1 弾「<a href="steel-weight-estimate.html">鉄骨のトン数を即答する — Archelier で形鋼の重量を拾う</a>」で解説しました。今回はその先、接合部の数量を拾うワークフローを紹介します。</p>
+
+                    <h2>接合部の数量は手拾いがいちばん時間を食う</h2>
+                    <p>鉄骨工事のコストは、鋼材そのものの重量だけで決まるわけではありません。むしろ、鉄骨ファブリケーター（製作工場）での加工費が大きな割合を占めます。柱や梁を切断し、孔をあけ、プレートを溶接していく手間、つまり「人工（にんく）」がコストに直結するのです。</p>
+                    <p>特に手間がかかるのが、部材同士をつなぐ接合部です。添え板（スプライスプレート）やガセットプレートの枚数、そして高力ボルトの径・長さ・本数。これらの数量が正確にわかれば、積算の精度はぐっと上がります。</p>
+                    <p>しかし、設計段階でこれらの数量を一つひとつ手で拾い出すのは、あまりにも時間のかかる作業です。図面からプレートの枚数を数え、ボルトの長さを計算し、表計算ソフトにまとめていく…考えただけで気が遠くなるかもしれません。</p>
+                    <p>Archelier の積算機能は、この最も面倒な作業を自動化するためにあります。前回解説した形鋼の重量に加えて、今回は接合部の部品数量を算出する方法を見ていきましょう。</p>
+
+                    <h2>集計できるのは梁継手・仕口ガセット・ブレース端部の 3 種類</h2>
+                    <p>Archelier の積算機能で拾い出せる接合部の部品は、大きく以下の 3 種類です。</p>
+                    <ol>
+                        <li>梁継手の添え板</li>
+                        <li>仕口部のガセットプレート</li>
+                        <li>ブレース端部のガセットプレート</li>
+                    </ol>
+                    <p>これらの部品は、すべて Archelier を使って ArchiCAD モデル内に配置済みのオブジェクトから直接、数量を読み取ります。これは重要なポイントです。</p>
+                    <p>もし後から構造設計者との打ち合わせで接合部の仕様が変わったとしても、心配は要りません。ArchiCAD 上のモデルを修正して接合部オブジェクトを更新すれば、集計される数量も自動的に追従します。BIM モデルと数量が常に連動しているため、手作業による拾い漏れや修正忘れといったヒューマンエラーを防ぐことができます。</p>
+
+                    <h2>梁継手 — 添え板の枚数・面積・重量を一発で</h2>
+                    <p>まずは、梁同士をつなぐ梁継手の添え板から見ていきましょう。</p>
+                    <p>Archelier では、配置された梁継手オブジェクトの情報をもとに、フランジとウェブそれぞれの添え板を自動で集計します。フランジの添え板は、設定に応じて「外側のみ（2 枚）」か「両側（4 枚）」かを判断して計上。ウェブの添え板は、常に両面 2 枚としてカウントされます。</p>
+                    <p>添え板の面積は、オブジェクトに設定されたボルトの列数・ピッチ・ゲージ、端あき寸法から正確に算出されます。そしてその面積に板の厚みと鋼材の比重（7,850 kg/m³）を掛けることで、重量まで計算します。</p>
+                    <p>例えば、以下のような形で集計結果が表示されます。</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>枚数</th>
+                                <th>総面積 (m²)</th>
+                                <th>総重量 (kg)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>フランジ添え板 PL-12</td><td>16</td><td>0.380</td><td>35.8</td></tr>
+                            <tr><td>ウェブ添え板 PL-9</td><td>8</td><td>0.240</td><td>16.9</td></tr>
+                            <tr><td>合計</td><td>24</td><td>0.620</td><td>52.7</td></tr>
+                        </tbody>
+                    </table>
+                    <p>どの厚みのプレートが何枚あり、合計でどれくらいの面積・重量になるのかが一目でわかります。</p>
+
+                    <h2>仕口ガセット — 片面と両面の使い分けまで自動判定</h2>
+                    <p>次に、大梁と小梁が取り付く仕口部のガセットプレートです。</p>
+                    <p>小梁が片側からだけ取り付く納まりは片面ガセット 1 枚、両側から取り付く納まりは両面ガセット 2 枚として、配置状況に応じて自動で判断し、正確な枚数を集計します。</p>
+                    <p>梁継手の添え板と同様に、プレートの総面積と総重量を算出します。このとき集計に使われる板の厚みは、後述するボルトの長さの根拠にもなります。モデルと数量が連動しているからこそ、こうした整合性のとれた計算が可能になるのです。</p>
+
+                    <h2>ブレース端部 — 形状係数で実重量に補正</h2>
+                    <p>筋交いであるブレース材の端部に取り付くガセットプレートも、もちろん集計対象です。1 本のブレース材には両端に接合部があるため、プレートの数量は「1 部材あたり 2 枚 × ブレースの本数」として正しくカウントされます。</p>
+                    <p>ここで Archelier が工夫しているのが、形状係数による重量補正です。ブレース端部のガセットプレートは、単純な矩形とは限りません。台形や三角形に近い形も多くあります。</p>
+                    <p>外形寸法（最大幅 × 最大高さ）だけで面積を計算してしまうと、実際の鋼板面積よりも大きな値になり、重量も過大に見積もられてしまいます。そこで Archelier ではプレートの形状に応じて以下の係数を掛け、より現実に近い重量を算出するようになっています。</p>
+                    <ul>
+                        <li>台形に近い形状：0.85</li>
+                        <li>矩形に近い自動形状：0.70</li>
+                        <li>三角形に近い形状：0.50</li>
+                    </ul>
+                    <p>外形寸法でベタに計算する方法に比べて、ファブリケーターが実際に切り出す鋼板に近い数量で重量を把握できます。設計の早い段階で、より精度の高い概算が可能になるということです。</p>
+
+                    <h2>ボルトはサイズ × 長さで自動算出される — 最大の手間削減</h2>
+                    <p>接合部の数量拾いで、設計者が最も骨の折れる作業。それがボルトの長さの算出です。</p>
+                    <p>ボルトの長さは、接合する部材の厚みの合計、いわゆる「つかみしろ」によって決まります。例えば梁継手であれば、添え板の厚みとフランジ厚を足したもの、あるいは添え板 2 枚の厚みにウェブ厚を足したものが、つかみしろになります。</p>
+                    <p>Archelier はこの面倒な計算をすべて自動で行います。</p>
+                    <ol>
+                        <li>つかみしろ（添え板厚・フランジ厚・ウェブ厚など）を算出</li>
+                        <li>ワッシャー 2 枚分の厚みを加算</li>
+                        <li>ナットの高さを加算</li>
+                        <li>ねじの突出長さ（余長）を加算</li>
+                    </ol>
+                    <p>これらの合計値を、JIS 標準の 5mm 刻みに切り上げて、必要なボルトの長さを決定します。計算の根拠は、鋼構造で一般的に用いられる高力ボルト F10T 摩擦接合を想定した、建築構造設計事務所の慣例値に準拠しています。</p>
+                    <p>これにより、最終的な集計結果は次のように、ボルトの径と長さの組み合わせごとに、必要な本数が整理された形で出力されます。</p>
+                    <blockquote>
+                        <p>ボルト計 56 本: M20-65 ×32 / M20-95 ×24</p>
+                    </blockquote>
+                    <p>もう、一本一本ボルトの長さを計算してサイズ別に集計する必要はありません。「ここの接合で使うボルトはサイズ何で長さ何が何本？」という質問に、その場で即答できるようになります。</p>
+
+                    <h2>CSV 出力 — 添え板はロス +5%、ボルトはロス 0%</h2>
+                    <p>集計した結果は、ダイアログ下部の Export CSV ボタンからファイル出力できます。フォーマットは国土交通省の公共建築数量積算基準に準拠したもので、カテゴリ・項目・設計数量・所要数量・単位の 5 列で並びます。</p>
+                    <p>ここで注目したいのが、設計数量と所要数量の使い分けです。</p>
+                    <p>添え板やガセットプレートなどの鋼板は、工場で大きな鋼板から切り出して加工するため、必ず端材などのロスが発生します。そのため設計数量に対して一律 +5% のロス率を見込んだ数量が、所要数量として計上されます。</p>
+                    <p>一方、高力ボルトはメーカーから購入する既製品です。加工ロスは発生しないため、設計数量と所要数量は同じ値（ロス率 0%）となります。</p>
+                    <p>このように品目に応じたロス率まで考慮されているため、出力された CSV はそのままファブリケーターへの引き合い資料や、見積もりの比較検討資料として使えるレベルになっています。</p>
+
+                    <h2>まとめ — 「ボルト何本？」に即答できる設計者へ</h2>
+                    <p>前回のシリーズ第 1 弾では、「鉄骨、何トンですか？」という問いに答えるための形鋼重量の集計方法を紹介しました。今回はそこから一歩踏み込んで、「接合部のプレートは何枚？ボルトは何本？」という具体的な問いに答えるためのワークフローを見てきました。</p>
+                    <p>接合部の詳細な数量は、本来であれば鉄骨製作図ができあがるまで正確にはわかりません。しかし Archelier を使って BIM モデル上に接合部を配置しておけば、設計のかなり早い段階から、その見通しを立てることができます。</p>
+                    <p>モデルと数量が連動した BIM のワークフローは、設計者の手間を削減するだけでなく、プロジェクト全体のコスト管理の精度を向上させることにもつながるはずです。</p>
+
+                    <h3>次回予告 — 社内先行積算 その3: 単価テーブルと概算金額</h3>
+                    <p>これまで 2 回にわたって、数量を拾う方法を解説してきました。次回はいよいよ、金額の算出に踏み込みます。今回算出した形鋼のトン数や、プレート・ボルトの数量に、あらかじめ設定した単価を掛け合わせ、設計初期の概算工事費をシミュレーションする仕組みを紹介する予定です。</p>
+                    <p>Archelier の機能詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
