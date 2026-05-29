@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概算金額を即答する — Archelier の CSV と Excel で工事費を試算する | Archelier Blog</title>
+    <meta name="description" content="ArchiCAD 向けアドオン Archelier の積算機能、社内先行積算シリーズ その3 金額編。Archelier が出力する形鋼編と接合部編の CSV を Excel に流し込み、自社の単価表を当てて設計初期の概算工事費を試算するワークフローを設計実務目線で解説します。シリーズ完結編。">
+    <link rel="canonical" href="https://archelier.jp/blog/cost-estimate.html">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/favicon-144.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon-512.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="theme-color" content="#5A6F85">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="概算金額を即答する — Archelier の CSV と Excel で工事費を試算する">
+    <meta property="og:description" content="社内先行積算シリーズ その3。Archelier の CSV と自社の単価表を組み合わせて、設計初期に概算工事費を試算するワークフローを解説します。シリーズ完結編。">
+    <meta property="og:url" content="https://archelier.jp/blog/cost-estimate.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "概算金額を即答する — Archelier の CSV と Excel で工事費を試算する",
+      "description": "社内先行積算シリーズ その3。Archelier の CSV と自社の単価表を組み合わせて、設計初期に概算工事費を試算するワークフローを解説します。シリーズ完結編。",
+      "datePublished": "2026-05-29",
+      "dateModified": "2026-05-29",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/cost-estimate.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner ol {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner code {
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.92em;
+            background: #F4F4F4;
+            color: #1A2B3C;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-body-inner figure {
+            margin: 32px 0;
+        }
+        .article-body-inner figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+        }
+        .article-body-inner figcaption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .article-body-inner table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0 1.8em;
+            font-size: 0.95rem;
+        }
+        .article-body-inner thead th {
+            background: #FAFAFA;
+            font-weight: 500;
+            color: #1A2B3C;
+            border: 1px solid #ECECEC;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .article-body-inner tbody td {
+            border: 1px solid #ECECEC;
+            padding: 10px 14px;
+        }
+        .article-body-inner tbody tr:last-child td {
+            background: #FAFAFA;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZK2KQBCSLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZK2KQBCSLE');
+    </script>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-05-29">2026.05.29</time>
+                        <span class="article-tag">Estimate</span>
+                    </div>
+                    <h1>概算金額を即答する — Archelier の CSV と Excel で工事費を試算する</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">設計初期段階で施主や事業主から投げかけられる「ところで、これ、いくらぐらいになりそうですか？」という問いに、自信を持って即答できる体制を作る。社内先行積算シリーズの最終回は、これまで拾い出してきた形鋼の重量（<a href="steel-weight-estimate.html">その1</a>）と接合部の数量（<a href="joint-quantity-estimate.html">その2</a>）に、Excel で自社の単価表を当てて概算工事費を試算するワークフローを紹介します。</p>
+
+                    <h2>設計初期で「いくらですか？」に答えるために</h2>
+                    <p>基本設計や構造計画の初期段階。ボリュームや骨格がおぼろげに見えてきた頃、施主や事業主から投げかけられる「ところで、これ、いくらぐらいになりそうですか？」という問いに、どう答えていますか。</p>
+                    <p>この段階で求められるのは、精算見積のような緻密さではありません。プロジェクトの事業性を判断するための、根拠ある概算金額です。ケタを間違えない、信頼性のある数字が、設計者には求められます。</p>
+                    <p>このシリーズでは、BIM モデルから直接、鉄骨の数量を拾い出す Archelier の先行積算機能を紹介してきました。<a href="steel-weight-estimate.html">その1</a>では形鋼の重量を、<a href="joint-quantity-estimate.html">その2</a>では接合部のボルトやプレート類の数量を集計する方法を見てきました。これで、鉄骨工事の「数量」という根拠は手に入っています。</p>
+                    <p>今回はシリーズの締めくくりとして、集計した数量に「単価」を掛け合わせ、工事費を試算する実践的なプロセスを解説します。</p>
+
+                    <h2>Archelier が出すのは数量まで・金額は設計者が当てる</h2>
+                    <p>まず重要な点として、Archelier 本体には単価を設定する機能がありません。BIM モデルから公共建築数量積算基準に準拠した数量を算出し、CSV ファイルとして出力するのが Archelier の役割です。</p>
+                    <p>なぜなら、単価はあまりにも変動要素が多いからです。鉄骨の単価は、時期による市況の変動、地域差、そして取引のある鉄骨ファブリケーターとの関係性など、様々な要因で動きます。アドオンに固定の単価テーブルを持たせてしまうと、あっという間に実勢価格と乖離してしまうでしょう。</p>
+                    <p>Archelier は、あえて金額の領域には踏み込みません。その代わり、最も揺らぎのない正確な数量を算出することに特化しています。変動しやすい単価の部分は、設計者自身が使い慣れた Excel を使い、自社の知見や最新の見積実例を反映させて金額を試算する。この役割分担こそが、実務に即した最も合理的で精度の高いやり方だと考えています。</p>
+
+                    <h2>CSV をそのまま Excel に流し込む（2本の CSV）</h2>
+                    <p>Archelier からは、先行積算の結果として 2 本の CSV ファイルが出力されます。1 本は形鋼の集計結果、もう 1 本は接合部の集計結果です。</p>
+                    <p>どちらの CSV もフォーマットは共通で、カテゴリ・項目・設計数量・所要数量・単位という 5 つの列で構成されています。このシンプルさが、Excel との連携を容易にします。</p>
+                    <p>作業は単純です。2 本の CSV をそれぞれ Excel で開き、シートの右側に「単価」と「金額」の 2 列を自分で追加するだけ。あとは、金額列に <code>[所要数量] × [単価]</code> という数式を入れれば、項目ごとの概算金額が自動で計算されます。</p>
+                    <p>ここで注意したいのは、金額計算のベースには「所要数量」の列を使うことです。Archelier は公共建築数量積算基準に従って、品目ごとに異なるロス率（形鋼・鋼管 +5% / 鋼板（切板） +3% / 高力ボルト +4%）をあらかじめ所要数量に織り込んでいます。このロス込みの数量に単価を掛けることで、より実態に近い工事費を算出できます。</p>
+
+                    <h2>形鋼に単価を当てる</h2>
+                    <p>形鋼の金額を試算する際は、kg 単価（円/kg）で考えるのが最もシンプルで現実的です。</p>
+                    <p>単価のレンジは、付き合いのある鉄骨ファブリケーターから最近取った見積書を 1〜2 件参考にすれば、自社なりの基準値が見えてくるはずです。H 形鋼のサイズによって単価に多少の差はありますが、概算の段階では主要なサイズ帯で代表単価を決めてしまってもよいでしょう。</p>
+                    <p>重要なのは、単価は常に変動するという前提に立つことです。この Excel で作った単価表は、市況に合わせて定期的に見直す必要があります。絶対的な正解はなく、自社のプロジェクト実績や取引先との関係性の中で、妥当なレンジを探っていく作業になります。</p>
+                    <p>繰り返しになりますが、Archelier が出力する形鋼の所要数量には、既に材料ロス（+5%）が含まれています。Excel 側でさらにロス率を掛けてしまうと二重計上になるため、注意してください。鋼板（添え板・ガセットプレート）の +3%、高力ボルトの +4% についても同じく所要数量に織り込まれています。</p>
+
+                    <h2>添え板・ガセットに単価を当てる</h2>
+                    <p>スプライスプレートなどの添え板や、柱梁接合部のガセットプレートに使われる鋼板も、形鋼と同様に kg 単価で試算します。一般的に、鋼板の単価は同程度の鋼種であっても、形鋼より少し高めに設定されることが多いです。鋼種や板厚、加工の難易度によっても単価は動きます。</p>
+                    <p>鋼板の単価を考える際には、2 つのアプローチがあります。</p>
+                    <ul>
+                        <li>A 案：鋼板そのものの材料単価と、加工費（孔あけ・切断・溶接など）を分けて考える方法。より精緻な積算に向いていますが、初期段階では加工費の想定が難しいかもしれません。</li>
+                        <li>B 案：材料費と標準的な加工費をひっくるめた kg 単価を設定する方法。設計初期の概算では、こちらの方が手早く、かつ実用的な結果を得やすいでしょう。</li>
+                    </ul>
+                    <p>どちらが正解ということはなく、概算のフェーズや社内の積算文化に合わせて使い分けることになります。シリーズの趣旨である「設計初期に施主へ即答する」という目的に照らせば、B 案ベースで運用を始めるのが現実的な落としどころです。</p>
+
+                    <h2>ボルトはサイズ別の本単価で</h2>
+                    <p>高力ボルトは重量ではなく、サイズ別の本単価で金額を算出します。</p>
+                    <p>高力ボルト（F10T など）の価格は、メーカーの定価に対して鉄骨ファブリケーターが持つ掛率で決まります。M16・M20・M22 といった径のサイズ、そして首下長さによって単価は細かく分かれています。</p>
+                    <p>接合部編で出力される CSV には、ボルトのサイズと長さが項目名として明記されています。そのため、Excel の VLOOKUP や XLOOKUP 関数を使えば、あらかじめ用意した単価表から自動で単価を引いてくる仕組みを簡単に作れます。</p>
+                    <p>なお、高力ボルトの所要数量には公共建築数量積算基準に基づき +4% のロス率が織り込まれています。コンクリートに埋め込むアンカーボルト類（割増率 0%）とは別の区分で扱われる点に注意してください。</p>
+
+                    <h2>単価表テンプレートを 1 枚作っておく</h2>
+                    <p>ここまでの作業を効率化するために、社内で単価表テンプレートとなる Excel ファイルを 1 つ作成しておくことを強くおすすめします。</p>
+                    <p>例えば、以下のようにシートを分けて管理すると便利です。</p>
+                    <ul>
+                        <li>シート 1：形鋼のサイズ別 kg 単価表</li>
+                        <li>シート 2：鋼板の板厚別 kg 単価表</li>
+                        <li>シート 3：高力ボルトのサイズ・長さ別 本単価表</li>
+                    </ul>
+                    <p>Archelier から CSV が出力されたら、このテンプレートファイルにデータを貼り付け、各項目が単価表を参照するように設定するだけです。物件ごとにゼロから単価を入力する手間が省け、計算ミスも防げます。</p>
+                    <p>このマスター単価表は、半年に一度や、大きな見積依頼のたびに見直すなど、社内で更新ルールを決めておきましょう。単価情報をこのファイルに一元化することで、設計者による金額のブレをなくし、事務所全体の積算精度を高めることにつながります。</p>
+
+                    <h2>まとめ — 金額の精度ではなく「ケタの妥当性」を取りに行く</h2>
+                    <p>設計初期段階における概算金額の試算は、1 円単位の正確性を追求する作業ではありません。プロジェクト全体の工事費が「億」のオーダーなのか、「千万」のオーダーなのか、そのケタの妥当性を確かめるためのものです。</p>
+                    <p>Archelier が BIM モデルから正確な数量を担保してくれることで、設計者は変動要素である単価の妥当性を検討することに集中できます。数量と単価が、どちらも根拠を持っている状態を設計の早い段階で作り出せること。これこそが、施主に概算金額を提示する際の、強力な裏付けとなります。</p>
+                    <p>急に投げられる「いくらですか？」にも、自信を持って即答できる体制が整うはずです。</p>
+
+                    <h3>シリーズ完結にあたって</h3>
+                    <p>全 3 回にわたってお届けした「社内先行積算」シリーズは、これで完結となります。形鋼の重量集計（<a href="steel-weight-estimate.html">その1</a>）、接合部の数量集計（<a href="joint-quantity-estimate.html">その2</a>）、そして単価を当てた金額試算（その3）。BIM モデルから設計初期の概算工事費まで、一気通貫で組み立てるためのワークフローをまとめてご紹介してきました。</p>
+                    <p>なお、将来的には Archelier 本体に、ユーザーが独自の単価テーブルを保持できる機能を組み込む構想もあります。実装にあたっては「単価そのものはアドオンに固定値で持たない」という今回の役割分担の考え方を踏襲し、自社単価表の取り込みと CSV への金額列追加を補助する形を想定しています。今後のアップデートにもご期待ください。</p>
+                    <p>Archelier の機能詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
