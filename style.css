@@ -39,7 +39,7 @@ a {
 /* Header */
 .header {
     position: fixed;
-    top: 0;
+    top: var(--release-banner-height, 0px);
     width: 100%;
     z-index: 100;
     padding: 30px 0;
@@ -652,4 +652,73 @@ a {
     .footer { padding: 40px 0; }
     .footer .footer-links { display: flex; flex-direction: column; gap: 8px; }
     .footer .footer-links .sep { display: none; }
+}
+
+/* === Release Banner (2026-05-30 正式リリース反映) === */
+:root {
+  --release-banner-height: 64px;
+}
+.release-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #1A2B3C 0%, #2c4360 100%);
+  color: #fff;
+  padding: 12px 24px;
+  text-align: center;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  z-index: 110;
+  min-height: var(--release-banner-height);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.release-banner-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.release-banner-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  background: #D9A441;
+  color: #1A2B3C;
+  font-weight: 700;
+  border-radius: 3px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+}
+.release-banner-text { font-weight: 500; }
+.release-banner-date {
+  margin-left: 10px;
+  opacity: 0.75;
+  font-size: 0.85em;
+}
+.release-banner-cta {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+.release-banner-cta:hover {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.5);
+}
+@media (max-width: 640px) {
+  :root { --release-banner-height: 92px; }
+  .release-banner { font-size: 0.85rem; padding: 8px 12px; }
+  .release-banner-inner { gap: 8px; }
+  .release-banner-cta { padding: 5px 12px; font-size: 0.82rem; }
 }
