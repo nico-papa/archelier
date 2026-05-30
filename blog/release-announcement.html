@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchiCAD アドオン Archelier、本日正式リリースしました | Archelier Blog</title>
+    <meta name="description" content="GRAPHISOFT ArchiCAD 29 用の純正 C++ アドオン Archelier（アルシェリエ）を 2026年5月30日に正式リリース。屋根葺き材の自動配置・鉄骨ディテール作成（梁継手・ガセットプレート・ブレース・F10T 高力ボルト）・公共建築数量積算基準準拠の積算機能。買い切り ¥33,000・2 PC まで・日本の建築実務に最適化。">
+    <link rel="canonical" href="https://archelier.jp/blog/release-announcement.html">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/favicon-144.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon-512.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="theme-color" content="#5A6F85">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ArchiCAD アドオン Archelier、本日正式リリースしました">
+    <meta property="og:description" content="GRAPHISOFT ArchiCAD 29 用の純正 C++ アドオン Archelier を 2026年5月30日に正式リリース。屋根葺き材の自動配置・鉄骨ディテール・公共建築数量積算基準準拠の積算機能。買い切り ¥33,000。">
+    <meta property="og:url" content="https://archelier.jp/blog/release-announcement.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "ArchiCAD アドオン Archelier、本日正式リリースしました",
+      "description": "GRAPHISOFT ArchiCAD 29 用の純正 C++ アドオン Archelier を 2026年5月30日に正式リリース。屋根葺き材の自動配置・鉄骨ディテール・公共建築数量積算基準準拠の積算機能。買い切り ¥33,000。",
+      "datePublished": "2026-05-30",
+      "dateModified": "2026-05-30",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/release-announcement.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner { max-width: 1200px; margin: 0 auto; }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-tag.news {
+            background: #1A2B3C;
+            color: #fff;
+            border-color: #1A2B3C;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body { padding: 64px 24px 96px; background: #fff; }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child { margin-top: 0; }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p { margin-bottom: 1.6em; }
+        .article-body-inner ul, .article-body-inner ol {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li { margin-bottom: 0.7em; line-height: 1.9; }
+        .article-body-inner strong { font-weight: 700; color: #1A2B3C; }
+        .article-body-inner code {
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.92em;
+            background: #F4F4F4;
+            color: #1A2B3C;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .release-callout {
+            margin: 32px 0;
+            padding: 28px 32px;
+            background: linear-gradient(135deg, #1A2B3C 0%, #2c4360 100%);
+            color: #fff;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .release-callout-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            background: #D9A441;
+            color: #1A2B3C;
+            font-weight: 700;
+            border-radius: 3px;
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            margin-bottom: 18px;
+        }
+        .release-callout h3 {
+            color: #fff !important;
+            border-left: none !important;
+            padding-left: 0 !important;
+            margin: 0 0 8px !important;
+            font-size: 1.4rem !important;
+        }
+        .release-callout p { margin: 0 0 1em !important; color: rgba(255,255,255,0.85); }
+        .release-callout p:last-child { margin: 0 !important; }
+        .release-callout .release-callout-price {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #D9A441;
+        }
+        .release-callout-cta {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 32px;
+            background: #D9A441;
+            color: #1A2B3C;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+        .release-callout-cta:hover { opacity: 0.85; }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover { text-decoration: underline; }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover { opacity: 0.85; }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZK2KQBCSLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZK2KQBCSLE');
+    </script>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-05-30">2026.05.30</time>
+                        <span class="article-tag news">News</span>
+                    </div>
+                    <h1>ArchiCAD アドオン Archelier、本日正式リリースしました</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">本日、GRAPHISOFT ArchiCAD 29 用のアドオン「Archelier（アルシェリエ）」を正式にリリースしました。日本の建築設計実務における、あと一歩届かなかった作業を効率化するためのツールです。</p>
+
+                    <h2>ArchiCAD で「絶妙に使いづらい部分」を、自社で補う</h2>
+                    <p>ArchiCAD は、BIM ソフトウェアとして非常に優れたツールです。意匠設計から実施設計、施工図連携まで、その強力なモデリング機能と情報連携機能は、多くの設計者の業務を支えています。しかし、日本の建築実務の細部に目を向けると、標準機能だけでは対応が難しく、多くの時間を費やしている作業領域が存在するのも事実です。</p>
+                    <p>例えば、鉄骨造のディテール作成。梁と梁、あるいは梁と柱が取り合う部分の継手やガセットプレート、ブレースといった部材は、一つ一つが設計思想を反映した重要な要素でありながら、そのモデリングは煩雑になりがちです。また、日本瓦や折板屋根といった、独特の役物や納まりを持つ屋根伏せの表現も、手作業でのモデリングには限界があります。</p>
+                    <p>さらに、モデルから数量を拾い出し、積算に繋げる工程も課題の一つです。特に公共建築工事では、公共建築数量積算基準に準拠した拾い出しが求められますが、これを BIM ソフトから直接、実用的な形式で出力するのは簡単ではありません。</p>
+                    <p>これらの「BIM ソフトの守備範囲から少しだけはみ出した」作業は、設計の本質的な部分ではないにも関わらず、私たちの貴重な時間を奪っていきます。OpenBIM の思想が示すように、API を通じてソフトウェアの機能を拡張できるのであれば、こうした課題は自ら解決すべきではないか。「無いなら作る」という考えのもと、日々の実務から生まれたのが Archelier です。</p>
+
+                    <h2>Archelier がやってくれること</h2>
+                    <p>Archelier は、これまで手作業に頼らざるを得なかったモデリングと、それに付随する数量算出を自動化するための機能を備えています。</p>
+
+                    <h3>屋根葺き材の自動配置</h3>
+                    <p>ArchiCAD の屋根オブジェクトを選択するだけで、各種屋根葺き材を自動で配置します。単純なサーフェスの割り当てではなく、部材一つ一つをオブジェクトとして生成するため、詳細な表現と正確な数量算出が可能です。</p>
+                    <p>平瓦や日本瓦はもちろん、隅棟や降り棟の役物も自動で配置します。金属屋根の縦ハゼ葺きや折板屋根、その端部に必要となるキャップ材にも対応しており、複雑な屋根形状の伏図作成と整合性の取れたモデル化を両立します。</p>
+
+                    <h3>鉄骨ディテール作成</h3>
+                    <p>鉄骨の梁・柱オブジェクトを基準に、接合部のディテールを自動生成します。</p>
+                    <p>梁同士の継手では、スプライスプレートと高力ボルトを適切な位置に配置。ガセットプレートやブレースも、部材を選択するだけで、ターンバックルや関連するボルトを含めて正確にモデル化します。高力ボルト（F10T）の径と鋼板の厚みに応じたボルト長も、慣例値に基づき自動で算出します。</p>
+
+                    <h3>積算機能</h3>
+                    <p>作成した屋根葺き材と鉄骨部材から、数量を自動で集計します。</p>
+                    <p>単に員数を数えるだけでなく、公共建築数量積算基準に準拠した形式での集計が可能です。鉄骨部材は形鋼のサイズごとに重量（トン数）を算出し、高力ボルトも径と長さに応じて集計します。集計結果は CSV ファイルとして出力できるため、積算担当者への連携や、表計算ソフトでの二次加工も容易です。</p>
+
+                    <h2>日本の建築実務に最適化</h2>
+                    <p>Archelier が目指したのは、海外製の汎用的なアドオンでは届かない、日本の実務に根差した使い勝手です。</p>
+                    <p>例えば、日本瓦の隅棟で使われる役物の形状や配置ルール、JIS 規格に基づいた形鋼の断面性能テーブル、現場で一般的に用いられる高力ボルトの呼び長さの選定基準など、設計者が暗黙のうちに参照している知識や慣例を機能に組み込んでいます。</p>
+                    <p>公共建築数量積算基準への準拠もその一つです。部材の計上方法や分類は、この基準を理解していなければ実用的なツールにはなり得ません。こうした「現場感」を反映することで、単なるモデリング支援に留まらず、設計から積算までの一連のワークフローをスムーズに繋ぐことを意図しています。</p>
+
+                    <h2>ミリ単位の精度・買い切りライセンス</h2>
+                    <p>Archelier は、ArchiCAD の API を用いた純正の C++ アドオンとして開発されています。そのため、ArchiCAD 本体と遜色ない軽快な動作と、ミリ単位の精度でのモデリングを実現します。複雑な形状の屋根や、数百点に及ぶ鉄骨接合部を扱うプロジェクトでも、パフォーマンスの低下を最小限に抑えます。</p>
+                    <p>また、ライセンスはサブスクリプションではなく買い切り形式です。お買い上げいただいた ArchiCAD のバージョンに対応した Archelier を、そのバージョン系内のアップデートを含めて永続的にご利用いただけます。将来 ArchiCAD 30 以降に対応した Archelier がリリースされた際は、改めて新規購入をお願いする形式となります。購入後は、メインの作業用 PC と予備のノート PC など、合計 2 台までのマシンにインストールしてご使用いただけます。</p>
+
+                    <div class="release-callout">
+                        <span class="release-callout-badge">NEW RELEASE</span>
+                        <h3>Archelier v1.0 — 本日販売開始</h3>
+                        <p>買い切りライセンス（2 PC まで）</p>
+                        <p class="release-callout-price">¥33,000</p>
+                        <a href="https://archelier.gumroad.com/l/Archelier-v1" class="release-callout-cta">購入ページへ進む</a>
+                    </div>
+
+                    <h2>これまでのブログ記事から</h2>
+                    <p>当ブログでは、Archelier の開発背景ともなった鉄骨のディテールモデリングや積算に関する考え方を、いくつかの記事でご紹介してきました。</p>
+                    <p>鉄骨の数量算出については、概算の考え方から、形鋼のトン数、さらには手間のかかる接合部の数量をどのように捉えるかについて解説しています。</p>
+                    <ul>
+                        <li><a href="in-house-steel-estimate.html">鉄骨工事は時間との戦い — Archelier で社内先行積算という選択肢</a></li>
+                        <li><a href="steel-weight-estimate.html">鉄骨のトン数を即答する — Archelier で形鋼の重量を拾う</a></li>
+                        <li><a href="joint-quantity-estimate.html">接合部の数量を拾う — Archelier で添え板・ボルト・ガセットを集計する</a></li>
+                        <li><a href="cost-estimate.html">概算金額を即答する — Archelier の CSV と Excel で工事費を試算する</a></li>
+                    </ul>
+                    <p>これらの記事で触れている課題意識や解決へのアプローチが、Archelier の機能に直接的に繋がっています。もしご興味のあるテーマがあれば、ぜひ一度ご覧ください。</p>
+
+                    <h2>購入・お問い合わせ</h2>
+                    <p>Archelier は、本日より <a href="https://archelier.gumroad.com/l/Archelier-v1">Gumroad の販売ページ</a> にて販売を開始しました。導入をご検討の方は、ぜひご覧いただければ幸いです。</p>
+                    <p>製品の機能に関するご質問や、「こういった機能が欲しい」といったご要望がございましたら、<a href="../contact.html">お問い合わせフォーム</a> よりお気軽にご連絡ください。皆様からのフィードバックは、今後の機能追加や改善に活かしていきたいと考えております。</p>
+                    <p>日々の設計実務の一助となれば、これに勝る喜びはありません。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
