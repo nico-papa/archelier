@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>屋根の端部を仕上げる — 棟・軒先・唐草の納まりを微調整する | Archelier Blog</title>
+    <meta name="description" content="Archelier の BIM 活用 Tips 第1弾。屋根瓦の自動配置は「置いて終わり」ではありません。配置したあとに棟・軒先・唐草といった端部の納まりをどう追い込むか、軒先延長・棟瓦・のし段数・唐草の向き（直角／垂直）といった調整ポイントを、設計実務の目線で細かく解説します。">
+    <link rel="canonical" href="https://archelier.jp/blog/roof-edge-tips.html">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/favicon-144.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon-512.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="theme-color" content="#5A6F85">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="屋根の端部を仕上げる — 棟・軒先・唐草の納まりを微調整する">
+    <meta property="og:description" content="Archelier の BIM 活用 Tips 第1弾。屋根瓦の自動配置は「置いて終わり」ではありません。配置後に棟・軒先・唐草の端部をどう追い込むかを、設計実務の目線で解説します。">
+    <meta property="og:url" content="https://archelier.jp/blog/roof-edge-tips.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "屋根の端部を仕上げる — 棟・軒先・唐草の納まりを微調整する",
+      "description": "Archelier の BIM 活用 Tips 第1弾。屋根瓦の自動配置は「置いて終わり」ではありません。配置後に棟・軒先・唐草の端部をどう追い込むかを、設計実務の目線で解説します。",
+      "datePublished": "2026-06-02",
+      "dateModified": "2026-06-02",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/roof-edge-tips.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner ol {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner code {
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.92em;
+            background: #F4F4F4;
+            color: #1A2B3C;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-body-inner figure {
+            margin: 32px 0;
+        }
+        .article-body-inner figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+        }
+        .article-body-inner figcaption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZK2KQBCSLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZK2KQBCSLE');
+    </script>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-06-02">2026.06.02</time>
+                        <span class="article-tag">BIM 活用 Tips</span>
+                    </div>
+                    <h1>屋根の端部を仕上げる — 棟・軒先・唐草の納まりを微調整する</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">Archelier の使い方を機能ごとに掘り下げてきたブログに、今回から新しいシリーズ「BIM 活用 Tips」を加えます。これまでが「機能の基本パラメータを一通り解説する」連載だったのに対し、こちらは実務で Archelier を回すときの、機能をまたいだ細かなコツを集める枠です。メニューの並び順にならって、第1弾は屋根から始めます。テーマは「配置したあと」です。屋根瓦の自動配置は、ボタンを押せば一瞬で葺き上がります。けれども、設計図として人に見せられる屋根になるかどうかは、そのあとに棟・軒先・端部の納まりをどれだけ丁寧に追い込めるかで決まります。今回は、配置済みの屋根を仕上げていくときに押さえておきたい調整ポイントを、細かく見ていきます。</p>
+
+                    <h2>はじめに — 屋根は「葺いてから」が本番</h2>
+                    <p>Archelier の屋根機能は、ArchiCAD の屋根スラブを解析して、瓦や役物を一括で配置します。寄棟か切妻かといった屋根タイプも自動で判定するので、設計者は屋根スラブを作って瓦タイプを選ぶだけで、ディテールを持った屋根が手に入ります。ここまでは、概要編でお話しした通りです。</p>
+                    <p>ただ、実際の設計では「葺けた」がゴールではありません。軒の出をもう少し深くしたい、棟の納まりを重厚にしたい、金属屋根の水切りの見え方を整えたい——こうした要望は、配置したあとに必ず出てきます。屋根は一度葺いてしまうと、割り付けそのものを根本から組み替えるような大きな手戻りはしにくい部材です。だからこそ、最初に屋根スラブの形を決めるときと、配置したあとに端部を調整するとき、それぞれで「どこを触ればよいか」を知っておくと、仕上がりが大きく変わります。</p>
+                    <blockquote>
+                        <p>調整の入口は共通しています。配置済みの屋根オブジェクトを選択し、ArchiCAD 標準の「選択したオブジェクトの設定」を開くと、Archelier のパラメータがカスタム設定として並びます。ここで値を変えると、屋根全体を再生成することなく、その場で 3D に反映されます。</p>
+                    </blockquote>
+                    <p>以下では、端部を仕上げるうえで効いてくる3つの場所——軒先、棟、そして唐草——を順番に取り上げます。</p>
+
+                    <h2>軒先まわり — 瓦はスラブで、金属屋根は軒先延長で</h2>
+                    <p>軒先の出は、屋根の表情をいちばん大きく左右する要素のひとつです。ここで大事なのは、軒先の調整の仕方が屋根材によって変わるという点です。瓦屋根と金属屋根とで、触る場所が違います。</p>
+
+                    <h3>瓦屋根の軒先は、屋根スラブで決まる</h3>
+                    <p>平板瓦や日本瓦の軒の出は、ArchiCAD の屋根ツールで作る屋根スラブの形状で決まります。瓦を配置すると、このスラブの輪郭に沿って自動でカットされ、形に合わせて葺かれます。ここで知っておいていただきたいのは、瓦そのものは軒先方向に伸びない、ということです。配置したあとに「瓦だけをもう少し前に出す」という操作はできません。</p>
+                    <p>ですから、瓦屋根で軒を深くしたい・浅くしたいときは、まず屋根スラブの軒先ラインを動かします。ただし、ここがいちばんのポイントです。瓦はスラブを変えても自動では追従しません。スラブの軒の出を変えたら、その屋根はもう一度配置し直す、つまり再配置することになります。手間に感じるかもしれませんが、再配置といっても瓦タイプとパラメータを選んで実行するだけなので一瞬です。軒の出はまずスラブで形を決め、固まってから瓦を配置する——この順番を意識しておくと、やり直しを最小限にできます。瓦屋根の軒先は、Archelier のパラメータでも配置後のカスタム設定でもなく、ArchiCAD の屋根スラブで決める、というのがここでの要点です。</p>
+
+                    <h3>金属屋根・折板屋根は、軒先延長で板を前に出す</h3>
+                    <p>一方、金属屋根（縦葺き）と折板屋根は、瓦とは事情が違います。実際の金属屋根では、軒先で板を下地のラインよりわずかに前に出し、雨水を確実に切るように納めます。これを表現するのが「軒先延長」です。値を入れると、軒先側で板が下地より前に出た納まりになります。</p>
+                    <p>軒先延長は、金属屋根と折板屋根でのみ有効なパラメータです。瓦屋根には軒先延長という考え方がない（瓦は伸びない）ので、屋根材を選んだときに、自分がどちらの世界で軒先を調整しているのかを意識しておくと、操作に迷いがなくなります。</p>
+
+                    <h2>棟まわり — 大棟・隅棟の表情をつくる</h2>
+                    <p>軒先と並んで、屋根の格を決めるのが棟の納まりです。Archelier は寄棟なら大棟と4本の隅棟、切妻なら大棟というように、屋根タイプに応じて棟役物を自動で載せます。そのうえで、棟の見え方は次のような項目で追い込めます。</p>
+
+                    <h3>配置ダイアログで決める基本</h3>
+                    <p>瓦を配置するときのダイアログでは、棟瓦を出すか出さないか、棟瓦が平瓦にどれだけ被さるか（かぶり長）、棟瓦自体の厚みといった、棟の基本的な寸法を決めます。まずはここで、屋根全体に対して棟がどのくらいのボリュームで載るのかを整えます。</p>
+
+                    <h3>配置後に効く、和瓦の棟ディテール</h3>
+                    <p>とくに日本瓦の棟は、のし瓦を積み上げ、その頂部に冠瓦を載せ、端部に巴瓦を付ける、という伝統的な構成を持ちます。Archelier では、配置したあとに棟役物を選択してカスタム設定を開くと、こうしたディテールを後から調整できます。</p>
+                    <ul>
+                        <li>のし段数 — 棟に積み上げるのし瓦の段数です。段数を増やすほど、棟が高く、重厚な表情になります。「3段にするか、5段で風格を出すか」といった検討を、その場で見比べられます。</li>
+                        <li>冠瓦の表示 — 棟の最上部に載せる冠瓦を出すか出さないかを切り替えます。</li>
+                        <li>巴瓦の表示 — 大棟や隅棟の端部に付く巴瓦を出すか出さないかを切り替えます。</li>
+                        <li>葺き始めと葺き終わりの位置 — 棟瓦を水下側・水上側にどこまで伸ばすかを微調整します。隅棟と軒先の取り合いや、大棟どうしの突き合わせを整えるときに効きます。</li>
+                    </ul>
+                    <p>棟は、屋根のなかでも目線が集まる場所です。平瓦の割り付けは自動に任せておき、棟まわりだけは段数や端部の位置を手で詰める。この使い分けが、自動配置した屋根を「実施図に耐える屋根」に引き上げてくれます。</p>
+
+                    <h3>棟が二重になったときは、大屋根の棟を外して棟役物で整える</h3>
+                    <p>もう一点、棟まわりで知っておくと安心な小ワザがあります。配置の組み合わせによっては、大屋根の瓦そのものに付く棟と、棟役物（HipTile）が載せる棟とが、両方表示されてしまい、棟が二重に重なって見えることがあります。大屋根側の棟のチェックが入ったまま、その上にさらに棟役物が乗っている、という状態です。</p>
+                    <p>こうなったときは、大屋根側の棟（棟瓦を表示するチェック）を外し、棟は棟役物（HipTile）の方で作る、と一本化するのがおすすめです。棟役物は寄棟・切妻・T字・L字といった屋根タイプごとに適切な納まりで載り、のし段数や端部の位置もそちらで細かく調整できます。棟の表現は棟役物に任せる、と決めてしまえば、二重表示に悩まされることなく、すっきりとした棟に仕上げられます。</p>
+
+                    <h2>唐草の向き — 金属屋根で「直角」と「垂直」を使い分ける</h2>
+                    <p>3つ目は、軒先やケラバの端部に取り付く板金部材「唐草」です。唐草は、屋根の葺き材を受け止め、雨水を軒先で切るための立ち上がりを持った水切りで、とくに金属屋根（縦葺き）では仕上がりの印象を左右する大事なディテールです。Archelier では、金属屋根を葺くときにこの唐草を自動で生成し、表示の有無に加えて、立ち上がりの高さ・かぶりの長さ・出寸法を調整できます。</p>
+
+                    <h3>「直角」と「垂直」は、屋根スラブの軒先の切り方に合わせる</h3>
+                    <p>唐草には、立ち上がりの向きを「直角」と「垂直」で切り替える設定があります。これは好みで選ぶというより、もとになる ArchiCAD の屋根スラブの軒先を、どう切っているかと対応させるための設定です。ArchiCAD の屋根ツールでは、軒先の小口を屋根面に対して直角に切るか、鉛直（地面に対して垂直）に切るかを選べます。唐草の向きは、このスラブ側の軒先の切り方に合わせるのが基本です。</p>
+                    <p>つまり、屋根スラブの軒先を直角に切っているなら唐草も「直角」、鉛直に切っているなら「垂直」。両者を揃えると、下地の小口と板金の水切りラインがきれいに通り、軒先がすっきり納まります。逆に、ここがちぐはぐだと、唐草が下地の小口と合わず、不自然な見え方になってしまいます。初期値は「直角」なので、まずは ArchiCAD 側で軒先をどちらの向きで切ったかを確認し、それに合わせて唐草の向きを選ぶとよいでしょう。勾配がきついほど、この差は軒先の見え方にはっきりと表れます。</p>
+
+                    <h2>調整のワークフロー — 「選択 → カスタム設定」で即反映</h2>
+                    <p>ここまで紹介してきた調整は、どれも同じ入口から行えます。配置済みの屋根オブジェクトを選び、ArchiCAD 標準の「選択したオブジェクトの設定」を開く。すると Archelier のパラメータがカスタム設定として表示され、値を変えればその場で 3D に反映されます。屋根をまるごと配置し直す必要はありません。</p>
+                    <p>棟ののしを一段増やし、金属屋根の軒先を少し前に出し、唐草の向きを整える。こうした端部の仕上げを、インタラクティブに見比べながら詰められるのが、自動配置のもうひとつの利点です。なお、瓦屋根の軒の出だけは例外で、カスタム設定では動かせません。屋根スラブ側で形を決め直してから再配置する、という流れになる点に注意してください。配置はゴールではなく、仕上げのスタート地点だと考えると、この機能の使いどころがはっきりしてきます。</p>
+                    <p>この「選択してプロパティで直す」という流れは、Archelier を設計するうえで私がいちばんこだわった部分です。ArchiCAD を使う方なら、要素を配置して、選択して、設定画面で値を直す——という操作を、毎日のように繰り返しているはずです。Archelier の屋根機能も、その慣れ親しんだ流れにそのまま乗るように作りました。配置は専用のダイアログから、修正は ArchiCAD 標準の「選択したオブジェクトの設定」から。新しいアドオンだからといって、特別な操作モードや独自の編集画面を覚え直す必要はありません。</p>
+                    <blockquote>
+                        <p>いつもの ArchiCAD の操作の流れを崩さない。これは屋根機能にかぎらず、Archelier 全体を貫く設計方針です。だからこそ、導入したその日から、ふだんの設計の延長線上で自然に使い始められます。</p>
+                    </blockquote>
+
+                    <h2>まとめ — 端部の3点を押さえれば、屋根は見違える</h2>
+                    <p>今回は BIM 活用 Tips の第1弾として、配置したあとの屋根を仕上げる調整ポイントを、軒先・棟・唐草の3つに絞って解説しました。軒先は屋根材しだいで、瓦屋根なら屋根スラブの軒の出で、金属屋根・折板屋根なら軒先延長で。棟は段数や端部の位置で表情を、金属屋根の唐草は向きで仕上がりの印象を、それぞれ作り込めます。</p>
+                    <p>瓦の割り付けという面倒な部分は自動に任せ、設計者は端部の納まりという、本当に意匠を左右する部分に集中する。Archelier の屋根機能は、そういう時間の使い方ができるように作っています。次に屋根を葺いたときは、ぜひ配置済みのオブジェクトを選んで、カスタム設定を開いてみてください。端部を少し触るだけで、屋根の見え方がぐっと締まるはずです。</p>
+
+                    <h2>次回予告</h2>
+                    <p>BIM 活用 Tips のシリーズは、これからもメニューの並び順にならって、各機能の「配置したあと」「知っていると効く」コツを拾っていきます。屋根まわりでも、まだお話ししきれていない調整がいくつかあります。次回もどうぞお付き合いください。</p>
+                    <p>Archelier の機能詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。屋根機能そのものの全体像は <a href="roof-tile-overview.html">屋根瓦の自動配置 — 概要編</a> から読めます。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
