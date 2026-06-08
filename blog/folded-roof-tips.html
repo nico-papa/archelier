@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>折板屋根の納まりを仕上げる — 棟包み・ケラバ・面戸を追い込む | Archelier Blog</title>
+    <meta name="description" content="Archelier の BIM 活用 Tips 第2弾。工場・倉庫・カーポートで使う折板屋根は、瓦とは別の役物で仕上がりが決まります。本体のパネル割りからタイトフレーム・棟包み・ケラバ包み・面戸・エプロン面戸・幕板まで、配置したあとにどう追い込むかを設計実務の目線で解説します。">
+    <link rel="canonical" href="https://archelier.jp/blog/folded-roof-tips.html">
+    <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/favicon-144.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/icon-512.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="theme-color" content="#5A6F85">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="折板屋根の納まりを仕上げる — 棟包み・ケラバ・面戸を追い込む">
+    <meta property="og:description" content="Archelier の BIM 活用 Tips 第2弾。工場・倉庫・カーポートで使う折板屋根は、瓦とは別の役物で仕上がりが決まります。本体の割り付けから棟・ケラバ・面戸・幕板まで、配置後の追い込みを解説します。">
+    <meta property="og:url" content="https://archelier.jp/blog/folded-roof-tips.html">
+    <meta property="og:site_name" content="Archelier Blog">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 構造化データ: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "折板屋根の納まりを仕上げる — 棟包み・ケラバ・面戸を追い込む",
+      "description": "Archelier の BIM 活用 Tips 第2弾。工場・倉庫・カーポートで使う折板屋根は、瓦とは別の役物で仕上がりが決まります。本体の割り付けから棟・ケラバ・面戸・幕板まで、配置後の追い込みを解説します。",
+      "datePublished": "2026-06-09",
+      "dateModified": "2026-06-09",
+      "author": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "nico-mart",
+        "url": "https://archelier.jp/"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://archelier.jp/blog/folded-roof-tips.html"
+      }
+    }
+    </script>
+
+    <style>
+        .article-hero {
+            padding: 140px 24px 60px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #ECECEC;
+        }
+        .article-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .article-tag {
+            background: #fff;
+            border: 1px solid #ECECEC;
+            padding: 2px 12px;
+            border-radius: 999px;
+            color: #2A2A2A;
+        }
+        .article-hero h1 {
+            font-size: clamp(1.0rem, 1.9vw, 1.85rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-color);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+            .article-hero h1 {
+                white-space: normal;
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+                line-height: 1.55;
+            }
+        }
+        .article-body {
+            padding: 64px 24px 96px;
+            background: #fff;
+        }
+        .article-body-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 2.0;
+            color: #2A2A2A;
+        }
+        .article-body-inner h2 {
+            font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+            font-weight: 500;
+            margin: 64px 0 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .article-body-inner h2:first-child {
+            margin-top: 0;
+        }
+        .article-body-inner h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 40px 0 16px;
+            color: var(--text-color);
+            padding-left: 14px;
+            border-left: 4px solid var(--accent-color);
+            line-height: 1.7;
+        }
+        .article-body-inner p {
+            margin-bottom: 1.6em;
+        }
+        .article-body-inner ul {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner ol {
+            margin: 0 0 1.8em 1.4em;
+            padding-left: 0.4em;
+        }
+        .article-body-inner li {
+            margin-bottom: 0.7em;
+            line-height: 1.9;
+        }
+        .article-body-inner strong {
+            font-weight: 700;
+            color: #1A2B3C;
+        }
+        .article-body-inner code {
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.92em;
+            background: #F4F4F4;
+            color: #1A2B3C;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .article-body-inner blockquote {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: #FAFAFA;
+            border-left: 4px solid var(--accent-color);
+            color: #2A2A2A;
+            font-size: 0.98rem;
+            line-height: 1.9;
+        }
+        .article-body-inner blockquote p {
+            margin-bottom: 0.6em;
+        }
+        .article-body-inner blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        .article-body-inner figure {
+            margin: 32px 0;
+        }
+        .article-body-inner figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #ECECEC;
+            border-radius: 4px;
+        }
+        .article-body-inner figcaption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.7;
+            text-align: center;
+        }
+        .article-footer {
+            max-width: 820px;
+            margin: 80px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid #ECECEC;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-back {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .article-back:hover {
+            text-decoration: underline;
+        }
+        .article-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .article-cta:hover {
+            opacity: 0.85;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZK2KQBCSLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZK2KQBCSLE');
+    </script>
+</head>
+<body>
+    <header class="header always-light">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-group">
+                    <a href="../index.html" style="text-decoration: none; color: inherit;">
+                        <span class="logo-main">Archelier</span>
+                        <span class="logo-sub">for ArchiCAD</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html#concept">Concept</a></li>
+                    <li><a href="../index.html#technology">Technology</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="./" class="active">Blog</a></li>
+                    <li><a href="../buy.html" class="btn-contact">Buy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="article-hero">
+                <div class="article-hero-inner">
+                    <div class="article-meta">
+                        <time datetime="2026-06-09">2026.06.09</time>
+                        <span class="article-tag">BIM 活用 Tips</span>
+                    </div>
+                    <h1>折板屋根の納まりを仕上げる — 棟包み・ケラバ・面戸を追い込む</h1>
+                </div>
+            </section>
+
+            <section class="article-body">
+                <div class="article-body-inner">
+                    <p class="article-lead">BIM 活用 Tips の第2弾も、屋根シリーズを続けます。第1弾では瓦屋根の端部、軒先・棟・唐草の納まりを取り上げました。今回は折板屋根版です。工場や倉庫、カーポートでおなじみの折板屋根は、瓦とはまったく違う構成の屋根で、仕上がりを決める役物も、雨仕舞の考え方も独自のものを持っています。Archelier はこの折板屋根も、本体のパネルから受金物・役物まで一式を自動で生成します。そして瓦屋根と同じく、配置したあとに端部をどう追い込むかで、図面としての完成度が変わります。今回は、折板屋根を配置したあとに押さえておきたい調整ポイントを、本体の割り付けから棟・ケラバ・面戸・幕板まで、順番に見ていきます。</p>
+
+                    <h2>はじめに — 折板屋根は瓦とは別の世界</h2>
+                    <p>折板屋根は、薄い金属板を山形に折り曲げ、その山と谷を連続させて葺いていく屋根です。Archelier が標準で対応しているのは、隣り合う板の山どうしを重ねて固定していく重ね型と呼ばれる形式で、山の高さや働き幅は実際の製品寸法に合わせてあります。瓦のように一枚ずつ割り付けるのではなく、決まった働き幅のパネルを桁行方向に並べていく、というのが折板屋根の基本的な作り方です。</p>
+                    <p>この屋根を構成する部材も、瓦とはまったく違います。折板の本体に加えて、それを鉄骨の梁の上で受けるタイトフレーム、重ね部を留めるボルト、棟をふさぐ棟包み、ケラバを納めるケラバ包み、山形の断面を端部でふさぐ面戸、そして軒先を化粧する幕板。これらが揃って、はじめて雨仕舞の通った折板屋根になります。Archelier はこの一式をまとめて生成しますが、実際の設計では、どの役物をどう見せるかを後から整える場面が必ず出てきます。瓦屋根と同じく、折板屋根も葺いてからが本番です。</p>
+                    <blockquote>
+                        <p>調整の入口は瓦屋根とまったく同じです。配置済みの折板屋根オブジェクトを選択し、ArchiCAD 標準の「選択したオブジェクトの設定」を開くと、Archelier のパラメータがカスタム設定として並びます。値を変えれば、屋根全体を作り直すことなく、その場で 3D に反映されます。</p>
+                    </blockquote>
+
+                    <h2>本体と割り付け — 働き幅とパネル枚数</h2>
+                    <p>まず押さえておきたいのが、折板本体の割り付けです。折板は、一枚のパネルが受け持つ幅、いわゆる働き幅が決まっていて、その幅を単位として桁行方向にパネルを並べていきます。Archelier の標準寸法では、ひと山ぶんのピッチが連続して、ちょうど三山ぶんが一枚の働き幅にあたるように設定してあります。</p>
+                    <p>パネルの枚数は、自動と手動のどちらでも決められます。自動パネル割りを使うと、指定した桁行幅を働き幅で割って必要な枚数が決まり、いちばん端のパネルだけは、割り切れない残りの寸法に合わせて自動でカットされます。たいていの屋根はこの自動割りで過不足なく葺けますが、端部の見え方を整えたいときや、枚数を意図的に揃えたいときには、手動でパネル枚数を指定することもできます。割り付けが思い通りにならないと感じたら、まずこの自動と手動の切り替えを見直すのが近道です。</p>
+                    <p>隣り合うパネルは、山の頂部どうしが重なる位置でボルト留めされます。Archelier はこの重ね部の固定ボルトも、座金やナットまで含めて表現します。検討の初期段階で図を軽くしたいときは、ボルトの表示を切っておく、といった使い方もできます。</p>
+
+                    <h2>タイトフレーム — 折板を受ける金物</h2>
+                    <p>折板屋根を語るうえで欠かせないのが、タイトフレームです。これは、鉄骨の梁の上に取り付けて折板を受け止める、山形の受金物です。折板はこのタイトフレームを介して梁に固定されるので、折板屋根の伏図では、梁の位置とタイトフレームの位置が密接に関わってきます。</p>
+                    <h3>梁割に合わせてスパンを決める</h3>
+                    <p>タイトフレームは、流れ方向に一定の間隔で並びます。標準では、その間隔を働き幅と揃えてありますが、実際の建物では、母屋や梁の入る位置はプロジェクトごとに違います。そこで Archelier では、流れ方向のタイトフレームの間隔を、区間ごとに個別に指定できるようにしてあります。実際の梁割に合わせて各区間のスパンを入れていけば、図面上のタイトフレームの位置を、構造の小屋伏せ・母屋伏せと合致させられます。</p>
+                    <p>タイトフレームが多すぎる、あるいは少なすぎると感じたときは、この区間ごとのスパンの値を見直してください。間隔を詰めれば本数が増え、広げれば減ります。検討段階で屋根面の見え方だけを確認したいときは、タイトフレームとボルトをまとめて非表示にして、軽い状態で形を追う、という進め方もできます。</p>
+
+                    <h2>棟とケラバの包み — 端部を板金で納める</h2>
+                    <p>折板屋根の端部は、瓦のような役物ではなく、板金の包みで納めます。代表的なのが、屋根のてっぺんをふさぐ棟包みと、流れ方向の端部を納めるケラバ包みです。</p>
+                    <h3>棟包み</h3>
+                    <p>棟包みは、屋根の頂部で両面の折板を上からまたいでふさぐ板金です。Archelier では、折板の山にどれだけ被せるかというかぶせ長さと、桁行方向に棟包みをどれだけはみ出させるかという両端の出を調整できます。建物の規模や、棟の見せ方に合わせて、被りと出を整えてください。ひとつ注意したいのは、棟包みは屋根本体の勾配を前提に形が決まる、という点です。もし棟包みが屋根面とうまく合わないときは、屋根本体に設定した勾配と、棟まわりの勾配が揃っているかを確認すると、原因が見つかることが多いです。</p>
+                    <h3>ケラバ包み</h3>
+                    <p>ケラバ包みは、流れ方向の端部、いわゆる妻側を納める段付きの板金です。垂れの高さや、屋根面への被せ幅を調整して、端部の見え方と雨仕舞を整えます。位置は、水下側だけ、水上側だけ、あるいは両方、という形で選べます。ケラバが片側にしか出ていないと感じたら、まずこの位置の設定を両方に変えてみてください。さらに、ケラバ包みは端部の通りを整えるために、長さを自動のままにするか、伸ばすか縮めるかも選べます。軒先やケラバの先端を、隣の役物や屋根の輪郭ときれいに揃えたいときに効いてきます。</p>
+
+                    <h2>面戸とエプロン面戸 — 雨仕舞のキモ</h2>
+                    <p>折板屋根ならではの部材が、面戸です。折板は山と谷が連続した断面を持つので、屋根を切り落とした端部には、山の下に三角形の隙間がいくつも生まれます。この隙間をふさいで、雨水の吹き込みや、鳥や小動物の侵入を防ぐのが面戸の役割です。</p>
+                    <p>Archelier では、面戸を軒先側と棟側でそれぞれ表示するかどうかを選べます。屋根のどちら側に壁が立ち上がるか、どちら側が外部に開いているかに応じて、必要な側だけを出す、といった使い分けができます。面戸は断面の隙間にぴたりと収まる部材なので、ふだんは表示しておき、図を軽くしたい検討段階だけ落とす、という運用がしやすいところです。</p>
+                    <h3>エプロン面戸で棟側・軒先側を表からふさぐ</h3>
+                    <p>面戸が断面の裏側からふさぐ部材だとすれば、エプロン面戸は、端部を表側から覆う薄い板金です。とくに片流れの屋根では、棟側が壁にぶつかる納まりになることが多く、ここを棟側のエプロン面戸で立ち上げてふさぐと、壁際の雨仕舞がきれいに通ります。軒先側にもエプロン面戸を出して、水切りの垂れを付ける納まりにすることもできます。棟包みを使わない片流れのような屋根では、このエプロン面戸が端部の主役になります。</p>
+
+                    <h2>幕板 — 軒先の化粧</h2>
+                    <p>最後に、意匠の面で効いてくるのが幕板です。幕板は、軒先に取り付けて先端を化粧する板で、折板の小口を隠し、軒先のラインをすっきりと見せる役割を持ちます。Archelier では、幕板を表示するかどうかに加えて、その高さや、桁行方向の伸び縮み、そして取り付け位置のオフセットを調整できます。</p>
+                    <p>幕板の高さを変えれば、軒先の見付けの印象が変わります。低く抑えれば軽快に、高くとれば重厚に見えます。長さを伸縮させたり、取り付け位置をずらしたりすれば、ケラバ包みや棟包みとの取り合いを整えられます。工場や倉庫の外観でも、軒先の幕板をどう見せるかは、建物全体の印象を左右する地味で大切なポイントです。仕上げの最後に、ここを少し触ってみてください。</p>
+
+                    <h2>調整のワークフロー — 「選択 → カスタム設定」で即反映</h2>
+                    <p>ここまで紹介してきた調整は、どれも同じ入口から行えます。配置済みの折板屋根オブジェクトを選び、ArchiCAD 標準の「選択したオブジェクトの設定」を開く。すると Archelier のパラメータがカスタム設定として表示され、値を変えればその場で 3D に反映されます。屋根をまるごと配置し直す必要はありません。タイトフレームの本数を区間ごとに整え、棟包みの被りを決め、ケラバの位置と長さを揃え、面戸と幕板を出し入れする。こうした端部の仕上げを、見比べながら詰められます。</p>
+                    <p>折板の本体・タイトフレーム・ボルトには、それぞれ別々に材質を割り当てられます。本体は金属板、受金物は鋼、ボルトは仕上げ材といった具合に、ArchiCAD のマテリアルから選んで質感を整えれば、プレゼン用のビューにもそのまま使えます。逆に、検討の初期段階で図を軽くしたいときは、タイトフレームやボルト、面戸といった細かな部材をまとめて非表示にして、屋根面の形だけを素早く追う、という使い方もできます。</p>
+                    <p>この「選択してプロパティで直す」という流れは、Archelier 全体に共通する考え方です。ArchiCAD を使う方なら、要素を配置して、選択して、設定画面で値を直す、という操作を毎日のように繰り返しているはずです。折板屋根の機能も、その慣れ親しんだ流れにそのまま乗るように作りました。配置は専用の操作から、修正は ArchiCAD 標準の設定画面から。新しいアドオンだからといって、特別な編集モードを覚え直す必要はありません。</p>
+
+                    <h2>まとめ — 役物をそろえれば、折板屋根は見違える</h2>
+                    <p>今回は BIM 活用 Tips の第2弾として、折板屋根を配置したあとの仕上げを取り上げました。本体の割り付けは働き幅とパネル枚数で、受金物は梁割に合わせたスパンで、端部は棟包み・ケラバ包み・面戸・エプロン面戸で、そして軒先の意匠は幕板で。瓦屋根とは部材も雨仕舞も違いますが、面倒な本体の割り付けは自動に任せ、設計者は役物の納まりに集中する、という考え方は同じです。</p>
+                    <p>折板屋根は、工場や倉庫、カーポートといった建物で日常的に使う屋根です。だからこそ、毎回の作図でこの役物をひとつずつ手で起こしていては、時間がいくらあっても足りません。配置はゴールではなく、仕上げのスタート地点。次に折板屋根を葺いたときは、ぜひ配置済みのオブジェクトを選んで、カスタム設定を開いてみてください。役物を少し整えるだけで、屋根の納まりがぐっと締まるはずです。</p>
+
+                    <h2>次回予告</h2>
+                    <p>BIM 活用 Tips のシリーズは、これからもメニューの並び順にならって、各機能の「配置したあと」「知っていると効く」コツを拾っていきます。屋根まわりでも、まだお話ししきれていない調整がいくつか残っています。次回もどうぞお付き合いください。</p>
+                    <p>Archelier の機能詳細は <a href="../index.html#features">機能紹介ページ</a> をご覧ください。屋根機能そのものの全体像は <a href="roof-tile-overview.html">屋根瓦の自動配置 — 概要編</a> から、瓦屋根の端部の仕上げは <a href="roof-edge-tips.html">屋根の端部を仕上げる — 端部編</a> から読めます。</p>
+
+                    <div class="article-footer">
+                        <a href="./" class="article-back">← Blog 一覧に戻る</a>
+                        <a href="../index.html#features" class="article-cta">機能を詳しく見る</a>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nico-mart. All rights reserved.</p>
+            <p class="footer-links">
+                <a href="../terms.html">利用規約</a>
+                <span class="sep">|</span>
+                <a href="../privacy.html">プライバシーポリシー</a>
+                <span class="sep">|</span>
+                <a href="../scta.html">特定商取引法に基づく表記</a>
+                <span class="sep">|</span>
+                <a href="../contact.html">お問い合わせ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
